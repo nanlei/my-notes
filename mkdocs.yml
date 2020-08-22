@@ -1,0 +1,64 @@
+site_name: Blog of Nan Lei
+copyright: Copyright &copy; 2020 Nan Lei
+site_description: Tech Blog
+repo_url: https://github.com/nanlei/my-notes
+site_author : Nan Lei
+
+nav:
+  - Home: index.md
+  - Frameworks:
+    - Spring Boot:
+      - 'Standalone Application' : 'SpringBoot/01-spring-boot-application.md'
+      - 'Maven Dependencies' : 'SpringBoot/02-spring-boot-maven-dependency.md'
+  - About:
+    - 'Who Am I': 'about.md'
+
+theme:
+  name: 'material'
+  language: 'en'
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  font:
+    font: 'false'
+  features:
+    - tabs
+  #collapse_navigation: true
+  highlightjs: true
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.attr_list
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - markdown.extensions.codehilite:
+      guess_lang: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
