@@ -1,0 +1,1847 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Blog">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Standalone Application - Blog of Nan Lei</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-maven" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Blog of Nan Lei" class="md-header-nav__button md-logo" aria-label="Blog of Nan Lei">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Blog of Nan Lei
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Standalone Application
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Frameworks
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Blog of Nan Lei" class="md-nav__button md-logo" aria-label="Blog of Nan Lei">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Blog of Nan Lei
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Frameworks
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Frameworks" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Frameworks
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Standalone Application
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Standalone Application" class="md-nav__link md-nav__link--active">
+      Standalone Application
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-maven" class="md-nav__link">
+    1. 使用Maven命令行构建项目
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-spring-boot" class="md-nav__link">
+    2. 图形化构建Spring Boot应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-spring-bootjar" class="md-nav__link">
+    3. 创建Spring Boot应用程序的可执行JAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-spring-bootjar" class="md-nav__link">
+    4. Spring Boot可执行JAR资源结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-jarspring-boot-loader" class="md-nav__link">
+    5. JAR执行模块spring-boot-loader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-jarlauncher" class="md-nav__link">
+    6. JarLauncher的实现原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-warlauncher" class="md-nav__link">
+    7. WarLauncher的差异
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-maven" class="md-nav__link">
+    1. 使用Maven命令行构建项目
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-spring-boot" class="md-nav__link">
+    2. 图形化构建Spring Boot应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-spring-bootjar" class="md-nav__link">
+    3. 创建Spring Boot应用程序的可执行JAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-spring-bootjar" class="md-nav__link">
+    4. Spring Boot可执行JAR资源结构
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-jarspring-boot-loader" class="md-nav__link">
+    5. JAR执行模块spring-boot-loader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-jarlauncher" class="md-nav__link">
+    6. JarLauncher的实现原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-warlauncher" class="md-nav__link">
+    7. WarLauncher的差异
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringBoot/01-spring-boot-application.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Standalone Application</h1>
+                
+                <h3 align="center"><b>01 - Spring Boot 应用程序</b></h3>
+
+<h4 id="1-maven">1. 使用Maven命令行构建项目<a class="headerlink" href="#1-maven" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code>$ mvn archetype:generate -DgroupId=deep-in-spring-boot -DartifactId=first-spring-boot-application -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false -Dpackage=deep.in.spring.boot
+</code></pre></div>
+类似结果：
+<div class="highlight"><pre><span></span><code>[INFO] Scanning for projects...
+([INFO] 
+[INFO] ------------------&lt; org.apache.maven:standalone-pom &gt;-------------------
+[INFO] Building Maven Stub Project (No POM) 1
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] &gt;&gt;&gt; maven-archetype-plugin:3.2.0:generate (default-cli) &gt; generate-sources @ standalone-pom &gt;&gt;&gt;
+[INFO] 
+[INFO] &lt;&lt;&lt; maven-archetype-plugin:3.2.0:generate (default-cli) &lt; generate-sources @ standalone-pom &lt;&lt;&lt;
+[INFO] 
+[INFO] )
+[INFO] --- maven-archetype-plugin:3.2.0:generate (default-cli) @ standalone-pom ---
+[INFO] Generating project in Batch mode
+[WARNING] No archetype found in remote catalog. Defaulting to internal catalog
+[INFO] No archetype defined. Using maven-archetype-quickstart (org.apache.maven.archetypes:maven-archetype-quickstart:1.0)
+[INFO] ----------------------------------------------------------------------------
+[INFO] Using following parameters for creating project from Old (1.x) Archetype: maven-archetype-quickstart:1.0
+[INFO] ----------------------------------------------------------------------------
+[INFO] Parameter: basedir, Value: /Users/nanlei/Dev/Workspace
+[INFO] Parameter: package, Value: deep.in.spring.boot
+[INFO] Parameter: groupId, Value: deep-in-spring-boot
+[INFO] Parameter: artifactId, Value: first-spring-boot-application
+[INFO] Parameter: packageName, Value: deep.in.spring.boot
+[INFO] Parameter: version, Value: 1.0.0-SNAPSHOT
+[INFO] project created from Old (1.x) Archetype in dir: /Users/nanlei/Dev/Workspace/first-spring-boot-application
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.475 s
+[INFO] Finished at: 2020-08-01T23:51:37+08:00
+</code></pre></div></p>
+<p><code>archetype</code>是Maven插件<code>maven-archetype-plugin</code>的简称<br />
+插件目标：<code>archetype:generate</code> <br />
+插件参数：GAV信息<code>groupId</code>，<code>artifactId</code>，<code>version</code>和包名<code>package</code>  <br />
+交互式参数：<code>interactiveMode</code>为<code>false</code>，使用静默方式</p>
+<p>查看项目结构：
+<div class="highlight"><pre><span></span><code>$ cd first-spring-boot-application/
+$ ls -ls
+total 8
+8 -rw-r--r--  1 nanlei  staff  692 Aug  1 23:51 pom.xml
+0 drwxr-xr-x  4 nanlei  staff  128 Aug  1 23:51 src
+</code></pre></div></p>
+<p>安装tree组件并再次查看：
+<div class="highlight"><pre><span></span><code>$ brew install tree
+==&gt; Downloading https://mirrors.aliyun.com/homebrew/homebrew-bottles/bottles/tree-1.8.0.catalina.bottle.tar.
+######################################################################## 100.0%
+==&gt; Pouring tree-1.8.0.catalina.bottle.tar.gz
+🍺  /usr/local/Cellar/tree/1.8.0: 8 files, 121.1KB
+$ tree
+.
+├── pom.xml
+└── src
+    ├── main
+    │   └── java
+    │       └── deep
+    │           └── in
+    │               └── spring
+    │                   └── boot
+    │                       └── App.java
+    └── test
+        └── java
+            └── deep
+                └── in
+                    └── spring
+                        └── boot
+                            └── AppTest.java
+
+13 directories, 3 files
+</code></pre></div></p>
+<p><code>App.java</code>是引导类，<code>AppTest.java</code>是单元测试类<br />
+在<code>pom.xml</code>中，<code>archetype</code>插件添加了<code>junit</code>的依赖</p>
+<p>在<code>pom.xml</code>中添加Spring Boot的web依赖：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>2.3.1.RELEASE<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>查看项目<code>dependency</code>树的变化：
+<div class="highlight"><pre><span></span><code>$ mvn dependency:tree -Dincludes=org.springframework*
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------&lt; deep-in-spring-boot:first-spring-boot-application &gt;----------
+[INFO] Building first-spring-boot-application 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ first-spring-boot-application ---
+[INFO] deep-in-spring-boot:first-spring-boot-application:jar:1.0.0-SNAPSHOT
+[INFO] \- org.springframework.boot:spring-boot-starter-web:jar:2.3.1.RELEASE:compile
+[INFO]    +- org.springframework.boot:spring-boot-starter:jar:2.3.1.RELEASE:compile
+[INFO]    |  +- org.springframework.boot:spring-boot:jar:2.3.1.RELEASE:compile
+[INFO]    |  +- org.springframework.boot:spring-boot-autoconfigure:jar:2.3.1.RELEASE:compile
+[INFO]    |  +- org.springframework.boot:spring-boot-starter-logging:jar:2.3.1.RELEASE:compile
+[INFO]    |  \- org.springframework:spring-core:jar:5.2.7.RELEASE:compile
+[INFO]    |     \- org.springframework:spring-jcl:jar:5.2.7.RELEASE:compile
+[INFO]    +- org.springframework.boot:spring-boot-starter-json:jar:2.3.1.RELEASE:compile
+[INFO]    +- org.springframework.boot:spring-boot-starter-tomcat:jar:2.3.1.RELEASE:compile
+[INFO]    +- org.springframework:spring-web:jar:5.2.7.RELEASE:compile
+[INFO]    |  \- org.springframework:spring-beans:jar:5.2.7.RELEASE:compile
+[INFO]    \- org.springframework:spring-webmvc:jar:5.2.7.RELEASE:compile
+[INFO]       +- org.springframework:spring-aop:jar:5.2.7.RELEASE:compile
+[INFO]       +- org.springframework:spring-context:jar:5.2.7.RELEASE:compile
+[INFO]       \- org.springframework:spring-expression:jar:5.2.7.RELEASE:compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.802 s
+[INFO] Finished at: 2020-08-02T00:45:55+08:00
+[INFO] ------------------------------------------------------------------------
+</code></pre></div></p>
+<p>编写<code>App.java</code>代码：
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="p">{</span>
+
+    <span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">&quot;Welcome to Spring Boot!&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">App</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>使用Maven插件方式<code>mvn spring-boot:run</code>运行项目：
+<div class="highlight"><pre><span></span><code>$ mvn spring-boot:run
+[INFO] Scanning for projects...
+Downloading from aliyun-maven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/plugins/maven-metadata.xml
+Downloading from aliyun-maven: http://maven.aliyun.com/nexus/content/groups/public/org/codehaus/mojo/maven-metadata.xml
+Downloaded from aliyun-maven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/plugins/maven-metadata.xml (9.9 kB at 4.4 kB/s)
+Downloaded from aliyun-maven: http://maven.aliyun.com/nexus/content/groups/public/org/codehaus/mojo/maven-metadata.xml (21 kB at 8.7 kB/s)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.835 s
+[INFO] Finished at: 2020-08-02T01:00:07+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] No plugin found for prefix &#39;spring-boot&#39; in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/nanlei/.m2/repository), aliyun-maven (http://maven.aliyun.com/nexus/content/groups/public/)] -&gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
+</code></pre></div></p>
+<p>查看官方文档<br />
+<a href="https://docs.spring.io/spring-boot/docs/current/reference">https://docs.spring.io/spring-boot/docs/current/reference</a>  </p>
+<p>有如下内容：</p>
+<blockquote>
+<p>2.4.4. Running the Example<br />
+At this point, your application should work. Since you used the <code>spring-boot-starter-parent</code> POM, you have a useful run goal that you can use to start the application. Type <code>mvn spring-boot:run</code> from the root project directory to start the application. </p>
+</blockquote>
+<p>在<code>pom.xml</code>中添加<code>spring-boot-starter-parent</code>：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;parent&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.3.1.RELEASE<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/parent&gt;</span>
+</code></pre></div></p>
+<p>再次运行：
+<div class="highlight"><pre><span></span><code>$ mvn spring-boot:run
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------&lt; deep-in-spring-boot:first-spring-boot-application &gt;----------
+[INFO] Building first-spring-boot-application 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] &gt;&gt;&gt; spring-boot-maven-plugin:2.3.1.RELEASE:run (default-cli) &gt; test-compile @ first-spring-boot-application &gt;&gt;&gt;
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ first-spring-boot-application ---
+[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/main/resources
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ first-spring-boot-application ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ first-spring-boot-application ---
+[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ first-spring-boot-application ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] &lt;&lt;&lt; spring-boot-maven-plugin:2.3.1.RELEASE:run (default-cli) &lt; test-compile @ first-spring-boot-application &lt;&lt;&lt;
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.1.RELEASE:run (default-cli) @ first-spring-boot-application ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.1.RELEASE)
+
+2020-08-02 01:13:46.642  INFO 6736 --- [           main] deep.in.spring.boot.App                  : Starting App on nanleis-MacBook-Pro.local with PID 6736 (/Users/nanlei/Dev/Workspace/first-spring-boot-application/target/classes started by nanlei in /Users/nanlei/Dev/Workspace/first-spring-boot-application)
+2020-08-02 01:13:46.644  INFO 6736 --- [           main] deep.in.spring.boot.App                  : No active profile set, falling back to default profiles: default
+2020-08-02 01:13:47.141  INFO 6736 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-08-02 01:13:47.147  INFO 6736 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-08-02 01:13:47.148  INFO 6736 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-08-02 01:13:47.181  INFO 6736 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-08-02 01:13:47.181  INFO 6736 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 507 ms
+2020-08-02 01:13:47.268  INFO 6736 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-02 01:13:47.352  INFO 6736 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-02 01:13:47.359  INFO 6736 --- [           main] deep.in.spring.boot.App                  : Started App in 0.917 seconds (JVM running for 1.155)
+</code></pre></div></p>
+<p>检查HTTP服务和所写代码：
+<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8080/
+Welcome to Spring Boot
+</code></pre></div></p>
+<h4 id="2-spring-boot">2. 图形化构建Spring Boot应用<a class="headerlink" href="#2-spring-boot" title="Permanent link">&para;</a></h4>
+<p><a href="https://start.spring.io/">https://start.spring.io/</a></p>
+<p><img alt="start.spring.io" src="../img/start.spring.io.png" /></p>
+<p>拷贝生成好的zip包到项目目录：
+<div class="highlight"><pre><span></span><code>$ cp ~/Downloads/first-application-by-gui.zip .
+</code></pre></div></p>
+<p>解压缩该文件：
+<div class="highlight"><pre><span></span><code>$ unzip first-application-by-gui.zip 
+Archive:  first-application-by-gui.zip
+   creating: first-application-by-gui/
+   creating: first-application-by-gui/.mvn/
+   creating: first-application-by-gui/.mvn/wrapper/
+  inflating: first-application-by-gui/.mvn/wrapper/maven-wrapper.properties  
+  inflating: first-application-by-gui/.mvn/wrapper/MavenWrapperDownloader.java  
+  inflating: first-application-by-gui/.mvn/wrapper/maven-wrapper.jar  
+  inflating: first-application-by-gui/mvnw  
+  inflating: first-application-by-gui/.gitignore  
+  inflating: first-application-by-gui/HELP.md  
+  inflating: first-application-by-gui/mvnw.cmd  
+   creating: first-application-by-gui/src/
+   creating: first-application-by-gui/src/main/
+   creating: first-application-by-gui/src/main/resources/
+   creating: first-application-by-gui/src/main/resources/templates/
+  inflating: first-application-by-gui/src/main/resources/application.properties  
+   creating: first-application-by-gui/src/main/resources/static/
+   creating: first-application-by-gui/src/main/java/
+   creating: first-application-by-gui/src/main/java/deep/
+   creating: first-application-by-gui/src/main/java/deep/in/
+   creating: first-application-by-gui/src/main/java/deep/in/spring/
+   creating: first-application-by-gui/src/main/java/deep/in/spring/boot/
+  inflating: first-application-by-gui/src/main/java/deep/in/spring/boot/FirstApplicationByGuiApplication.java  
+   creating: first-application-by-gui/src/test/
+   creating: first-application-by-gui/src/test/java/
+   creating: first-application-by-gui/src/test/java/deep/
+   creating: first-application-by-gui/src/test/java/deep/in/
+   creating: first-application-by-gui/src/test/java/deep/in/spring/
+   creating: first-application-by-gui/src/test/java/deep/in/spring/boot/
+  inflating: first-application-by-gui/src/test/java/deep/in/spring/boot/FirstApplicationByGuiApplicationTests.java  
+  inflating: first-application-by-gui/pom.xml  
+</code></pre></div></p>
+<p>使用<code>tree</code>命令查看：
+<div class="highlight"><pre><span></span><code>$ tree -a first-application-by-gui
+first-application-by-gui
+├── .gitignore
+├── .mvn
+│   └── wrapper
+│       ├── MavenWrapperDownloader.java
+│       ├── maven-wrapper.jar
+│       └── maven-wrapper.properties
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── deep
+    │   │       └── in
+    │   │           └── spring
+    │   │               └── boot
+    │   │                   └── FirstApplicationByGuiApplication.java
+    │   └── resources
+    │       ├── application.properties
+    │       ├── static
+    │       └── templates
+    └── test
+        └── java
+            └── deep
+                └── in
+                    └── spring
+                        └── boot
+                            └── FirstApplicationByGuiApplicationTests.java
+
+18 directories, 11 files
+</code></pre></div></p>
+<p><code>.gitignore</code> 文件定义了常见的文件或目录的版本控制忽略名单，比如：
+<div class="highlight"><pre><span></span><code>HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+</code></pre></div></p>
+<p>Maven Wrapper文件包含<code>.mvn</code>目录、<code>mvnw</code>和<code>mvnw.cmd</code>文件，<br />
+参考：<a href="https://github.com/takari/maven-wrapper">https://github.com/takari/maven-wrapper</a><br />
+可以不安装Maven而直接使用，比如：</p>
+<blockquote>
+<p>Normally you instruct users to install a specific version of Apache Maven, put it on the PATH and then run the mvn command like the following:<br />
+<div class="highlight"><pre><span></span><code>mvn clean install
+</code></pre></div>
+But now, with a Maven Wrapper setup, you can instruct users to run wrapper scripts:<br />
+<div class="highlight"><pre><span></span><code>./mvnw clean install
+</code></pre></div></p>
+</blockquote>
+<p><code>application.properties</code>文件  是Spring Boot默认的应用外部配置文件，其配置属性可以影响应用程序的行为。</p>
+<p><code>FirstApplicationByGuiApplicationTests.java</code>文件  是Spring Boot单元测试的模版JUnit文件，其路径和对应的引导文件<code>FirstApplicationByGuiApplication.java</code>对应。</p>
+<p>启动项目并访问：
+<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8080/
+{&quot;timestamp&quot;:&quot;2020-08-02T08:57:15.817+00:00&quot;,&quot;status&quot;:404,&quot;error&quot;:&quot;Not Found&quot;,&quot;message&quot;:&quot;&quot;,&quot;path&quot;:&quot;/&quot;}
+</code></pre></div></p>
+<p>因项目没有编写默认服务而报404错误  </p>
+<p>安装<code>jsonpp</code>查看JSON响应：
+<div class="highlight"><pre><span></span><code>$ brew install jsonpp
+==&gt; Downloading https://mirrors.aliyun.com/homebrew/homebrew-bottles/bottles/jsonpp-1.3.0_1.catalina.bottle.tar.gz
+######################################################################## 100.0%
+==&gt; Pouring jsonpp-1.3.0_1.catalina.bottle.tar.gz
+🍺  /usr/local/Cellar/jsonpp/1.3.0_1: 5 files, 2.4MB
+</code></pre></div></p>
+<p>再次访问：
+<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8080 | jsonpp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   102    0   102    0     0  20400      0 --:--:-- --:--:-- --:--:-- 20400
+{
+  &quot;timestamp&quot;: &quot;2020-08-02T09:03:24.359+00:00&quot;,
+  &quot;status&quot;: 404,
+  &quot;error&quot;: &quot;Not Found&quot;,
+  &quot;message&quot;: &quot;&quot;,
+  &quot;path&quot;: &quot;/&quot;
+}
+</code></pre></div></p>
+<h4 id="3-spring-bootjar">3. 创建Spring Boot应用程序的可执行JAR<a class="headerlink" href="#3-spring-bootjar" title="Permanent link">&para;</a></h4>
+<blockquote>
+<p>2.4.5. Creating an Executable Jar<br />
+We finish our example by creating a completely self-contained executable jar file that we could run in production. Executable jars (sometimes called “fat jars”) are archives containing your compiled classes along with all of the jar dependencies that your code needs to run.</p>
+</blockquote>
+<p>可执行的JAR又称为“fat jars”</p>
+<blockquote>
+<p>To create an executable jar, we need to add the <code>spring-boot-maven-plugin</code> to our <code>pom.xml</code>. To do so, insert the following lines just below the <code>dependencies</code> section:</p>
+</blockquote>
+<p>根据官方文档解释，添加如下内容到<code>pom.xml</code>中：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;build&gt;</span>
+    <span class="nt">&lt;plugins&gt;</span>
+        <span class="nt">&lt;plugin&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;/plugin&gt;</span>
+    <span class="nt">&lt;/plugins&gt;</span>
+<span class="nt">&lt;/build&gt;</span>
+</code></pre></div></p>
+<p>然后执行<code>mvn package</code>命令：
+<div class="highlight"><pre><span></span><code>$ mvn package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------&lt; deep-in-spring-boot:first-application-by-gui &gt;------------
+[INFO] Building first-application-by-gui 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+(省略部分内容...)
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+(省略部分内容...)
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-02 17:15:06.025  INFO 4060 --- [           main] .b.FirstApplicationByGuiApplicationTests : Starting FirstApplicationByGuiApplicationTests on nanleis-MacBook-Pro.local with PID 4060 (started by nanlei in /Users/nanlei/Dev/Workspace/first-application-by-gui)
+2020-08-02 17:15:06.026  INFO 4060 --- [           main] .b.FirstApplicationByGuiApplicationTests : No active profile set, falling back to default profiles: default
+2020-08-02 17:15:06.709  INFO 4060 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-02 17:15:06.958  INFO 4060 --- [           main] .b.FirstApplicationByGuiApplicationTests : Started FirstApplicationByGuiApplicationTests in 1.075 seconds (JVM running for 1.706)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.508 s - in deep.in.spring.boot.FirstApplicationByGuiApplicationTests
+2020-08-02 17:15:07.127  INFO 4060 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService &#39;applicationTaskExecutor&#39;
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.0:jar (default-jar) @ first-application-by-gui ---
+[INFO] Building jar: /Users/nanlei/Dev/Workspace/first-application-by-gui/target/first-application-by-gui-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.2.RELEASE:repackage (repackage) @ first-application-by-gui ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.535 s
+[INFO] Finished at: 2020-08-02T17:15:07+08:00
+[INFO] ------------------------------------------------------------------------
+</code></pre></div></p>
+<p>最终生成的<code>first-application-by-gui-0.0.1-SNAPSHOT.jar</code>就在<code>target</code>目录下，使用<code>java -jar</code>命令运行JAR：
+<div class="highlight"><pre><span></span><code>$ java -jar target/first-application-by-gui-0.0.1-SNAPSHOT.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-02 17:24:33.034  INFO 4219 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Starting FirstApplicationByGuiApplication v0.0.1-SNAPSHOT on nanleis-MacBook-Pro.local with PID 4219 (/Users/nanlei/Dev/Workspace/first-application-by-gui/target/first-application-by-gui-0.0.1-SNAPSHOT.jar started by nanlei in /Users/nanlei/Dev/Workspace/first-application-by-gui)
+2020-08-02 17:24:33.036  INFO 4219 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : No active profile set, falling back to default profiles: default
+2020-08-02 17:24:33.800  INFO 4219 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-08-02 17:24:33.809  INFO 4219 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-08-02 17:24:33.810  INFO 4219 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-08-02 17:24:33.865  INFO 4219 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-08-02 17:24:33.865  INFO 4219 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 785 ms
+2020-08-02 17:24:34.031  INFO 4219 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-02 17:24:34.221  INFO 4219 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-02 17:24:34.231  INFO 4219 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Started FirstApplicationByGuiApplication in 1.523 seconds (JVM running for 1.894)
+</code></pre></div></p>
+<p><code>java -jar</code>方式和<code>mvn spring-boot:run</code>方式基本无异</p>
+<h4 id="4-spring-bootjar">4. Spring Boot可执行JAR资源结构<a class="headerlink" href="#4-spring-bootjar" title="Permanent link">&para;</a></h4>
+<p>在<code>target</code>目录下执行<code>tree -h</code>
+<div class="highlight"><pre><span></span><code>$ tree -h
+.
+├── [ 128]  classes
+│   ├── [   1]  application.properties
+│   └── [  96]  deep
+│       └── [  96]  in
+│           └── [  96]  spring
+│               └── [  96]  boot
+│                   └── [ 790]  FirstApplicationByGuiApplication.class
+├── [ 16M]  first-application-by-gui-0.0.1-SNAPSHOT.jar
+├── [3.0K]  first-application-by-gui-0.0.1-SNAPSHOT.jar.original
+├── [  96]  generated-sources
+│   └── [  64]  annotations
+├── [  96]  generated-test-sources
+│   └── [  64]  test-annotations
+├── [  96]  maven-archiver
+│   └── [  87]  pom.properties
+├── [  96]  maven-status
+│   └── [ 128]  maven-compiler-plugin
+│       ├── [  96]  compile
+│       │   └── [ 128]  default-compile
+│       │       ├── [  59]  createdFiles.lst
+│       │       └── [ 125]  inputFiles.lst
+│       └── [  96]  testCompile
+│           └── [ 128]  default-testCompile
+│               ├── [  64]  createdFiles.lst
+│               └── [ 130]  inputFiles.lst
+├── [ 128]  surefire-reports
+│   ├── [ 18K]  TEST-deep.in.spring.boot.FirstApplicationByGuiApplicationTests.xml
+│   └── [ 363]  deep.in.spring.boot.FirstApplicationByGuiApplicationTests.txt
+└── [  96]  test-classes
+    └── [  96]  deep
+        └── [  96]  in
+            └── [  96]  spring
+                └── [  96]  boot
+                    └── [ 588]  FirstApplicationByGuiApplicationTests.class
+
+22 directories, 12 files
+</code></pre></div></p>
+<p><code>first-application-by-gui-0.0.1-SNAPSHOT.jar.original</code>是未包含第三方依赖的本地资源(编译后的<code>classes</code>目录下的资源)，所占空间仅3K，而可执行JAR的大小为16M。</p>
+<p>解压缩<code>first-application-by-gui-0.0.1-SNAPSHOT.jar</code>到临时目录temp并查看：
+<div class="highlight"><pre><span></span><code>$ unzip first-application-by-gui-0.0.1-SNAPSHOT.jar -d temp
+Archive:  first-application-by-gui-0.0.1-SNAPSHOT.jar
+   creating: temp/META-INF/
+  inflating: temp/META-INF/MANIFEST.MF  
+   creating: temp/org/
+   creating: temp/org/springframework/
+   creating: temp/org/springframework/boot/
+   creating: temp/org/springframework/boot/loader/
+(省略部分内容)
+ extracting: temp/BOOT-INF/lib/tomcat-embed-websocket-9.0.37.jar  
+ extracting: temp/BOOT-INF/lib/spring-web-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-beans-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-webmvc-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-aop-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-context-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-expression-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/slf4j-api-1.7.30.jar  
+ extracting: temp/BOOT-INF/lib/spring-core-5.2.8.RELEASE.jar  
+ extracting: temp/BOOT-INF/lib/spring-jcl-5.2.8.RELEASE.jar  
+  inflating: temp/BOOT-INF/classpath.idx 
+</code></pre></div></p>
+<p>查看temp目录的结构：
+<div class="highlight"><pre><span></span><code>$ tree temp/
+temp/
+├── BOOT-INF
+│   ├── classes
+│   │   ├── application.properties
+│   │   └── deep
+│   │       └── in
+│   │           └── spring
+│   │               └── boot
+│   │                   └── FirstApplicationByGuiApplication.class
+│   ├── classpath.idx
+│   └── lib
+│       ├── ...
+│       ├── spring-aop-5.2.8.RELEASE.jar
+│       ├── spring-beans-5.2.8.RELEASE.jar
+│       ├── spring-boot-2.3.2.RELEASE.jar
+│       ├── spring-boot-autoconfigure-2.3.2.RELEASE.jar
+│       ├── ...
+│       ├── tomcat-embed-core-9.0.37.jar
+│       └── tomcat-embed-websocket-9.0.37.jar
+├── META-INF
+│   ├── MANIFEST.MF
+│   └── maven
+│       └── deep-in-spring-boot
+│           └── first-application-by-gui
+│               ├── pom.properties
+│               └── pom.xml
+└── org
+    └── springframework
+        └── boot
+            └── loader
+                ├── ClassPathIndexFile.class
+                ├── ExecutableArchiveLauncher.class
+                ├── JarLauncher.class
+                ├── ...
+
+20 directories, 100 files
+</code></pre></div></p>
+<p>其中<br />
++ <code>BOOT-INT/classes</code> 目录存放应用编译后的class文件
++ <code>BOOT-INF/lib</code> 目录存放应用依赖的jar包
++ <code>META-INF</code> 目录存放应用相关的元信息，比如<code>MANIFEST.MF</code>文件
++ <code>org</code> 目录存放Spring Boot框架相关的class文件</p>
+<p>解压缩<code>first-application-by-gui-0.0.1-SNAPSHOT.jar.original</code>文件并比较二者目录差异：
+<div class="highlight"><pre><span></span><code>$ unzip first-application-by-gui-0.0.1-SNAPSHOT.jar.original -d original
+Archive:  first-application-by-gui-0.0.1-SNAPSHOT.jar.original
+  inflating: original/META-INF/MANIFEST.MF  
+   creating: original/deep/
+   creating: original/deep/in/
+   creating: original/deep/in/spring/
+   creating: original/deep/in/spring/boot/
+   creating: original/META-INF/maven/
+   creating: original/META-INF/maven/deep-in-spring-boot/
+   creating: original/META-INF/maven/deep-in-spring-boot/first-application-by-gui/
+  inflating: original/deep/in/spring/boot/FirstApplicationByGuiApplication.class  
+  inflating: original/application.properties  
+  inflating: original/META-INF/maven/deep-in-spring-boot/first-application-by-gui/pom.xml  
+  inflating: original/META-INF/maven/deep-in-spring-boot/first-application-by-gui/pom.properties  
+$ tree original/
+original/
+├── META-INF
+│   ├── MANIFEST.MF
+│   └── maven
+│       └── deep-in-spring-boot
+│           └── first-application-by-gui
+│               ├── pom.properties
+│               └── pom.xml
+├── application.properties
+└── deep
+    └── in
+        └── spring
+            └── boot
+                └── FirstApplicationByGuiApplication.class
+
+8 directories, 5 files
+</code></pre></div></p>
+<p>除了<code>META-INF</code>目录，其余均发生了变化，将class文件和<code>application.properties</code>放到了<code>BOOT-INF/classes</code>下，将所有依赖的jar包都放到了<code>BOOT-INF/lib</code>下。这和传统Java Web项目是类似的，所有class文件放在<code>WEB-INF/classes</code>下，而所有依赖在<code>WEB-INF/lib</code>下。</p>
+<h4 id="5-jarspring-boot-loader">5. JAR执行模块<code>spring-boot-loader</code><a class="headerlink" href="#5-jarspring-boot-loader" title="Permanent link">&para;</a></h4>
+<p>可执行JAR包被<code>java -jar</code>命令执行时，其并不能感知jar文件是否是Spring Boot插件打包而来，执行按照标准JAR文件来进行。</p>
+<p>Java标准参考：<br />
+<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html</a></p>
+<blockquote>
+<p>If the -jar option is specified, its argument is the name of the JAR file containing class and resource files for the application. The startup class must be indicated by the Main-Class manifest header in its source code.</p>
+</blockquote>
+<p>也就是<code>MANIFEST.MF</code>文件必须在<code>META-INF</code>目录下，查看该文件:
+<div class="highlight"><pre><span></span><code>$ cd temp
+$ cat META-INF/MANIFEST.MF 
+Manifest-Version: 1.0
+Spring-Boot-Classpath-Index: BOOT-INF/classpath.idx
+Implementation-Title: first-application-by-gui
+Implementation-Version: 0.0.1-SNAPSHOT
+Start-Class: deep.in.spring.boot.FirstApplicationByGuiApplication
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Build-Jdk-Spec: 1.8
+Spring-Boot-Version: 2.3.2.RELEASE
+Created-By: Maven Jar Plugin 3.2.0
+Main-Class: org.springframework.boot.loader.JarLauncher
+</code></pre></div></p>
+<p>发现<code>Main-Class</code>属性为<code>org.springframework.boot.loader.JarLauncher</code>，而项目的引导类在<code>Start-Class</code>属性中，参考官方文档介绍：</p>
+<blockquote>
+<p>You need to specify an appropriate Launcher as the Main-Class attribute of META-INF/MANIFEST.MF. The actual class that you want to launch (that is, the class that contains a main method) should be specified in the Start-Class attribute.<br />
+The following example shows a typical MANIFEST.MF for an executable jar file:
+<div class="highlight"><pre><span></span><code>Main-Class: org.springframework.boot.loader.JarLauncher
+Start-Class: com.mycompany.project.MyApplication
+</code></pre></div>
+For a war file, it would be as follows:
+<div class="highlight"><pre><span></span><code>Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.mycompany.project.MyApplication
+</code></pre></div>
+可以看到，JAR和WAR对应了不同的<code>Launcher</code>实现.</p>
+</blockquote>
+<p>因为<code>org.springframework.boot.loader.JarLauncher</code>并非项目中的文件，那么它是由<code>spring-boot-maven-plugin</code>插件在打包时引入的，为了研究，先去查找它的所属，在 <a href="https://search.maven.org/">https://search.maven.org/</a> 中，可以直接按类全名搜索，找到GAV信息</p>
+<p><img alt="search.maven.org" src="../img/search.maven.org.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-loader<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>2.3.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+
+<p>既然<code>org.springframework.boot.loader.JarLauncher</code>是<code>MANIFEAST.MF</code>定义的主引导类，那么直接运行该文件也能启动项目：
+<div class="highlight"><pre><span></span><code>$ java org.springframework.boot.loader.JarLauncher
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-02 19:53:47.440  INFO 4807 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Starting FirstApplicationByGuiApplication v0.0.1-SNAPSHOT on nanleis-MacBook-Pro.local with PID 4807 (/Users/nanlei/Dev/Workspace/first-application-by-gui/target/temp/BOOT-INF/classes started by nanlei in /Users/nanlei/Dev/Workspace/first-application-by-gui/target/temp)
+2020-08-02 19:53:47.442  INFO 4807 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : No active profile set, falling back to default profiles: default
+2020-08-02 19:53:48.060  INFO 4807 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-08-02 19:53:48.069  INFO 4807 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-08-02 19:53:48.069  INFO 4807 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-08-02 19:53:48.122  INFO 4807 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-08-02 19:53:48.123  INFO 4807 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 645 ms
+2020-08-02 19:53:48.286  INFO 4807 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-02 19:53:48.439  INFO 4807 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-02 19:53:48.448  INFO 4807 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Started FirstApplicationByGuiApplication in 1.288 seconds (JVM running for 1.585)
+</code></pre></div></p>
+<p>从输出中也能看到<code>deep.in.spring.boot.FirstApplicationByGuiApplication</code>被<code>JarLauncher</code>装载并执行，也就是<code>META-INF/MANIFEST.MF</code>中的<code>Start-Class</code>被<code>JarLauncher</code>执行。若直接使用java命令执行<code>deep.in.spring.boot.FirstApplicationByGuiApplication</code>：</p>
+<div class="highlight"><pre><span></span><code>$ cd BOOT-INF/classes
+$ java deep.in.spring.boot.FirstApplicationByGuiApplication
+Exception in thread &quot;main&quot; java.lang.NoClassDefFoundError: org/springframework/boot/SpringApplication
+    at deep.in.spring.boot.FirstApplicationByGuiApplication.main(FirstApplicationByGuiApplication.java:10)
+Caused by: java.lang.ClassNotFoundException: org.springframework.boot.SpringApplication
+    at java.net.URLClassLoader.findClass(URLClassLoader.java:382)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:418)
+    at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:355)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:351)
+    ... 1 more
+</code></pre></div>
+
+<p>提示找不到类<code>org.springframework.boot.SpringApplication</code>，这是由于java命令没有指定<code>classpath</code>，加上<code>classpath</code>参数之后，也能启动程序：
+<div class="highlight"><pre><span></span><code>$ java -classpath &quot;.:../lib/*&quot; deep.in.spring.boot.FirstApplicationByGuiApplication
+</code></pre></div></p>
+<h4 id="6-jarlauncher">6. JarLauncher的实现原理<a class="headerlink" href="#6-jarlauncher" title="Permanent link">&para;</a></h4>
+<p>在<code>pom.xml</code>中添加如下内容，用于源码分析：
+<div class="highlight"><pre><span></span><code><span class="c">&lt;!-- spring-boot-loader 分析 --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-loader<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;scope&gt;</span>provided<span class="nt">&lt;/scope&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<blockquote>
+<p>以下分析均基于org.springframework.boot:spring-boot-loader:2.3.1.RELEASE</p>
+</blockquote>
+<p>因为运行时<code>spring-boot-loader</code>在JAR文件中存在，所以这里<code>scope</code>定为<code>provided</code>。</p>
+<p>在IDEA中对<code>spring-boot-loader</code>开启断点调试：
++ 将项目打包
++ 在IDEA的<code>Run/Debug Configuration</code>中新建<code>JAR Application</code>
++ 填写相关信息，如下图
+<img alt="debug.springboot.loader" src="../img/debug.springboot.loader.png" /></p>
+<p>在IDEA中按<code>command+O</code>查找<code>org.springframework.boot.loader.JarLauncher</code>，即可从<code>main()</code>方法开始跟踪调试。</p>
+<p><code>JarLauncher</code>继承自<code>org.springframework.boot.loader.Launcher</code>，关系如下图所示：</p>
+<p><img alt="" src="../img/puml-spring-boot-loader-launcher.png" /></p>
+<p><code>JarLauncher</code>的<code>main()</code>方法为：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">new</span> <span class="n">JarLauncher</span><span class="p">().</span><span class="na">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p><code>Launcher#launch(args)</code>实现为：
+<div class="highlight"><pre><span></span><code>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">launch</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isExploded</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">JarFile</span><span class="p">.</span><span class="na">registerUrlProtocolHandler</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">ClassLoader</span> <span class="n">classLoader</span> <span class="o">=</span> <span class="n">createClassLoader</span><span class="p">(</span><span class="n">getClassPathArchivesIterator</span><span class="p">());</span>
+        <span class="n">String</span> <span class="n">jarMode</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&quot;jarmode&quot;</span><span class="p">);</span>
+        <span class="n">String</span> <span class="n">launchClass</span> <span class="o">=</span> <span class="p">(</span><span class="n">jarMode</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">jarMode</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="o">?</span> <span class="n">JAR_MODE_LAUNCHER</span> <span class="p">:</span> <span class="n">getMainClass</span><span class="p">();</span>
+        <span class="n">launch</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">launchClass</span><span class="p">,</span> <span class="n">classLoader</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>其中<code>JarFile.registerUrlProtocolHandler()</code>方法为：
+<div class="highlight"><pre><span></span><code>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PROTOCOL_HANDLER</span> <span class="o">=</span> <span class="s">&quot;java.protocol.handler.pkgs&quot;</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HANDLERS_PACKAGE</span> <span class="o">=</span> <span class="s">&quot;org.springframework.boot.loader&quot;</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Register a {@literal &#39;java.protocol.handler.pkgs&#39;} property so that a</span>
+<span class="cm">     * {@link URLStreamHandler} will be located to deal with jar URLs.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerUrlProtocolHandler</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">handlers</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="n">PROTOCOL_HANDLER</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="n">PROTOCOL_HANDLER</span><span class="p">,</span>
+                <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">handlers</span><span class="p">)</span> <span class="o">?</span> <span class="n">HANDLERS_PACKAGE</span> <span class="p">:</span> <span class="n">handlers</span> <span class="o">+</span> <span class="s">&quot;|&quot;</span> <span class="o">+</span> <span class="n">HANDLERS_PACKAGE</span><span class="p">));</span>
+        <span class="n">resetCachedUrlHandlers</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Reset any cached handlers just in case a jar protocol has already been used. We</span>
+<span class="cm">     * reset the handler by trying to set a null {@link URLStreamHandlerFactory} which</span>
+<span class="cm">     * should have no effect other than clearing the handlers cache.</span>
+<span class="cm">     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">resetCachedUrlHandlers</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">URL</span><span class="p">.</span><span class="na">setURLStreamHandlerFactory</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">Error</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Ignore</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>该方法将<code>org.springframework.boot.loader</code>追加到Java系统属性<code>java.protocol.handler.pkgs</code>中，也就是<code>org.springframework.boot.loader</code>包下存在一个<code>Handler</code>类，即<code>org.springframework.boot.loader.jar.Handler</code>，它扩展了<code>URLStreamHandler</code>，这是<code>java.net.URLStreamHandler</code>的扩展机制实现的，由<code>URL#getURLStreamHandler(String protocol)</code>方法提供：
+<div class="highlight"><pre><span></span><code>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">protocolPathProp</span> <span class="o">=</span> <span class="s">&quot;java.protocol.handler.pkgs&quot;</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * A table of protocol handlers.</span>
+<span class="cm">     */</span>
+    <span class="kd">static</span> <span class="n">Hashtable</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="n">URLStreamHandler</span><span class="o">&gt;</span> <span class="n">handlers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Object</span> <span class="n">streamHandlerLock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Returns the Stream Handler.</span>
+<span class="cm">     * @param protocol the protocol to use</span>
+<span class="cm">     */</span>
+    <span class="kd">static</span> <span class="n">URLStreamHandler</span> <span class="nf">getURLStreamHandler</span><span class="p">(</span><span class="n">String</span> <span class="n">protocol</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="n">URLStreamHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">handlers</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">protocol</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">handler</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="kt">boolean</span> <span class="n">checkedWithFactory</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+            <span class="c1">// Use the factory (if any)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">factory</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">handler</span> <span class="o">=</span> <span class="n">factory</span><span class="p">.</span><span class="na">createURLStreamHandler</span><span class="p">(</span><span class="n">protocol</span><span class="p">);</span>
+                <span class="n">checkedWithFactory</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="c1">// Try java protocol handler</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">handler</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">String</span> <span class="n">packagePrefixList</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+                <span class="n">packagePrefixList</span>
+                    <span class="o">=</span> <span class="n">java</span><span class="p">.</span><span class="na">security</span><span class="p">.</span><span class="na">AccessController</span><span class="p">.</span><span class="na">doPrivileged</span><span class="p">(</span>
+                    <span class="k">new</span> <span class="n">sun</span><span class="p">.</span><span class="na">security</span><span class="p">.</span><span class="na">action</span><span class="p">.</span><span class="na">GetPropertyAction</span><span class="p">(</span>
+                        <span class="n">protocolPathProp</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">));</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">packagePrefixList</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">packagePrefixList</span> <span class="o">+=</span> <span class="s">&quot;|&quot;</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// REMIND: decide whether to allow the &quot;null&quot; class prefix</span>
+                <span class="c1">// or not.</span>
+                <span class="n">packagePrefixList</span> <span class="o">+=</span> <span class="s">&quot;sun.net.www.protocol&quot;</span><span class="p">;</span>
+
+                <span class="n">StringTokenizer</span> <span class="n">packagePrefixIter</span> <span class="o">=</span>
+                    <span class="k">new</span> <span class="n">StringTokenizer</span><span class="p">(</span><span class="n">packagePrefixList</span><span class="p">,</span> <span class="s">&quot;|&quot;</span><span class="p">);</span>
+
+                <span class="k">while</span> <span class="p">(</span><span class="n">handler</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span>
+                       <span class="n">packagePrefixIter</span><span class="p">.</span><span class="na">hasMoreTokens</span><span class="p">())</span> <span class="p">{</span>
+
+                    <span class="n">String</span> <span class="n">packagePrefix</span> <span class="o">=</span>
+                      <span class="n">packagePrefixIter</span><span class="p">.</span><span class="na">nextToken</span><span class="p">().</span><span class="na">trim</span><span class="p">();</span>
+                    <span class="k">try</span> <span class="p">{</span>
+                        <span class="n">String</span> <span class="n">clsName</span> <span class="o">=</span> <span class="n">packagePrefix</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="n">protocol</span> <span class="o">+</span>
+                          <span class="s">&quot;.Handler&quot;</span><span class="p">;</span>
+                        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cls</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                        <span class="k">try</span> <span class="p">{</span>
+                            <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="n">clsName</span><span class="p">);</span>
+                        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="n">ClassLoader</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">ClassLoader</span><span class="p">.</span><span class="na">getSystemClassLoader</span><span class="p">();</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">cl</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="n">cls</span> <span class="o">=</span> <span class="n">cl</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="n">clsName</span><span class="p">);</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">cls</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="n">handler</span>  <span class="o">=</span>
+                              <span class="p">(</span><span class="n">URLStreamHandler</span><span class="p">)</span><span class="n">cls</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// any number of exceptions can get thrown here</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="kd">synchronized</span> <span class="p">(</span><span class="n">streamHandlerLock</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="n">URLStreamHandler</span> <span class="n">handler2</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+                <span class="c1">// Check again with hashtable just in case another</span>
+                <span class="c1">// thread created a handler since we last checked</span>
+                <span class="n">handler2</span> <span class="o">=</span> <span class="n">handlers</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">protocol</span><span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">handler2</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="n">handler2</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// Check with factory if another thread set a</span>
+                <span class="c1">// factory since our last check</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">checkedWithFactory</span> <span class="o">&amp;&amp;</span> <span class="n">factory</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">handler2</span> <span class="o">=</span> <span class="n">factory</span><span class="p">.</span><span class="na">createURLStreamHandler</span><span class="p">(</span><span class="n">protocol</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="n">handler2</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// The handler from the factory must be given more</span>
+                    <span class="c1">// importance. Discard the default handler that</span>
+                    <span class="c1">// this thread created.</span>
+                    <span class="n">handler</span> <span class="o">=</span> <span class="n">handler2</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="c1">// Insert this handler into the hashtable</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">handler</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">handlers</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">handler</span><span class="p">);</span>
+                <span class="p">}</span>
+
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">handler</span><span class="p">;</span>
+
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>其中JDK内建协议放在<code>sun.net.www.protocol</code>包下，类全名模式为<code>sun.net.www.protocol.${protocol}.Handler</code>，<code>${protocol}</code>为协议名，常见协议有：</p>
+<ul>
+<li>
+<p>FILE : <code>sun.net.www.protocol.file.Handler</code></p>
+</li>
+<li>
+<p>JAR : <code>sun.net.www.prorocol.jar.Handler</code></p>
+</li>
+<li>
+<p>HTTP : <code>sun.net.www.prorocol.http.Handler</code></p>
+</li>
+<li>
+<p>HTTPS : <code>sun.net.www.prorocol.https.Handler</code></p>
+</li>
+<li>
+<p>FTP : <code>sun.net.www.prorocol.ftp.Handler</code></p>
+</li>
+</ul>
+<p>回到<code>org.springframework.boot.loader.jar.Handler</code>中，按照类名模式，实现协议为JAR，覆盖了JDK的内建实现，因为Spring Boot的FAT JAR包含了传统的java JAR资源，还包含了依赖的JAR文件，它是一个独立的应用归档文件，当使用<code>java -jar</code>命令来引导时，内部的JAR文件无法被内建的<code>sun.net.www.prorocol.jar.Handler</code>当作<code>classpath</code>，所以需要替换实现。</p>
+<blockquote>
+<p>具体可以参考<code>org.springframework.boot.loader.jar.JarURLConnection#get(URL url, JarFile jarFile)</code>方法和<code>org.springframework.boot.loader.jar.JarFile</code>类。</p>
+</blockquote>
+<p><code>Launcher#launch(args)</code>方法的第二步为<code>createClassLoader(getClassPathArchivesIterator())</code>，其中<code>getClassPathArchivesIterator()</code>方法由<code>ExecutableArchiveLauncher</code>提供：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Archive</span><span class="o">&gt;</span> <span class="nf">getClassPathArchivesIterator</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Archive</span><span class="p">.</span><span class="na">EntryFilter</span> <span class="n">searchFilter</span> <span class="o">=</span> <span class="k">this</span><span class="p">::</span><span class="n">isSearchCandidate</span><span class="p">;</span>
+        <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Archive</span><span class="o">&gt;</span> <span class="n">archives</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">archive</span><span class="p">.</span><span class="na">getNestedArchives</span><span class="p">(</span><span class="n">searchFilter</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">isNestedArchive</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isEntryIndexed</span><span class="p">(</span><span class="n">entry</span><span class="p">));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">isPostProcessingClassPathArchives</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">archives</span> <span class="o">=</span> <span class="n">applyClassPathArchivePostProcessing</span><span class="p">(</span><span class="n">archives</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">archives</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>而<code>isNestedArchive(Archive.Entry entry)</code>方法则由子类<code>JarLauncher</code>或<code>WarLauncher</code>提供，在<code>JarLauncher</code>中：
+<div class="highlight"><pre><span></span><code>    <span class="kd">static</span> <span class="kd">final</span> <span class="n">EntryFilter</span> <span class="n">NESTED_ARCHIVE_ENTRY_FILTER</span> <span class="o">=</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="na">isDirectory</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;BOOT-INF/classes/&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;BOOT-INF/lib/&quot;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isNestedArchive</span><span class="p">(</span><span class="n">Archive</span><span class="p">.</span><span class="na">Entry</span> <span class="n">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">NESTED_ARCHIVE_ENTRY_FILTER</span><span class="p">.</span><span class="na">matches</span><span class="p">(</span><span class="n">entry</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>也就是过滤<code>Archive.Entry</code>所匹配的名称是<code>BOOT-INF/classes/</code>还是<code>BOOT-INF/lib/</code>前缀，而<code>getClassPathArchivesIterator()</code>方法返回结果还是取决于<code>archive</code>属性的内容：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="nf">ExecutableArchiveLauncher</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">archive</span> <span class="o">=</span> <span class="n">createArchive</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">classPathIndex</span> <span class="o">=</span> <span class="n">getClassPathIndex</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">archive</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="n">ex</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>此处<code>archive</code>源于父类<code>Launcher</code>的<code>createArchive()</code>方法：
+<div class="highlight"><pre><span></span><code>    <span class="kd">protected</span> <span class="kd">final</span> <span class="n">Archive</span> <span class="nf">createArchive</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">ProtectionDomain</span> <span class="n">protectionDomain</span> <span class="o">=</span> <span class="n">getClass</span><span class="p">().</span><span class="na">getProtectionDomain</span><span class="p">();</span>
+        <span class="n">CodeSource</span> <span class="n">codeSource</span> <span class="o">=</span> <span class="n">protectionDomain</span><span class="p">.</span><span class="na">getCodeSource</span><span class="p">();</span>
+        <span class="n">URI</span> <span class="n">location</span> <span class="o">=</span> <span class="p">(</span><span class="n">codeSource</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="n">codeSource</span><span class="p">.</span><span class="na">getLocation</span><span class="p">().</span><span class="na">toURI</span><span class="p">()</span> <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="p">(</span><span class="n">location</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="n">location</span><span class="p">.</span><span class="na">getSchemeSpecificPart</span><span class="p">()</span> <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">path</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Unable to determine code source archive&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">File</span> <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">.</span><span class="na">exists</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Unable to determine code source archive from &quot;</span> <span class="o">+</span> <span class="n">root</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="na">isDirectory</span><span class="p">()</span> <span class="o">?</span> <span class="k">new</span> <span class="n">ExplodedArchive</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="p">:</span> <span class="k">new</span> <span class="n">JarFileArchive</span><span class="p">(</span><span class="n">root</span><span class="p">));</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>这里主要通过<code>Launcher</code>所在的媒介，判断是<code>JarFileArchive</code>还是<code>ExplodedArchive</code>(解压目录)，因为该方法是<code>final</code>类型，所以子类<code>JarLauncher</code>或<code>WarLauncher</code>均继承该实现。</p>
+<p>再往后就是根据获取到的archives去创建<code>ClassLoader</code>，在<code>ExecutableArchiveLauncher</code>中：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">ClassLoader</span> <span class="nf">createClassLoader</span><span class="p">(</span><span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Archive</span><span class="o">&gt;</span> <span class="n">archives</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">URL</span><span class="o">&gt;</span> <span class="n">urls</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">guessClassPathSize</span><span class="p">());</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">archives</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">urls</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">archives</span><span class="p">.</span><span class="na">next</span><span class="p">().</span><span class="na">getUrl</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">classPathIndex</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">urls</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">classPathIndex</span><span class="p">.</span><span class="na">getUrls</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">createClassLoader</span><span class="p">(</span><span class="n">urls</span><span class="p">.</span><span class="na">toArray</span><span class="p">(</span><span class="k">new</span> <span class="n">URL</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">));</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>最后调用<code>Launcher</code>中的<code>createClassLoader(URL[] urls)</code>方法创建<code>ClassLoader</code>：
+<div class="highlight"><pre><span></span><code>    <span class="kd">protected</span> <span class="n">ClassLoader</span> <span class="nf">createClassLoader</span><span class="p">(</span><span class="n">URL</span><span class="o">[]</span> <span class="n">urls</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">LaunchedURLClassLoader</span><span class="p">(</span><span class="n">isExploded</span><span class="p">(),</span> <span class="n">getArchive</span><span class="p">(),</span> <span class="n">urls</span><span class="p">,</span> <span class="n">getClass</span><span class="p">().</span><span class="na">getClassLoader</span><span class="p">());</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>之后确定<code>launchClass</code>的内容，就是从<code>MANIFEST.MF</code>中获取<code>Start-Class</code>的内容，在<code>ExecutableArchiveLauncher</code>中：
+<div class="highlight"><pre><span></span><code>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">START_CLASS_ATTRIBUTE</span> <span class="o">=</span> <span class="s">&quot;Start-Class&quot;</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">String</span> <span class="nf">getMainClass</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Manifest</span> <span class="n">manifest</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">archive</span><span class="p">.</span><span class="na">getManifest</span><span class="p">();</span>
+        <span class="n">String</span> <span class="n">mainClass</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">manifest</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">mainClass</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">.</span><span class="na">getMainAttributes</span><span class="p">().</span><span class="na">getValue</span><span class="p">(</span><span class="n">START_CLASS_ATTRIBUTE</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">mainClass</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;No &#39;Start-Class&#39; manifest entry specified in &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">mainClass</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>紧接着调用实际的引导类<code>launch(String[] args, String launchClass, ClassLoader classLoader)</code>
+<div class="highlight"><pre><span></span><code>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">launch</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">,</span> <span class="n">String</span> <span class="n">launchClass</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">classLoader</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">setContextClassLoader</span><span class="p">(</span><span class="n">classLoader</span><span class="p">);</span>
+        <span class="n">createMainMethodRunner</span><span class="p">(</span><span class="n">launchClass</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">classLoader</span><span class="p">).</span><span class="na">run</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">protected</span> <span class="n">MainMethodRunner</span> <span class="nf">createMainMethodRunner</span><span class="p">(</span><span class="n">String</span> <span class="n">mainClass</span><span class="p">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">,</span> <span class="n">ClassLoader</span> <span class="n">classLoader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">MainMethodRunner</span><span class="p">(</span><span class="n">mainClass</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>实际执行的方法为<code>MainMethodRunner#run()</code>：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainMethodRunner</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">mainClassName</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">MainMethodRunner</span><span class="p">(</span><span class="n">String</span> <span class="n">mainClass</span><span class="p">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">mainClassName</span> <span class="o">=</span> <span class="n">mainClass</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">args</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="o">?</span> <span class="n">args</span><span class="p">.</span><span class="na">clone</span><span class="p">()</span> <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">mainClass</span> <span class="o">=</span> <span class="n">Class</span><span class="p">.</span><span class="na">forName</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">mainClassName</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">getContextClassLoader</span><span class="p">());</span>
+        <span class="n">Method</span> <span class="n">mainMethod</span> <span class="o">=</span> <span class="n">mainClass</span><span class="p">.</span><span class="na">getDeclaredMethod</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">,</span> <span class="n">String</span><span class="o">[]</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">mainMethod</span><span class="p">.</span><span class="na">setAccessible</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="n">mainMethod</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="na">args</span> <span class="p">});</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>最后将<code>mainClass</code>中的<code>main(String[])</code>方法按静态方法调用，最终<code>JarLauncher</code>是在同进程内调用<code>Start-Class</code>的<code>main(String[])</code>方法，并且在这之前准备好Class Path。</p>
+<h4 id="7-warlauncher">7. WarLauncher的差异<a class="headerlink" href="#7-warlauncher" title="Permanent link">&para;</a></h4>
+<p>和<code>JarLauncher</code>差异不大，二者都是继承自<code>ExecutableArchiveLauncher</code>：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WarLauncher</span> <span class="kd">extends</span> <span class="n">ExecutableArchiveLauncher</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">WarLauncher</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="kd">protected</span> <span class="nf">WarLauncher</span><span class="p">(</span><span class="n">Archive</span> <span class="n">archive</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">archive</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isPostProcessingClassPathArchives</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isSearchCandidate</span><span class="p">(</span><span class="n">Entry</span> <span class="n">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;WEB-INF/&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isNestedArchive</span><span class="p">(</span><span class="n">Archive</span><span class="p">.</span><span class="na">Entry</span> <span class="n">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="na">isDirectory</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="s">&quot;WEB-INF/classes/&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;WEB-INF/lib/&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="n">entry</span><span class="p">.</span><span class="na">getName</span><span class="p">().</span><span class="na">startsWith</span><span class="p">(</span><span class="s">&quot;WEB-INF/lib-provided/&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">new</span> <span class="n">WarLauncher</span><span class="p">().</span><span class="na">launch</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>主要区别在于和JAR的Class Path不同，<code>WEB-INF/classes/</code>和<code>WEB-INF/lib/</code>是传统Servlet应用的Class Path路径，<code>WEB-INF/lib-provided/</code>是Spring Boot的<code>WarLauncher</code>定制实现。</p>
+<p>将<code>pom.xml</code>的<code>&lt;packaging&gt;</code>元素改为<code>war</code>：
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;packaging&gt;</span>war<span class="nt">&lt;/packaging&gt;</span>
+</code></pre></div></p>
+<p>再次使用Maven进行打包：
+<div class="highlight"><pre><span></span><code>$ mvn clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------&lt; deep-in-spring-boot:first-spring-boot-application &gt;----------
+[INFO] Building first-spring-boot-application 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ first-spring-boot-application ---
+[INFO] Deleting /Users/nanlei/Dev/Workspace/first-spring-boot-application/target
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ first-spring-boot-application ---
+[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/main/resources
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ first-spring-boot-application ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/nanlei/Dev/Workspace/first-spring-boot-application/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ first-spring-boot-application ---
+[INFO] Using &#39;UTF-8&#39; encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/nanlei/Dev/Workspace/first-spring-boot-application/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ first-spring-boot-application ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/nanlei/Dev/Workspace/first-spring-boot-application/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ first-spring-boot-application ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running deep.in.spring.boot.AppTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s - in deep.in.spring.boot.AppTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-war-plugin:3.2.3:war (default-war) @ first-spring-boot-application ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [first-spring-boot-application] in [/Users/nanlei/Dev/Workspace/first-spring-boot-application/target/first-spring-boot-application-1.0.0-SNAPSHOT]
+[INFO] Processing war project
+[INFO] Webapp assembled in [102 msecs]
+[INFO] Building war: /Users/nanlei/Dev/Workspace/first-spring-boot-application/target/first-spring-boot-application-1.0.0-SNAPSHOT.war
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.3.1.RELEASE:repackage (repackage) @ first-spring-boot-application ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.457 s
+[INFO] Finished at: 2020-08-04T00:23:52+08:00
+[INFO] ------------------------------------------------------------------------
+</code></pre></div></p>
+<p>切换到<code>target</code>目录，将<code>first-spring-boot-application-1.0.0-SNAPSHOT.war</code>解压缩到temp目录下：
+<div class="highlight"><pre><span></span><code>$ cd target
+$ unzip first-spring-boot-application-1.0.0-SNAPSHOT.war -d temp
+Archive:  first-spring-boot-application-1.0.0-SNAPSHOT.war
+   creating: temp/META-INF/
+  inflating: temp/META-INF/MANIFEST.MF  
+   creating: temp/org/
+   creating: temp/org/springframework/
+   creating: temp/org/springframework/boot/
+   creating: temp/org/springframework/boot/loader/
+  inflating: temp/org/springframework/boot/loader/ClassPathIndexFile.class  
+  (省略部分内容...)
+  inflating: temp/org/springframework/boot/loader/util/SystemPropertyUtils.class  
+   creating: temp/WEB-INF/
+   creating: temp/WEB-INF/classes/
+   creating: temp/WEB-INF/classes/deep/
+   creating: temp/WEB-INF/classes/deep/in/
+   creating: temp/WEB-INF/classes/deep/in/spring/
+   creating: temp/WEB-INF/classes/deep/in/spring/boot/
+   creating: temp/WEB-INF/lib/
+  inflating: temp/WEB-INF/classes/deep/in/spring/boot/App.class  
+ extracting: temp/WEB-INF/lib/jackson-datatype-jsr310-2.11.0.jar  
+  (省略部分内容...)
+ extracting: temp/WEB-INF/lib/snakeyaml-1.26.jar  
+   creating: temp/META-INF/maven/
+   creating: temp/META-INF/maven/deep-in-spring-boot/
+   creating: temp/META-INF/maven/deep-in-spring-boot/first-spring-boot-application/
+  inflating: temp/META-INF/maven/deep-in-spring-boot/first-spring-boot-application/pom.xml  
+  inflating: temp/META-INF/maven/deep-in-spring-boot/first-spring-boot-application/pom.properties  
+ extracting: temp/WEB-INF/lib/log4j-to-slf4j-2.13.3.jar  
+ extracting: temp/WEB-INF/lib/spring-context-5.2.7.RELEASE.jar  
+ extracting: temp/WEB-INF/lib/spring-core-5.2.7.RELEASE.jar  
+ extracting: temp/WEB-INF/lib/jul-to-slf4j-1.7.30.jar  
+ extracting: temp/WEB-INF/lib/spring-boot-starter-2.3.1.RELEASE.jar  
+ extracting: temp/WEB-INF/lib/spring-webmvc-5.2.7.RELEASE.jar  
+   creating: temp/WEB-INF/lib-provided/
+ extracting: temp/WEB-INF/lib-provided/spring-boot-loader-2.3.1.RELEASE.jar  
+</code></pre></div></p>
+<p>使用tree观察目录结构：
+<div class="highlight"><pre><span></span><code> $ cd temp
+ $ tree
+.
+├── META-INF
+│   ├── MANIFEST.MF
+│   └── maven
+│       └── deep-in-spring-boot
+│           └── first-spring-boot-application
+│               ├── pom.properties
+│               └── pom.xml
+├── WEB-INF
+│   ├── classes
+│   │   └── deep
+│   │       └── in
+│   │           └── spring
+│   │               └── boot
+│   │                   └── App.class
+│   ├── lib
+│   │   ├── jackson-annotations-2.11.0.jar
+│   │   ├── (省略部分内容...)
+│   │   └── tomcat-embed-websocket-9.0.36.jar
+│   └── lib-provided
+│       └── spring-boot-loader-2.3.1.RELEASE.jar
+└── org
+    └── springframework
+        └── boot
+            └── loader
+                ├── ClassPathIndexFile.class
+                ├── ExecutableArchiveLauncher.class
+                ├── JarLauncher.class
+                ├── (省略部分内容...)
+                ├── WarLauncher.class
+                ├── (省略部分内容...)
+
+21 directories, 99 files
+</code></pre></div></p>
+<p>相比JAR的解压目录，WAR增加了<code>/WEB-INF/lib-provided/</code>，并且该目录下仅有一个JAR文件，就是<code>spring-boot-loader-2.3.1.RELEASE.jar</code>，也就是该目录下存放了<code>scope</code>为<code>provided</code>的JAR文件。</p>
+<p>因为传统<code>Servlet</code>项目并不需要这个目录，那么<code>/WEB-INF/lib-provided/</code>中的JAR将被<code>Servlet</code>容器忽略，又比如Servlet API，该API由容器提供，但编码时需要。这样设计的好处在于WAR文件能够在<code>Servlet</code>容器中兼容运行。</p>
+<p>查看<code>META-INF/MANIFEST.MF</code>的内容：
+<div class="highlight"><pre><span></span><code> $ cat META-INF/MANIFEST.MF 
+Manifest-Version: 1.0
+Implementation-Title: first-spring-boot-application
+Implementation-Version: 1.0.0-SNAPSHOT
+Start-Class: deep.in.spring.boot.App
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+Build-Jdk-Spec: 1.8
+Spring-Boot-Version: 2.3.1.RELEASE
+Created-By: Maven Archiver 3.4.0
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: org.springframework.boot.loader.WarLauncher
+</code></pre></div></p>
+<p>更改为<code>war</code>方式打包后，<code>Main-Class</code>就是<code>org.springframework.boot.loader.WarLauncher</code>了，而<code>Start-Class</code>仍然不变。既然是<code>WarLauncher</code>为主引导类，那么依然可以使用<code>java -jar</code>命令来启动：
+<div class="highlight"><pre><span></span><code>$ java -jar first-spring-boot-application-1.0.0-SNAPSHOT.war
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.1.RELEASE)
+
+2020-08-04 00:34:25.529  INFO 35990 --- [           main] deep.in.spring.boot.App                  : Starting App v1.0.0-SNAPSHOT on nanleis-MacBook-Pro.local with PID 35990 (/Users/nanlei/Dev/Workspace/first-spring-boot-application/target/first-spring-boot-application-1.0.0-SNAPSHOT.war started by nanlei in /Users/nanlei/Dev/Workspace/first-spring-boot-application/target)
+2020-08-04 00:34:25.532  INFO 35990 --- [           main] deep.in.spring.boot.App                  : No active profile set, falling back to default profiles: default
+2020-08-04 00:34:26.576  INFO 35990 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-08-04 00:34:26.589  INFO 35990 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-08-04 00:34:26.589  INFO 35990 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.36]
+2020-08-04 00:34:27.039  INFO 35990 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-08-04 00:34:27.040  INFO 35990 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1449 ms
+2020-08-04 00:34:27.220  INFO 35990 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-04 00:34:27.473  INFO 35990 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-04 00:34:27.487  INFO 35990 --- [           main] deep.in.spring.boot.App                  : Started App in 2.373 seconds (JVM running for 2.815)
+</code></pre></div></p>
+<p>由此可见，打包WAR文件是一种兼容措施，既能被<code>WarLauncher</code>启动，也能兼容<code>Servlet</code>容器。也就是说，<code>JarLauncher</code>和<code>WarLauncher</code>并无本质差别。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../.." title="Home" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Maven Dependencies
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
