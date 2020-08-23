@@ -1,15 +1,23 @@
-site_name: Blog of Nan Lei
+site_name: Tech Notes
 copyright: Copyright &copy; 2020 Nan Lei
-site_description: Tech Blog
+site_description: Tech Notes
 repo_url: https://github.com/nanlei/my-notes
 site_author : Nan Lei
 
 nav:
   - Home: index.md
-  - Frameworks:
+  - Framework:
     - Spring Boot:
       - 'Standalone Application' : 'SpringBoot/01-spring-boot-application.md'
       - 'Maven Dependencies' : 'SpringBoot/02-spring-boot-maven-dependency.md'
+      - 'Embedded Web Server' : 'SpringBoot/03-spring-boot-embedded-web-server.md'
+      - 'Understanding Auto-Configuration' : 'SpringBoot/04-spring-boot-understanding-auto-config.md'
+  - DataBase:
+    - MySQL:
+      - 'Master Slave' : 'DataBase/MySQL/master-slave.md'
+  - DevOps:
+    - Dokcer:
+      - 'Basic' : 'DevOps/docker.md'
   - About:
     - 'Who Am I': 'about.md'
 

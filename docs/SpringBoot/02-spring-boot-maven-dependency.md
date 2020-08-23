@@ -392,8 +392,6 @@ $ java -jar target/first-spring-boot-application-1.0.0-SNAPSHOT.war
 + ```maven-war-plugin```插件在版本上的差异  
     + 2.2 版本默认的打包规则是必须存在Web应用部署描述文件```WEB-INF/web.xml```  
     + 3.2.3 版本中则调整了该行为  
-  
 + ```spring-boot-maven-plugin```插件在使用时注意添加```repackage```的```goal```，否则可能不会添加Spring Boot的引导依赖，从而无法启动程序
-    
 + 出于习惯，通常不将```spring-boot-dependencies```直接作为```<parent>```，尽管```spring-boot-starter-parent```也只是简单继承了```spring-boot-dependencies```
 

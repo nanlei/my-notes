@@ -613,7 +613,8 @@ temp/
 20 directories, 100 files
 ```
 
-其中  
+其中
+
 + ```BOOT-INT/classes``` 目录存放应用编译后的class文件
 + ```BOOT-INF/lib``` 目录存放应用依赖的jar包
 + ```META-INF``` 目录存放应用相关的元信息，比如```MANIFEST.MF```文件
@@ -945,13 +946,9 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 其中JDK内建协议放在```sun.net.www.protocol```包下，类全名模式为```sun.net.www.protocol.${protocol}.Handler```，```${protocol}```为协议名，常见协议有：
 
 + FILE : ```sun.net.www.protocol.file.Handler```
-
 + JAR : ```sun.net.www.prorocol.jar.Handler```
-
 + HTTP : ```sun.net.www.prorocol.http.Handler```
-
 + HTTPS : ```sun.net.www.prorocol.https.Handler```
-
 + FTP : ```sun.net.www.prorocol.ftp.Handler```
 
 回到```org.springframework.boot.loader.jar.Handler```中，按照类名模式，实现协议为JAR，覆盖了JDK的内建实现，因为Spring Boot的FAT JAR包含了传统的java JAR资源，还包含了依赖的JAR文件，它是一个独立的应用归档文件，当使用```java -jar```命令来引导时，内部的JAR文件无法被内建的```sun.net.www.prorocol.jar.Handler```当作```classpath```，所以需要替换实现。

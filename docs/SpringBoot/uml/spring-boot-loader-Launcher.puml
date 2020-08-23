@@ -1,0 +1,15 @@
+@startuml
+Title "Spring Boot Loader - Launcher"
+
+package org.springframework.boot.loader {
+    abstract Launcher
+    abstract class ExecutableArchiveLauncher
+    class JarLauncher
+    class WarLauncher
+}
+
+
+Launcher <|- ExecutableArchiveLauncher
+ExecutableArchiveLauncher <|-down- JarLauncher
+ExecutableArchiveLauncher <|-down- WarLauncher
+@enduml
