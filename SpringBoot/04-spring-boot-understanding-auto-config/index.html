@@ -1,0 +1,1349 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Notes">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Understanding Auto-Configuration - Tech Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-springbootapplication" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Tech Notes" class="md-header-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Tech Notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Understanding Auto-Configuration
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01-spring-boot-application/" class="md-tabs__link md-tabs__link--active">
+          Framework
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DataBase/MySQL/master-slave/" class="md-tabs__link">
+          DataBase
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DevOps/docker/" class="md-tabs__link">
+          DevOps
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Notes" class="md-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Tech Notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Framework" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-spring-boot-application/" title="Standalone Application" class="md-nav__link">
+      Standalone Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-nav__link">
+      Embedded Web Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Understanding Auto-Configuration
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Understanding Auto-Configuration" class="md-nav__link md-nav__link--active">
+      Understanding Auto-Configuration
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-springbootapplication" class="md-nav__link">
+    1. 理解@SpringBootApplication
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enableautoconfiguration" class="md-nav__link">
+    2. 理解@EnableAutoConfiguration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 理解自动配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      DataBase
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DataBase" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DataBase
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      MySQL
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MySQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-nav__link">
+      Master Slave
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      DevOps
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DevOps
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Dokcer
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Dokcer" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Dokcer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/docker/" title="Basic" class="md-nav__link">
+      Basic
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-springbootapplication" class="md-nav__link">
+    1. 理解@SpringBootApplication
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-enableautoconfiguration" class="md-nav__link">
+    2. 理解@EnableAutoConfiguration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 理解自动配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringBoot/04-spring-boot-understanding-auto-config.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Understanding Auto-Configuration</h1>
+                
+                <h3 align="center"><b>04 - 理解自动装配</b></h3>
+
+<p>Spring Boot官方文档对自动装配(Auto-configuration)做了简单介绍：</p>
+<blockquote>
+<p>Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added. For example, if <code>HSQLDB</code> is on your classpath, and you have not manually configured any database connection beans, then Spring Boot auto-configures an in-memory database.</p>
+<p>You need to opt-in to auto-configuration by adding the <code>@EnableAutoConfiguration</code> or <code>@SpringBootApplication</code> annotations to one of your <code>@Configuration</code> classes.</p>
+</blockquote>
+<p>自动装配是存在前提的，基于添加的JAR文件依赖，但自动装配的实体并非一定装载。<br />
+文档举例说明当<code>HSQLDB</code>在Class Path中，不需要手动配置数据库连接的Beans，而是Spring Boot自动装配一个内存型的数据库。添加如下依赖到<code>pom.xml</code>中：
+<div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.5.1<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-jdbc<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.3.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>添加数据库表和数据，将<code>schema.sql</code>和<code>data.sql</code>文件直接放到<code>resources</code>目录下即可：
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">person</span> <span class="p">(</span><span class="n">id</span> <span class="nb">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="k">NULL</span><span class="p">)</span>
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">person</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">person</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>无需任何其他配置，直接启动项目：
+<div class="highlight"><pre><span></span><code>  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-13 09:18:07.994  INFO 2034 --- [           main] deep.in.spring.boot.App                  : Starting App on nanleis-MacBook-Pro.local with PID 2034 (/Users/nanlei/Dev/Codebase/deep-in-spring-boot/first-spring-boot-application/target/classes started by nanlei in /Users/nanlei/Dev/Codebase/deep-in-spring-boot)
+2020-08-13 09:18:07.996  INFO 2034 --- [           main] deep.in.spring.boot.App                  : No active profile set, falling back to default profiles: default
+2020-08-13 09:18:08.837  INFO 2034 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-08-13 09:18:08.848  INFO 2034 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-08-13 09:18:08.848  INFO 2034 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2020-08-13 09:18:08.912  INFO 2034 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-08-13 09:18:08.912  INFO 2034 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 872 ms
+2020-08-13 09:18:09.032  INFO 2034 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-08-13 09:18:09.037  WARN 2034 --- [           main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=org.hsqldb.jdbcDriver was not found, trying direct instantiation.
+2020-08-13 09:18:09.675  INFO 2034 --- [           main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (feature not supported)
+2020-08-13 09:18:09.678  INFO 2034 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-08-13 09:18:09.907  INFO 2034 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService &#39;applicationTaskExecutor&#39;
+2020-08-13 09:18:10.257  INFO 2034 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-13 09:18:10.269  INFO 2034 --- [           main] deep.in.spring.boot.App                  : Started App in 2.572 seconds (JVM running for 3.027)
+</code></pre></div></p>
+<p>从日志中可以看到，Spring Boot自动初始化了<code>HikariDataSource</code>作为数据库连接池，继续编写应用代码：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="p">;</span>
+
+    <span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/listuser&quot;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">List</span> <span class="nf">listuser</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="n">jdbcTemplate</span><span class="p">.</span><span class="na">queryForList</span><span class="p">(</span><span class="s">&quot;select * from person&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>直接测试接口即可：
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:8080/listuser | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    47    0    47    0     0  15666      0 --:--:-- --:--:-- --:--:-- 15666
+[
+   {
+      &quot;ID&quot; : 1,
+      &quot;NAME&quot; : &quot;Tom&quot;
+   },
+   {
+      &quot;ID&quot; : 2,
+      &quot;NAME&quot; : &quot;Jerry&quot;
+   }
+]
+</code></pre></div></p>
+<p>没有配置数据源，没有配置<code>JdbcTemplate</code> Bean，但可以直接注入使用，这些组件都是自动装配的。</p>
+<p>官方文档继续介绍，注解<code>@EnableAutoConfiguration</code> 或 <code>@SpringBootApplication</code>标注到任一<code>@Configuration</code>类上，即可开启自动装配。但却没有介绍<code>@Configuration</code>如何装配。在Spring Framework中，可以使用<code>@Import</code>和<code>@ComponentScan</code>注解来装配，由<code>AnnotationConfigApplicationContext</code>来注册。</p>
+<h4 id="1-springbootapplication">1. 理解<code>@SpringBootApplication</code><a class="headerlink" href="#1-springbootapplication" title="Permanent link">&para;</a></h4>
+<p>官方文档也说了使用<code>@SpringBootApplication</code>可以开启自动装配，下面从此处入手，首先看官方文档的解释：</p>
+<blockquote>
+<p><b>Using the <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/SpringBootApplication" title="GitHub User: SpringBootApplication">@SpringBootApplication</a> Annotation</b><br />
+Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their "application class". A single <code>@SpringBootApplication</code> annotation can be used to enable those three features, that is:</p>
+<ul>
+<li>
+<p><code>@EnableAutoConfiguration</code>: enable Spring Boot’s auto-configuration mechanism</p>
+</li>
+<li>
+<p><code>@ComponentScan</code>: enable <code>@Component</code> scan on the package where the application is located (see the best practices)</p>
+</li>
+<li>
+<p><code>@Configuration</code>: allow to register extra beans in the context or import additional configuration classes</p>
+</li>
+</ul>
+</blockquote>
+<p>可以看出，<code>@SpringBootApplication</code>激活了三个注解特性，其中<code>@EnableAutoConfiguration</code>激活Spring Boot的自动装配机制；<code>@ComponentScan</code>激活<code>@Component</code>扫描；<code>@Configuration</code>允许注册更多的bean到上下文中或导入更多的配置类。并且给出代码示例：</p>
+<blockquote>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example.myapplication</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+
+<span class="nd">@SpringBootApplication</span> <span class="c1">// same as @Configuration @EnableAutoConfiguration @ComponentScan</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+</blockquote>
+<p>使用3个注解替换<code>@SpringBootApplication</code>，重构项目代码：
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="nd">@ComponentScan</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>重新启动项目，发现一切正常，测试HTTP服务也并无异常，说明替换和文档所述无误，但实际情况却要复杂一些，看一下<code>@SpringBootApplication</code>注解声明：
+<div class="highlight"><pre><span></span><code><span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Inherited</span>
+<span class="nd">@SpringBootConfiguration</span>
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="n">excludeFilters</span> <span class="o">=</span> <span class="p">{</span> <span class="nd">@Filter</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FilterType</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">TypeExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">),</span>
+        <span class="nd">@Filter</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FilterType</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">AutoConfigurationExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SpringBootApplication</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><b>文档的描述和代码实际是有区别的，实际引用还应以源码为准，文档作为参考。</b></p>
+<p>实际上，<code>@SpringBootApplication</code>等价于<code>@SpringBootConfiguration</code>、<code>@EnableAutoConfiguration</code>和<code>@ComponentScan</code>，但<code>@ComponentScan</code>并非默认值，而是加入了排除：<code>TypeExcludeFilter</code>和<code>AutoConfigurationExcludeFilter</code>。</p>
+<p><code>TypeExcludeFilter</code>用于查找<code>BeanFactory</code>中已经注册的<code>TypeExcludeFilter</code> Bean，作为代理执行对象。
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TypeExcludeFilter</span> <span class="kd">implements</span> <span class="n">TypeFilter</span><span class="p">,</span> <span class="n">BeanFactoryAware</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="n">BeanFactory</span> <span class="n">beanFactory</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">TypeExcludeFilter</span><span class="o">&gt;</span> <span class="n">delegates</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBeanFactory</span><span class="p">(</span><span class="n">BeanFactory</span> <span class="n">beanFactory</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">BeansException</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">beanFactory</span> <span class="o">=</span> <span class="n">beanFactory</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">match</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">,</span> <span class="n">MetadataReaderFactory</span> <span class="n">metadataReaderFactory</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">beanFactory</span> <span class="k">instanceof</span> <span class="n">ListableBeanFactory</span> <span class="o">&amp;&amp;</span> <span class="n">getClass</span><span class="p">()</span> <span class="o">==</span> <span class="n">TypeExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">TypeExcludeFilter</span> <span class="n">delegate</span> <span class="p">:</span> <span class="n">getDelegates</span><span class="p">())</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">delegate</span><span class="p">.</span><span class="na">match</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">,</span> <span class="n">metadataReaderFactory</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">TypeExcludeFilter</span><span class="o">&gt;</span> <span class="nf">getDelegates</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">Collection</span><span class="o">&lt;</span><span class="n">TypeExcludeFilter</span><span class="o">&gt;</span> <span class="n">delegates</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">delegates</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">delegates</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">delegates</span> <span class="o">=</span> <span class="p">((</span><span class="n">ListableBeanFactory</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="na">beanFactory</span><span class="p">).</span><span class="na">getBeansOfType</span><span class="p">(</span><span class="n">TypeExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">values</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">delegates</span> <span class="o">=</span> <span class="n">delegates</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">delegates</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>AutoConfigurationExcludeFilter</code>用于排除其他同时标注<code>@EnableAutoConfiguration</code>和<code>@Configuration</code>的类：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AutoConfigurationExcludeFilter</span> <span class="kd">implements</span> <span class="n">TypeFilter</span><span class="p">,</span> <span class="n">BeanClassLoaderAware</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="n">ClassLoader</span> <span class="n">beanClassLoader</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">autoConfigurations</span><span class="p">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBeanClassLoader</span><span class="p">(</span><span class="n">ClassLoader</span> <span class="n">beanClassLoader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">beanClassLoader</span> <span class="o">=</span> <span class="n">beanClassLoader</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">match</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">,</span> <span class="n">MetadataReaderFactory</span> <span class="n">metadataReaderFactory</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">isConfiguration</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isAutoConfiguration</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isConfiguration</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">metadataReader</span><span class="p">.</span><span class="na">getAnnotationMetadata</span><span class="p">().</span><span class="na">isAnnotated</span><span class="p">(</span><span class="n">Configuration</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isAutoConfiguration</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">getAutoConfigurations</span><span class="p">().</span><span class="na">contains</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">.</span><span class="na">getClassMetadata</span><span class="p">().</span><span class="na">getClassName</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="kd">protected</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getAutoConfigurations</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">autoConfigurations</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">autoConfigurations</span> <span class="o">=</span> <span class="n">SpringFactoriesLoader</span><span class="p">.</span><span class="na">loadFactoryNames</span><span class="p">(</span><span class="n">EnableAutoConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">beanClassLoader</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">autoConfigurations</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>而<code>@SpringBootConfiguration</code>的声明为：
+<div class="highlight"><pre><span></span><code><span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SpringBootConfiguration</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>@Configuration</code>的声明为：
+<div class="highlight"><pre><span></span><code><span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Configuration</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>可以发现层级关系为：
++ <code>@Component</code>
+  + <code>@Configuration</code>
+    + <code>@SpringBootConfiguration</code></p>
+<p><code>@ComponentScan</code>仅关注<code>@Component</code>，而<code>@SpringBootConfiguration</code>属于<code>@Component</code>的派生注解，所以能够被<code>@ComponentScan</code>识别。</p>
+<p><code>@Repository</code>、<code>@Service</code>、<code>@Controller</code>属于<code>@Component</code>的直接派生注解，也被称为Spring模式注解(Stereotype Annotation)</p>
+<p>官方文档继续简单介绍了<code>@SpringBootApplication</code>的属性别名</p>
+<blockquote>
+<p><code>@SpringBootApplication</code> also provides aliases to customize the attributes of <code>@EnableAutoConfiguration</code> and <code>@ComponentScan</code></p>
+</blockquote>
+<p><code>@SpringBootApplication</code>的属性方法声明为：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SpringBootApplication</span> <span class="p">{</span>
+
+
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">EnableAutoConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">exclude</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * ...</span>
+<span class="cm">     * @since 1.3.0</span>
+<span class="cm">     */</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">EnableAutoConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="nf">excludeName</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * ...</span>
+<span class="cm">     * @since 1.3.0</span>
+<span class="cm">     */</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">ComponentScan</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">&quot;basePackages&quot;</span><span class="p">)</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="nf">scanBasePackages</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * ...</span>
+<span class="cm">     * @since 1.3.0</span>
+<span class="cm">     */</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">ComponentScan</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">&quot;basePackageClasses&quot;</span><span class="p">)</span>
+    <span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">scanBasePackageClasses</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * ...</span>
+<span class="cm">     * @since 2.3.0</span>
+<span class="cm">     */</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">ComponentScan</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s">&quot;nameGenerator&quot;</span><span class="p">)</span>
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">BeanNameGenerator</span><span class="o">&gt;</span> <span class="nf">nameGenerator</span><span class="p">()</span> <span class="k">default</span> <span class="n">BeanNameGenerator</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * ...</span>
+<span class="cm">     * @since 2.2</span>
+<span class="cm">     */</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kt">boolean</span> <span class="nf">proxyBeanMethods</span><span class="p">()</span> <span class="k">default</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>通过<code>@AliasFor</code>，可以将注解属性别名到某个注解中，重构一下代码，将引导类调整到<code>deep.in.spring.boot.app</code>包中并重新命名：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.app</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.ComponentScan</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+
+<span class="c1">//@EnableAutoConfiguration</span>
+<span class="c1">//@ComponentScan</span>
+<span class="c1">//@Configuration</span>
+<span class="nd">@SpringBootApplication</span><span class="p">(</span><span class="n">scanBasePackages</span> <span class="o">=</span> <span class="s">&quot;deep.in.spring.boot.config&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FirstSpringBootApp</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">FirstSpringBootApp</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>将<code>@EventListener</code>方法抽取至<code>deep.in.spring.boot.config.WebConfig</code>配置类中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.config</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.context.WebServerInitializedEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.event.EventListener</span><span class="p">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="p">{</span>
+
+    <span class="nd">@EventListener</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWebServerReady</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;WebServer Type: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getWebServer</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;ApplicationContext: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getApplicationContext</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>注意在<code>FirstSpringBootApp</code>中再次使用<code>@SpringBootApplication</code>，并设置属性<code>scanBasePackages = "deep.in.spring.boot.config"</code>。</p>
+<p>再次启动项目，看到输出：
+<div class="highlight"><pre><span></span><code>  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-19 14:11:28.722  INFO 6047 --- [           main] d.in.spring.boot.app.FirstSpringBootApp  : Starting FirstSpringBootApp on nanleis-MacBook-Pro.local with PID 6047 (/Users/nanlei/Dev/Codebase/deep-in-spring-boot/first-spring-boot-application/target/classes started by nanlei in /Users/nanlei/Dev/Codebase/deep-in-spring-boot)
+(省略部分内容...)
+2020-08-19 14:11:30.921  INFO 6047 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+WebServer Type: org.springframework.boot.web.embedded.tomcat.TomcatWebServer
+ApplicationContext: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext
+2020-08-19 14:11:30.929  INFO 6047 --- [           main] d.in.spring.boot.app.FirstSpringBootApp  : Started FirstSpringBootApp in 2.497 seconds (JVM running for 2.935)
+</code></pre></div></p>
+<p>说明配置类运行正常，若不配置<code>scanBasePackages</code>属性，那么配置类<code>WebConfig</code>将不会被扫描到。</p>
+<p>综上所述，<code>@SpringBootApplication</code>是一个聚合注解，包含<code>@SpringBootConfiguration</code>、<code>@EnableAutoConfiguration</code>和<code>@ComponentScan</code>的特性，类似注解还有<code>@RestController</code>，聚合了<code>@Controller</code>和<code>@ResponseBody</code>。</p>
+<p><code>@SpringBootApplication</code>通常标注于引导类上，但并不限制。若将其标注于非引导类上，调整代码如下：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.config</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.context.WebServerInitializedEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.event.EventListener</span><span class="p">;</span>
+
+<span class="c1">//@Configuration</span>
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="p">{</span>
+
+    <span class="nd">@EventListener</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWebServerReady</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;WebServer Type: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getWebServer</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;ApplicationContext: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getApplicationContext</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>因为<code>@SpringBootApplication</code>已经包含<code>@Configuration</code>特性，此处不再需要。</p>
+<p>引导类<code>FirstSpringBootApp</code>仅保留<code>main()</code>方法，<code>SpringApplication.run()</code>的入参调整为<code>WebConfig.class</code>：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.app</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.spring.boot.config.WebConfig</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FirstSpringBootApp</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//SpringApplication.run(FirstSpringBootApp.class, args);</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">WebConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>重新启动程序，运行效果依旧。</p>
+<h4 id="2-enableautoconfiguration">2. 理解<code>@EnableAutoConfiguration</code><a class="headerlink" href="#2-enableautoconfiguration" title="Permanent link">&para;</a></h4>
+<p>官方文档提到了<code>@EnableAutoConfiguration</code>和<code>@SpringBootApplication</code>都能激活自动装配特性，但为了说明<code>@EnableAutoConfiguration</code>和<code>@SpringBootApplication</code>的差别，将项目调整为<code>webflux</code>项目：
+<div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-webflux<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.3.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>在<code>WebConfg</code>类中，添加<code>RouterFunction</code>的Bean，并使用<code>@EnableAutoConfiguration</code>来注解：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.config</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.web.context.WebServerInitializedEvent</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.event.EventListener</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.server.RouterFunction</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.web.reactive.function.server.ServerResponse</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">reactor.core.publisher.Mono</span><span class="p">;</span>
+
+<span class="kn">import static</span> <span class="nn">org.springframework.web.reactive.function.server.ServerResponse.ok</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.springframework.web.reactive.function.server.RequestPredicates.GET</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">org.springframework.web.reactive.function.server.RouterFunctions.route</span><span class="p">;</span>
+
+<span class="c1">//@Configuration</span>
+<span class="c1">//@SpringBootApplication</span>
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RouterFunction</span><span class="o">&lt;</span><span class="n">ServerResponse</span><span class="o">&gt;</span> <span class="nf">helloworld</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">route</span><span class="p">(</span><span class="n">GET</span><span class="p">(</span><span class="s">&quot;/helloworld&quot;</span><span class="p">),</span>
+                <span class="n">request</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">().</span><span class="na">body</span><span class="p">(</span><span class="n">Mono</span><span class="p">.</span><span class="na">just</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">),</span> <span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@EventListener</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onWebServerReady</span><span class="p">(</span><span class="n">WebServerInitializedEvent</span> <span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;WebServer Type: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getWebServer</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;ApplicationContext: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getApplicationContext</span><span class="p">().</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;WebConfig Bean:&quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getApplicationContext</span><span class="p">().</span><span class="na">getBean</span><span class="p">(</span><span class="n">WebConfig</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;helloworld Bean: &quot;</span> <span class="o">+</span> <span class="n">event</span><span class="p">.</span><span class="na">getApplicationContext</span><span class="p">().</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;helloworld&quot;</span><span class="p">).</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>启动程序，得到输出：
+<div class="highlight"><pre><span></span><code>(省略部分内容...)
+WebServer Type: org.springframework.boot.web.embedded.netty.NettyWebServer
+ApplicationContext: org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext
+WebConfig Bean:deep.in.spring.boot.config.WebConfig
+helloworld Bean: org.springframework.web.reactive.function.server.RouterFunctions$DefaultRouterFunction
+2020-08-19 15:32:38.305  INFO 6752 --- [           main] d.in.spring.boot.app.FirstSpringBootApp  : Started FirstSpringBootApp in 1.93 seconds (JVM running for 2.33)
+</code></pre></div></p>
+<p>测试<code>/helloworld</code>也没有问题：
+<div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8080/helloworld
+Hello World
+</code></pre></div></p>
+<p>由此说明，<code>@EnableAutoConfiguration</code>注解的<code>WebConfig</code>类在运行上与<code>@SpringBootApplication</code>并无差别，也就是<code>SpringApplication.run()</code>方法引导启动时，并不强依赖<code>@Configuration</code>注解。</p>
+<p>官方文档对此也有简要说明：</p>
+<blockquote>
+<p><b>Configuration Classes</b><br />
+Spring Boot favors Java-based configuration. Although it is possible to use SpringApplication with XML sources, we generally recommend that your primary source be a single <code>@Configuration</code> class. Usually the class that defines the <code>main</code> method is a good candidate as the primary <code>@Configuration</code>.</p>
+</blockquote>
+<p>为了说明和<code>@SpringBootApplication</code>的差异，也就是<code>@SpringBootApplication</code>多出的<code>@Configuration</code>特性(<code>@ComponentScan</code>特性已有解释)，将<code>WebConfig</code>类的注解改回，重新运行程序：
+<div class="highlight"><pre><span></span><code>(省略部分内容...)
+WebServer Type: org.springframework.boot.web.embedded.netty.NettyWebServer
+ApplicationContext: org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext
+WebConfig Bean:deep.in.spring.boot.config.WebConfig$$EnhancerBySpringCGLIB$$757dd7cc
+helloworld Bean: org.springframework.web.reactive.function.server.RouterFunctions$DefaultRouterFunction
+2020-08-19 16:26:50.591  INFO 7301 --- [           main] d.in.spring.boot.app.FirstSpringBootApp  : Started FirstSpringBootApp in 2.298 seconds (JVM running for 2.733)
+</code></pre></div></p>
+<p>很明显，<code>WebConfig</code> Bean的实现类从<code>deep.in.spring.boot.config.WebConfig</code>变为<code>deep.in.spring.boot.config.WebConfig$$EnhancerBySpringCGLIB$$757dd7cc</code>，也就是后者使用了CGLIB进行提升，这也是<code>@SpringBootApplication</code>作为<code>@Configuration</code>派生注解最明显的特性，在SpringFrameork官方文档( <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#spring-core">https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#spring-core</a> )中也有介绍：</p>
+<blockquote>
+<p>The <code>@Bean</code> methods in a regular Spring component are processed differently than their counterparts inside a Spring <code>@Configuration</code> class. The difference is that <code>@Component</code> classes are not enhanced with CGLIB to intercept the invocation of methods and fields. CGLIB proxying is the means by which invoking methods or fields within <code>@Bean</code> methods in <code>@Configuration</code> classes creates bean metadata references to collaborating objects. Such methods are not invoked with normal Java semantics but rather go through the container in order to provide the usual lifecycle management and proxying of Spring beans, even when referring to other beans through programmatic calls to <code>@Bean</code> methods. In contrast, invoking a method or field in a <code>@Bean</code> method within a plain <code>@Component</code> class has standard Java semantics, with no special CGLIB processing or other constraints applying.</p>
+</blockquote>
+<p>也就是<code>@Component</code>注解的类，Bean的行为和正常Java对象语义相同，不存在CGLIB处理，而<code>@Configuration</code>注解的类，进行CGLIB提升。</p>
+<p>官方文档进一步介绍：</p>
+<blockquote>
+<p><b>Full <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Configuration" title="GitHub User: Configuration">@Configuration</a> vs “lite” <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/Bean" title="GitHub User: Bean">@Bean</a> mode?</b> <br />
+When <code>@Bean</code> methods are declared within classes that are not annotated with <code>@Configuration</code>, they are referred to as being processed in a “lite” mode. Bean methods declared in a <code>@Component</code> or even in a plain old class are considered to be “lite”, with a different primary purpose of the containing class and a <code>@Bean</code> method being a sort of bonus there. For example, service components may expose management views to the container through an additional <code>@Bean</code> method on each applicable component class. In such scenarios, <code>@Bean</code> methods are a general-purpose factory method mechanism.</p>
+<p>Unlike full <code>@Configuration</code>, lite <code>@Bean</code> methods cannot declare inter-bean dependencies. Instead, they operate on their containing component’s internal state and, optionally, on arguments that they may declare. Such a <code>@Bean</code> method should therefore not invoke other <code>@Bean</code> methods. Each such method is literally only a factory method for a particular bean reference, without any special runtime semantics. The positive side-effect here is that no CGLIB subclassing has to be applied at runtime, so there are no limitations in terms of class design (that is, the containing class may be <code>final</code> and so forth).</p>
+<p>In common scenarios, <code>@Bean</code> methods are to be declared within <code>@Configuration</code> classes, ensuring that “full” mode is always used and that cross-method references therefore get redirected to the container’s lifecycle management. This prevents the same <code>@Bean</code> method from accidentally being invoked through a regular Java call, which helps to reduce subtle bugs that can be hard to track down when operating in “lite” mode.</p>
+</blockquote>
+<p>简而言之，<code>@Bean</code>在普通Java类被声明后，其行为和在<code>@Component</code>类下的声明一致，官方称这种方式为“轻量模式”，而在<code>@Configuration</code>类中的声明为“完全模式”，后者会执行CGLIB提升。这也就是前面代码运行结果的对比。</p>
+<h4 id="3">3. 理解自动配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>前面所述的<code>WebConfig</code>属于编码方式装配，而不是自动装配。而其他自动装配的Bean是通过自动配置机制完成的。</p>
+<p>在Spring Boot之前，Spring Framework提供Bean的生命周期管理和编程模型，框架层面已经支持派生注解，但却不能自动装配<code>@Configuration</code>类。Spring Boot在此基础之上添加了约定配置化导入<code>@Configuration</code>类的方式。</p>
+<p>官方文档介绍了如何构建自定义自动装配类：</p>
+<blockquote>
+<p><b>Creating Your Own Auto-configuration</b></p>
+<p>If you work in a company that develops shared libraries, or if you work on an open-source or commercial library, you might want to develop your own auto-configuration. Auto-configuration classes can be bundled in external jars and still be picked-up by Spring Boot.</p>
+<p>Auto-configuration can be associated to a “starter” that provides the auto-configuration code as well as the typical libraries that you would use with it. We first cover what you need to know to build your own auto-configuration and then we move on to the <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-custom-starter" title="typical steps required to create a custom starter">typical steps required to create a custom starter</a>.</p>
+</blockquote>
+<p>自动装配类可以打包到外部JAR文件中，并且被Spring Boot装载。自动装配类也能被关联到“starter”中，这些“starter”提供自动装配的代码及关联的依赖。</p>
+<p>官方文档继续介绍了Spring Boot自动装配底层实现与@Configuration和@Conditional的关系：</p>
+<blockquote>
+<p>Understanding Auto-configured Beans</p>
+<p>Under the hood, auto-configuration is implemented with standard <code>@Configuration</code> classes. Additional <code>@Conditional</code> annotations are used to constrain when the auto-configuration should apply. Usually, auto-configuration classes use <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code> annotations. This ensures that auto-configuration applies only when relevant classes are found and when you have not declared your own <code>@Configuration</code>.</p>
+<p>You can browse the source code of <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure" title="source code of spring-boot-autoconfigure">spring-boot-autoconfigure</a> to see the <code>@Configuration</code> classes that Spring provides (see the <a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories" title="spring.factories file">META-INF/spring.factories</a> file).</p>
+</blockquote>
+<p>文档中提及<code>@ConditionalOnClass</code>和<code>@ConditionalOnMissingBean</code>是常用的注解。根据名称很容易理解，当<code>@ConditionalOnClass</code>注解在<code>@Configuration</code>类上时，当目标类存在于Class Path时予以装配。这就是开头提到的<code>HSQLDB</code>存在于应用的Class Path时，Spring Boot提供了自动装配<code>HSQLDB</code>的逻辑：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.jdbc</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">EmbeddedDatabaseConnection</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="cm">/**</span>
+<span class="cm">     * HSQL Database Connection.</span>
+<span class="cm">     */</span>
+    <span class="n">HSQL</span><span class="p">(</span><span class="n">EmbeddedDatabaseType</span><span class="p">.</span><span class="na">HSQL</span><span class="p">,</span> <span class="s">&quot;org.hsqldb.jdbcDriver&quot;</span><span class="p">,</span> <span class="s">&quot;jdbc:hsqldb:mem:%s&quot;</span><span class="p">);</span>
+    <span class="p">...</span>
+        <span class="cm">/**</span>
+<span class="cm">     * Returns the most suitable {@link EmbeddedDatabaseConnection} for the given class</span>
+<span class="cm">     * loader.</span>
+<span class="cm">     * @param classLoader the class loader used to check for classes</span>
+<span class="cm">     * @return an {@link EmbeddedDatabaseConnection} or {@link #NONE}.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">EmbeddedDatabaseConnection</span> <span class="nf">get</span><span class="p">(</span><span class="n">ClassLoader</span> <span class="n">classLoader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">EmbeddedDatabaseConnection</span> <span class="n">candidate</span> <span class="p">:</span> <span class="n">EmbeddedDatabaseConnection</span><span class="p">.</span><span class="na">values</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span> <span class="o">!=</span> <span class="n">NONE</span> <span class="o">&amp;&amp;</span> <span class="n">ClassUtils</span><span class="p">.</span><span class="na">isPresent</span><span class="p">(</span><span class="n">candidate</span><span class="p">.</span><span class="na">getDriverClassName</span><span class="p">(),</span> <span class="n">classLoader</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">candidate</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">NONE</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>而在<code>DataSourceAutoConfiguration</code>自动装配类中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.autoconfigure.jdbc</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<span class="nd">@ConditionalOnClass</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">EmbeddedDatabaseType</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="nd">@ConditionalOnMissingBean</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="s">&quot;io.r2dbc.spi.ConnectionFactory&quot;</span><span class="p">)</span>
+<span class="nd">@EnableConfigurationProperties</span><span class="p">(</span><span class="n">DataSourceProperties</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="nd">@Import</span><span class="p">({</span> <span class="n">DataSourcePoolMetadataProvidersConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DataSourceInitializationConfiguration</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceAutoConfiguration</span> <span class="p">{</span>
+
+    <span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="nd">@Conditional</span><span class="p">(</span><span class="n">EmbeddedDatabaseCondition</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnMissingBean</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">XADataSource</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+    <span class="nd">@Import</span><span class="p">(</span><span class="n">EmbeddedDataSourceConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmbeddedDatabaseConfiguration</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmbeddedDatabaseCondition</span> <span class="kd">extends</span> <span class="n">SpringBootCondition</span> <span class="p">{</span>
+
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DATASOURCE_URL_PROPERTY</span> <span class="o">=</span> <span class="s">&quot;spring.datasource.url&quot;</span><span class="p">;</span>
+
+        <span class="kd">private</span> <span class="kd">final</span> <span class="n">SpringBootCondition</span> <span class="n">pooledCondition</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PooledDataSourceCondition</span><span class="p">();</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">ConditionOutcome</span> <span class="nf">getMatchOutcome</span><span class="p">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">AnnotatedTypeMetadata</span> <span class="n">metadata</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ConditionMessage</span><span class="p">.</span><span class="na">Builder</span> <span class="n">message</span> <span class="o">=</span> <span class="n">ConditionMessage</span><span class="p">.</span><span class="na">forCondition</span><span class="p">(</span><span class="s">&quot;EmbeddedDataSource&quot;</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">hasDataSourceUrlProperty</span><span class="p">(</span><span class="n">context</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">because</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span> <span class="o">+</span> <span class="s">&quot; is set&quot;</span><span class="p">));</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">anyMatches</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">pooledCondition</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">foundExactly</span><span class="p">(</span><span class="s">&quot;supported pooled data source&quot;</span><span class="p">));</span>
+            <span class="p">}</span>
+            <span class="n">EmbeddedDatabaseType</span> <span class="n">type</span> <span class="o">=</span> <span class="n">EmbeddedDatabaseConnection</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">()).</span><span class="na">getType</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">didNotFind</span><span class="p">(</span><span class="s">&quot;embedded database&quot;</span><span class="p">).</span><span class="na">atAll</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">match</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">found</span><span class="p">(</span><span class="s">&quot;embedded database&quot;</span><span class="p">).</span><span class="na">items</span><span class="p">(</span><span class="n">type</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">hasDataSourceUrlProperty</span><span class="p">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Environment</span> <span class="n">environment</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">getEnvironment</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">environment</span><span class="p">.</span><span class="na">containsProperty</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="n">StringUtils</span><span class="p">.</span><span class="na">hasText</span><span class="p">(</span><span class="n">environment</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span><span class="p">));</span>
+                <span class="p">}</span>
+                <span class="k">catch</span> <span class="p">(</span><span class="n">IllegalArgumentException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// Ignore unresolvable placeholder errors</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>EmbeddedDatabaseCondition.getMatchOutcome方法会调用EmbeddedDatabaseConnection.get来获取内嵌数据库的类型，当匹配时，也就是HSQLDB的JDBC驱动类org.hsqldb.jdbcDriver存在于Class Path时，@Configuration类DataSourceAutoConfiguration.EmbeddedDatabaseConfiguration将被装配，EmbeddedDataSourceConfiguration将被@Import导入。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Embedded Web Server
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Master Slave
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

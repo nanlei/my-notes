@@ -1,0 +1,977 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Notes">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Master Slave - Tech Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-mysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../.." title="Tech Notes" class="md-header-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Tech Notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Master Slave
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../SpringBoot/01-spring-boot-application/" class="md-tabs__link">
+          Framework
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          DataBase
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../DevOps/docker/" class="md-tabs__link">
+          DevOps
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Tech Notes" class="md-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Tech Notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Framework" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1">
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../SpringBoot/01-spring-boot-application/" title="Standalone Application" class="md-nav__link">
+      Standalone Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../SpringBoot/02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../SpringBoot/03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-nav__link">
+      Embedded Web Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../SpringBoot/04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-nav__link">
+      Understanding Auto-Configuration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      DataBase
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DataBase" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DataBase
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" checked>
+    
+    <label class="md-nav__link" for="nav-3-1">
+      MySQL
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MySQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Master Slave
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Master Slave" class="md-nav__link md-nav__link--active">
+      Master Slave
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mysql" class="md-nav__link">
+    1. 拉取MySQL镜像
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-12" class="md-nav__link">
+    2. 配置主从镜像(1主2从)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    创建容器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    主从库设置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      DevOps
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DevOps
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Dokcer
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Dokcer" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Dokcer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../DevOps/docker/" title="Basic" class="md-nav__link">
+      Basic
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mysql" class="md-nav__link">
+    1. 拉取MySQL镜像
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-12" class="md-nav__link">
+    2. 配置主从镜像(1主2从)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    创建容器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    主从库设置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/DataBase/MySQL/master-slave.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Master Slave</h1>
+                
+                <h3 align="center"><b>MySQL 主从安装和配置(Docker版)</b></h3>
+
+<h4 id="1-mysql">1. 拉取MySQL镜像<a class="headerlink" href="#1-mysql" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code># docker pull mysql
+Using default tag: latest
+Trying to pull repository docker.io/library/mysql ... 
+latest: Pulling from docker.io/library/mysql
+bf5952930446: Pull complete 
+8254623a9871: Pull complete 
+938e3e06dac4: Pull complete 
+ea28ebf28884: Pull complete 
+f3cef38785c2: Pull complete 
+894f9792565a: Pull complete 
+1d8a57523420: Pull complete 
+6c676912929f: Pull complete 
+ff39fdb566b4: Pull complete 
+fff872988aba: Pull complete 
+4d34e365ae68: Pull complete 
+7886ee20621e: Pull complete 
+Digest: sha256:c358e72e100ab493a0304bda35e6f239db2ec8c9bb836d8a427ac34307d074ed
+Status: Downloaded newer image for docker.io/mysql:latest
+</code></pre></div>
+
+<h4 id="2-12">2. 配置主从镜像(1主2从)<a class="headerlink" href="#2-12" title="Permanent link">&para;</a></h4>
+<p>2.1 配置主从文件夹
+<div class="highlight"><pre><span></span><code># mkdir -p /usr/mysql/master
+# mkdir -p /usr/mysql/slave1
+# mkdir -p /usr/mysql/slave2
+</code></pre></div></p>
+<p>2.2 在3个目录下创建Dockerfile
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span> <span class="s">mysql</span>
+<span class="k">COPY</span> my.cnf /etc/mysql/
+<span class="c">#RUN sed -i &quot;s@http://deb.debian.org@http://mirrors.aliyun.com@g&quot; /etc/apt/sources.list &amp;&amp; rm -Rf /var/lib/apt/lists/* &amp;&amp; apt-get update</span>
+<span class="k">EXPOSE</span><span class="s"> 3306</span>
+<span class="k">CMD</span> <span class="p">[</span><span class="s2">&quot;mysqld&quot;</span><span class="p">]</span>
+</code></pre></div></p>
+<p>2.3 在3个目录下分别创建my.cnf文件  </p>
+<p>master (/usr/mysql/master/my.cnf)
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">log-bin</span><span class="o">=</span><span class="s">mysql-bin-master</span>
+<span class="na">server-id</span><span class="o">=</span><span class="s">11</span>
+<span class="na">secure_file_priv</span><span class="o">=</span><span class="s">/var/lib/mysql</span>
+<span class="na">binlog-format</span><span class="o">=</span><span class="s">mixed</span>
+<span class="na">binlog-do-db</span><span class="o">=</span><span class="s">demo</span>
+<span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
+<span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
+<span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+</code></pre></div></p>
+<p>slave1 (/usr/mysql/slave1/my.cnf)
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">log-bin</span><span class="o">=</span><span class="s">mysql-bin-slave1</span>
+<span class="na">server-id</span><span class="o">=</span><span class="s">21</span>
+<span class="na">secure_file_priv</span><span class="o">=</span><span class="s">/var/lib/mysql</span>
+<span class="na">binlog-format</span><span class="o">=</span><span class="s">mixed</span>
+<span class="na">replicate-do-db</span><span class="o">=</span><span class="s">demo</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+</code></pre></div></p>
+<p>slave2 (/usr/mysql/slave2/my.cnf)
+<div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
+<span class="na">log-bin</span><span class="o">=</span><span class="s">mysql-bin-slave2</span>
+<span class="na">server-id</span><span class="o">=</span><span class="s">22</span>
+<span class="na">secure_file_priv</span><span class="o">=</span><span class="s">/var/lib/mysql</span>
+<span class="na">binlog-format</span><span class="o">=</span><span class="s">mixed</span>
+<span class="na">replicate-do-db</span><span class="o">=</span><span class="s">demo</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">mysql</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
+<span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+</code></pre></div></p>
+<p>2.4 在3个目录下创建数据子目录data和配置子目录conf.d
+<div class="highlight"><pre><span></span><code># mkdir data
+# mkdir conf.d
+</code></pre></div></p>
+<p>2.5 在3个目录下分别构建Docker镜像　</p>
+<p>master
+<div class="highlight"><pre><span></span><code># cd /usr/mysql/master
+# docker build -t master/mysql .
+</code></pre></div></p>
+<p>slave1
+<div class="highlight"><pre><span></span><code># cd /usr/mysql/slave1
+# docker build -t slave1/mysql .
+</code></pre></div></p>
+<p>slave2
+<div class="highlight"><pre><span></span><code># cd /usr/mysql/slave2
+# docker build -t slave2/mysql .
+</code></pre></div></p>
+<p>查看创建好的镜像
+<div class="highlight"><pre><span></span><code># docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+slave2/mysql        latest              531514c39b89        3 seconds ago       544 MB
+slave1/mysql        latest              3cc0f5fb6aab        19 seconds ago      544 MB
+master/mysql        latest              a756ddedfa9d        57 seconds ago      544 MB
+</code></pre></div></p>
+<h4 id="_1">创建容器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>master
+<div class="highlight"><pre><span></span><code>docker run --name mysql-master -p 33306:3306 -v /usr/mysql/master/data:/var/lib/mysql -v /usr/mysql/master/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d master/mysql
+</code></pre></div></p>
+<p>slave1
+<div class="highlight"><pre><span></span><code>docker run --name mysql-slave1 -p 33307:3306 -v /usr/mysql/slave1/data:/var/lib/mysql -v /usr/mysql/slave1/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d slave1/mysql
+</code></pre></div></p>
+<p>slave2
+<div class="highlight"><pre><span></span><code>docker run --name mysql-slave2 -p 33308:3306 -v /usr/mysql/slave2/data:/var/lib/mysql -v /usr/mysql/slave2/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d slave2/mysql
+</code></pre></div></p>
+<h4 id="_2">主从库设置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>连接到master，进行设置
+<div class="highlight"><pre><span></span><code># docker exec -it mysql-master /bin/bash
+# mysql -uroot -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+mysql&gt; 
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;slave&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> <span class="k">BY</span> <span class="s1">&#39;slave&#39;</span><span class="p">;</span>
+<span class="c1">--GRANT ALL PRIVILEGES ON *.* TO &#39;slave&#39;@&#39;%&#39;;</span>
+<span class="k">GRANT</span> <span class="n">REPLICATION</span> <span class="n">SLAVE</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;slave&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">master</span> <span class="n">status</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">-------------------------+----------+--------------+-------------------------------------------------+-------------------+</span>
+<span class="o">|</span> <span class="n">File</span>                    <span class="o">|</span> <span class="k">Position</span> <span class="o">|</span> <span class="n">Binlog_Do_DB</span> <span class="o">|</span> <span class="n">Binlog_Ignore_DB</span>                                <span class="o">|</span> <span class="n">Executed_Gtid_Set</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------------+----------+--------------+-------------------------------------------------+-------------------+</span>
+<span class="o">|</span> <span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="o">-</span><span class="n">master</span><span class="p">.</span><span class="mi">000003</span> <span class="o">|</span>     <span class="mi">1356</span> <span class="o">|</span> <span class="n">demo</span>         <span class="o">|</span> <span class="n">mysql</span><span class="p">,</span><span class="n">information_schema</span><span class="p">,</span><span class="n">performance_schema</span><span class="p">,</span><span class="n">sys</span> <span class="o">|</span>                   <span class="o">|</span>
+<span class="o">+</span><span class="c1">-------------------------+----------+--------------+-------------------------------------------------+-------------------+</span>
+<span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div>
+
+<p>获取主库主机IP地址 
+<div class="highlight"><pre><span></span><code># docker inspect -f &#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; mysql-master
+172.18.0.2
+</code></pre></div></p>
+<p>配置两个从库，root用户默认所有权限开放
+<div class="highlight"><pre><span></span><code><span class="n">stop</span> <span class="n">slave</span><span class="p">;</span>
+<span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;mysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> <span class="k">BY</span> <span class="s1">&#39;mysql&#39;</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">SELECT</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;mysql&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="n">CHANGE</span> <span class="n">MASTER</span> <span class="k">TO</span> <span class="n">MASTER_HOST</span><span class="o">=</span><span class="s1">&#39;172.18.0.2&#39;</span><span class="p">,</span> <span class="n">MASTER_PORT</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span> <span class="n">MASTER_USER</span><span class="o">=</span><span class="s1">&#39;slave&#39;</span><span class="p">,</span> <span class="n">MASTER_PASSWORD</span><span class="o">=</span><span class="s1">&#39;slave&#39;</span><span class="p">,</span> <span class="n">MASTER_LOG_FILE</span><span class="o">=</span><span class="s1">&#39;mysql-bin-master.000003&#39;</span><span class="p">,</span> <span class="n">MASTER_LOG_POS</span><span class="o">=</span><span class="mi">1356</span><span class="p">;</span>
+<span class="k">start</span> <span class="n">slave</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">slave</span> <span class="n">status</span><span class="err">\</span><span class="k">G</span><span class="p">;</span>
+<span class="o">***************************</span> <span class="mi">1</span><span class="p">.</span> <span class="k">row</span> <span class="o">***************************</span>
+               <span class="n">Slave_IO_State</span><span class="p">:</span> <span class="n">Waiting</span> <span class="k">for</span> <span class="n">master</span> <span class="k">to</span> <span class="n">send</span> <span class="n">event</span>
+                  <span class="n">Master_Host</span><span class="p">:</span> <span class="mi">172</span><span class="p">.</span><span class="mi">18</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">2</span>
+                  <span class="n">Master_User</span><span class="p">:</span> <span class="n">slave</span>
+                  <span class="n">Master_Port</span><span class="p">:</span> <span class="mi">3306</span>
+                <span class="n">Connect_Retry</span><span class="p">:</span> <span class="mi">60</span>
+              <span class="n">Master_Log_File</span><span class="p">:</span> <span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="o">-</span><span class="n">master</span><span class="p">.</span><span class="mi">000003</span>
+          <span class="n">Read_Master_Log_Pos</span><span class="p">:</span> <span class="mi">1356</span>
+               <span class="n">Relay_Log_File</span><span class="p">:</span> <span class="mi">8</span><span class="n">adaf85d8b70</span><span class="o">-</span><span class="n">relay</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="mi">000002</span>
+                <span class="n">Relay_Log_Pos</span><span class="p">:</span> <span class="mi">331</span>
+        <span class="n">Relay_Master_Log_File</span><span class="p">:</span> <span class="n">mysql</span><span class="o">-</span><span class="n">bin</span><span class="o">-</span><span class="n">master</span><span class="p">.</span><span class="mi">000003</span>
+             <span class="n">Slave_IO_Running</span><span class="p">:</span> <span class="n">Yes</span>
+            <span class="n">Slave_SQL_Running</span><span class="p">:</span> <span class="n">Yes</span>
+              <span class="n">Replicate_Do_DB</span><span class="p">:</span> <span class="n">demo</span>
+          <span class="n">Replicate_Ignore_DB</span><span class="p">:</span> <span class="n">mysql</span><span class="p">,</span><span class="n">information_schema</span><span class="p">,</span><span class="n">performance_schema</span><span class="p">,</span><span class="n">sys</span>
+</code></pre></div></p>
+<p><code>Slave_IO_Running</code>和<code>Slave_SQL_Running</code>均为Yes时表示配置成功</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../../SpringBoot/04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Understanding Auto-Configuration
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../../DevOps/docker/" title="Basic" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Basic
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
