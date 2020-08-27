@@ -38,10 +38,10 @@ $ mvn archetype:generate -DgroupId=deep-in-spring-boot -DartifactId=first-spring
 [INFO] Finished at: 2020-08-01T23:51:37+08:00
 ```
 
-```archetype```是Maven插件```maven-archetype-plugin```的简称  
-插件目标：```archetype:generate```   
-插件参数：GAV信息```groupId```，```artifactId```，```version```和包名```package```    
-交互式参数：```interactiveMode```为```false```，使用静默方式
+`archetype`是Maven插件`maven-archetype-plugin`的简称  
+插件目标：`archetype:generate`   
+插件参数：GAV信息`groupId`，`artifactId`，`version`和包名`package`    
+交互式参数：`interactiveMode`为`false`，使用静默方式
 
 查看项目结构：
 ```cmd
@@ -81,10 +81,10 @@ $ tree
 13 directories, 3 files
 ```
 
-```App.java```是引导类，```AppTest.java```是单元测试类  
-在```pom.xml```中，```archetype```插件添加了```junit```的依赖
+`App.java`是引导类，`AppTest.java`是单元测试类  
+在`pom.xml`中，`archetype`插件添加了`junit`的依赖
 
-在```pom.xml```中添加Spring Boot的web依赖：
+在`pom.xml`中添加Spring Boot的web依赖：
 ```xml
 <dependency>
   <groupId>org.springframework.boot</groupId>
@@ -93,7 +93,7 @@ $ tree
 </dependency>
 ```
 
-查看项目```dependency```树的变化：
+查看项目`dependency`树的变化：
 ```cmd
 $ mvn dependency:tree -Dincludes=org.springframework*
 [INFO] Scanning for projects...
@@ -127,7 +127,7 @@ $ mvn dependency:tree -Dincludes=org.springframework*
 [INFO] ------------------------------------------------------------------------
 ```
 
-编写```App.java```代码：
+编写`App.java`代码：
 ```java
 @RestController
 @SpringBootApplication
@@ -144,7 +144,7 @@ public class App {
 }
 ```
 
-使用Maven插件方式```mvn spring-boot:run```运行项目：
+使用Maven插件方式`mvn spring-boot:run`运行项目：
 ```cmd
 $ mvn spring-boot:run
 [INFO] Scanning for projects...
@@ -172,9 +172,9 @@ https://docs.spring.io/spring-boot/docs/current/reference
 
 有如下内容：
 >2.4.4. Running the Example  
-At this point, your application should work. Since you used the ```spring-boot-starter-parent``` POM, you have a useful run goal that you can use to start the application. Type ```mvn spring-boot:run``` from the root project directory to start the application. 
+At this point, your application should work. Since you used the `spring-boot-starter-parent` POM, you have a useful run goal that you can use to start the application. Type `mvn spring-boot:run` from the root project directory to start the application. 
 
-在```pom.xml```中添加```spring-boot-starter-parent```：
+在`pom.xml`中添加`spring-boot-starter-parent`：
 ```xml
 <parent>
     <groupId>org.springframework.boot</groupId>
@@ -287,7 +287,7 @@ Archive:  first-application-by-gui.zip
   inflating: first-application-by-gui/pom.xml  
 ```
 
-使用```tree```命令查看：
+使用`tree`命令查看：
 ```cmd
 $ tree -a first-application-by-gui
 first-application-by-gui
@@ -324,7 +324,7 @@ first-application-by-gui
 18 directories, 11 files
 ```
 
-```.gitignore``` 文件定义了常见的文件或目录的版本控制忽略名单，比如：
+`.gitignore` 文件定义了常见的文件或目录的版本控制忽略名单，比如：
 ```cmd
 HELP.md
 target/
@@ -361,7 +361,7 @@ build/
 .vscode/
 ```
 
-Maven Wrapper文件包含```.mvn```目录、```mvnw```和```mvnw.cmd```文件，  
+Maven Wrapper文件包含`.mvn`目录、`mvnw`和`mvnw.cmd`文件，  
 参考：https://github.com/takari/maven-wrapper  
 可以不安装Maven而直接使用，比如：
 >Normally you instruct users to install a specific version of Apache Maven, put it on the PATH and then run the mvn command like the following:  
@@ -373,9 +373,9 @@ Maven Wrapper文件包含```.mvn```目录、```mvnw```和```mvnw.cmd```文件，
 >./mvnw clean install
 >```
 
-```application.properties```文件  是Spring Boot默认的应用外部配置文件，其配置属性可以影响应用程序的行为。
+`application.properties`文件  是Spring Boot默认的应用外部配置文件，其配置属性可以影响应用程序的行为。
 
-```FirstApplicationByGuiApplicationTests.java```文件  是Spring Boot单元测试的模版JUnit文件，其路径和对应的引导文件```FirstApplicationByGuiApplication.java```对应。
+`FirstApplicationByGuiApplicationTests.java`文件  是Spring Boot单元测试的模版JUnit文件，其路径和对应的引导文件`FirstApplicationByGuiApplication.java`对应。
 
 启动项目并访问：
 ```cmd
@@ -385,7 +385,7 @@ $ curl http://127.0.0.1:8080/
 
 因项目没有编写默认服务而报404错误  
 
-安装```jsonpp```查看JSON响应：
+安装`jsonpp`查看JSON响应：
 ```cmd
 $ brew install jsonpp
 ==> Downloading https://mirrors.aliyun.com/homebrew/homebrew-bottles/bottles/jsonpp-1.3.0_1.catalina.bottle.tar.gz
@@ -416,9 +416,9 @@ We finish our example by creating a completely self-contained executable jar fil
 
  可执行的JAR又称为“fat jars”
 
->To create an executable jar, we need to add the ```spring-boot-maven-plugin``` to our ```pom.xml```. To do so, insert the following lines just below the ```dependencies``` section:
+>To create an executable jar, we need to add the `spring-boot-maven-plugin` to our `pom.xml`. To do so, insert the following lines just below the `dependencies` section:
 
-根据官方文档解释，添加如下内容到```pom.xml```中：
+根据官方文档解释，添加如下内容到`pom.xml`中：
 ```xml
 <build>
     <plugins>
@@ -430,7 +430,7 @@ We finish our example by creating a completely self-contained executable jar fil
 </build>
 ```
 
-然后执行```mvn package```命令：
+然后执行`mvn package`命令：
 ```cmd
 $ mvn package
 [INFO] Scanning for projects...
@@ -476,7 +476,7 @@ $ mvn package
 [INFO] ------------------------------------------------------------------------
 ```
 
-最终生成的```first-application-by-gui-0.0.1-SNAPSHOT.jar```就在```target```目录下，使用```java -jar```命令运行JAR：
+最终生成的`first-application-by-gui-0.0.1-SNAPSHOT.jar`就在`target`目录下，使用`java -jar`命令运行JAR：
 ```cmd
 $ java -jar target/first-application-by-gui-0.0.1-SNAPSHOT.jar
 
@@ -500,11 +500,11 @@ $ java -jar target/first-application-by-gui-0.0.1-SNAPSHOT.jar
 2020-08-02 17:24:34.231  INFO 4219 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Started FirstApplicationByGuiApplication in 1.523 seconds (JVM running for 1.894)
 ```
 
-```java -jar```方式和```mvn spring-boot:run```方式基本无异
+`java -jar`方式和`mvn spring-boot:run`方式基本无异
 
 #### 4. Spring Boot可执行JAR资源结构
 
-在```target```目录下执行```tree -h```
+在`target`目录下执行`tree -h`
 ```cmd
 $ tree -h
 .
@@ -546,9 +546,9 @@ $ tree -h
 22 directories, 12 files
 ```
 
-```first-application-by-gui-0.0.1-SNAPSHOT.jar.original```是未包含第三方依赖的本地资源(编译后的```classes```目录下的资源)，所占空间仅3K，而可执行JAR的大小为16M。
+`first-application-by-gui-0.0.1-SNAPSHOT.jar.original`是未包含第三方依赖的本地资源(编译后的`classes`目录下的资源)，所占空间仅3K，而可执行JAR的大小为16M。
 
-解压缩```first-application-by-gui-0.0.1-SNAPSHOT.jar```到临时目录temp并查看：
+解压缩`first-application-by-gui-0.0.1-SNAPSHOT.jar`到临时目录temp并查看：
 ```cmd
 $ unzip first-application-by-gui-0.0.1-SNAPSHOT.jar -d temp
 Archive:  first-application-by-gui-0.0.1-SNAPSHOT.jar
@@ -615,12 +615,12 @@ temp/
 
 其中
 
-+ ```BOOT-INT/classes``` 目录存放应用编译后的class文件
-+ ```BOOT-INF/lib``` 目录存放应用依赖的jar包
-+ ```META-INF``` 目录存放应用相关的元信息，比如```MANIFEST.MF```文件
-+ ```org``` 目录存放Spring Boot框架相关的class文件
++ `BOOT-INT/classes` 目录存放应用编译后的class文件
++ `BOOT-INF/lib` 目录存放应用依赖的jar包
++ `META-INF` 目录存放应用相关的元信息，比如`MANIFEST.MF`文件
++ `org` 目录存放Spring Boot框架相关的class文件
 
-解压缩```first-application-by-gui-0.0.1-SNAPSHOT.jar.original```文件并比较二者目录差异：
+解压缩`first-application-by-gui-0.0.1-SNAPSHOT.jar.original`文件并比较二者目录差异：
 ```cmd
 $ unzip first-application-by-gui-0.0.1-SNAPSHOT.jar.original -d original
 Archive:  first-application-by-gui-0.0.1-SNAPSHOT.jar.original
@@ -655,17 +655,17 @@ original/
 8 directories, 5 files
 ```
 
-除了```META-INF```目录，其余均发生了变化，将class文件和```application.properties```放到了```BOOT-INF/classes```下，将所有依赖的jar包都放到了```BOOT-INF/lib```下。这和传统Java Web项目是类似的，所有class文件放在```WEB-INF/classes```下，而所有依赖在```WEB-INF/lib```下。
+除了`META-INF`目录，其余均发生了变化，将class文件和`application.properties`放到了`BOOT-INF/classes`下，将所有依赖的jar包都放到了`BOOT-INF/lib`下。这和传统Java Web项目是类似的，所有class文件放在`WEB-INF/classes`下，而所有依赖在`WEB-INF/lib`下。
 
-#### 5. JAR执行模块```spring-boot-loader```
+#### 5. JAR执行模块`spring-boot-loader`
 
-可执行JAR包被```java -jar```命令执行时，其并不能感知jar文件是否是Spring Boot插件打包而来，执行按照标准JAR文件来进行。
+可执行JAR包被`java -jar`命令执行时，其并不能感知jar文件是否是Spring Boot插件打包而来，执行按照标准JAR文件来进行。
 
 Java标准参考：  
 https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html
 >If the -jar option is specified, its argument is the name of the JAR file containing class and resource files for the application. The startup class must be indicated by the Main-Class manifest header in its source code.
 
-也就是```MANIFEST.MF```文件必须在```META-INF```目录下，查看该文件:
+也就是`MANIFEST.MF`文件必须在`META-INF`目录下，查看该文件:
 ```cmd
 $ cd temp
 $ cat META-INF/MANIFEST.MF 
@@ -682,7 +682,7 @@ Created-By: Maven Jar Plugin 3.2.0
 Main-Class: org.springframework.boot.loader.JarLauncher
 ```
 
-发现```Main-Class```属性为```org.springframework.boot.loader.JarLauncher```，而项目的引导类在```Start-Class```属性中，参考官方文档介绍：
+发现`Main-Class`属性为`org.springframework.boot.loader.JarLauncher`，而项目的引导类在`Start-Class`属性中，参考官方文档介绍：
 >You need to specify an appropriate Launcher as the Main-Class attribute of META-INF/MANIFEST.MF. The actual class that you want to launch (that is, the class that contains a main method) should be specified in the Start-Class attribute.  
 >The following example shows a typical MANIFEST.MF for an executable jar file:
 >```
@@ -694,9 +694,9 @@ Main-Class: org.springframework.boot.loader.JarLauncher
 >Main-Class: org.springframework.boot.loader.WarLauncher
 >Start-Class: com.mycompany.project.MyApplication
 >```
-可以看到，JAR和WAR对应了不同的```Launcher```实现.
+可以看到，JAR和WAR对应了不同的`Launcher`实现.
 
-因为```org.springframework.boot.loader.JarLauncher```并非项目中的文件，那么它是由```spring-boot-maven-plugin```插件在打包时引入的，为了研究，先去查找它的所属，在 https://search.maven.org/ 中，可以直接按类全名搜索，找到GAV信息
+因为`org.springframework.boot.loader.JarLauncher`并非项目中的文件，那么它是由`spring-boot-maven-plugin`插件在打包时引入的，为了研究，先去查找它的所属，在 https://search.maven.org/ 中，可以直接按类全名搜索，找到GAV信息
 
 ![search.maven.org](./img/search.maven.org.png)
 
@@ -708,7 +708,7 @@ Main-Class: org.springframework.boot.loader.JarLauncher
 </dependency>
 ```
 
-既然```org.springframework.boot.loader.JarLauncher```是```MANIFEAST.MF```定义的主引导类，那么直接运行该文件也能启动项目：
+既然`org.springframework.boot.loader.JarLauncher`是`MANIFEAST.MF`定义的主引导类，那么直接运行该文件也能启动项目：
 ```cmd
 $ java org.springframework.boot.loader.JarLauncher
 
@@ -732,7 +732,7 @@ $ java org.springframework.boot.loader.JarLauncher
 2020-08-02 19:53:48.448  INFO 4807 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Started FirstApplicationByGuiApplication in 1.288 seconds (JVM running for 1.585)
 ```
 
-从输出中也能看到```deep.in.spring.boot.FirstApplicationByGuiApplication```被```JarLauncher```装载并执行，也就是```META-INF/MANIFEST.MF```中的```Start-Class```被```JarLauncher```执行。若直接使用java命令执行```deep.in.spring.boot.FirstApplicationByGuiApplication```：
+从输出中也能看到`deep.in.spring.boot.FirstApplicationByGuiApplication`被`JarLauncher`装载并执行，也就是`META-INF/MANIFEST.MF`中的`Start-Class`被`JarLauncher`执行。若直接使用java命令执行`deep.in.spring.boot.FirstApplicationByGuiApplication`：
 
 ```cmd
 $ cd BOOT-INF/classes
@@ -747,14 +747,14 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.boot.SpringAppl
 	... 1 more
 ```
 
-提示找不到类```org.springframework.boot.SpringApplication```，这是由于java命令没有指定```classpath```，加上```classpath```参数之后，也能启动程序：
+提示找不到类`org.springframework.boot.SpringApplication`，这是由于java命令没有指定`classpath`，加上`classpath`参数之后，也能启动程序：
 ```cmd
 $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplication
 ```
 
 #### 6. JarLauncher的实现原理
 
-在```pom.xml```中添加如下内容，用于源码分析：
+在`pom.xml`中添加如下内容，用于源码分析：
 ```xml
 <!-- spring-boot-loader 分析 -->
 <dependency>
@@ -766,28 +766,28 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 
 >以下分析均基于org.springframework.boot:spring-boot-loader:2.3.1.RELEASE
 
-因为运行时```spring-boot-loader```在JAR文件中存在，所以这里```scope```定为```provided```。
+因为运行时`spring-boot-loader`在JAR文件中存在，所以这里`scope`定为`provided`。
 
-在IDEA中对```spring-boot-loader```开启断点调试：
+在IDEA中对`spring-boot-loader`开启断点调试：
 + 将项目打包
-+ 在IDEA的```Run/Debug Configuration```中新建```JAR Application```
++ 在IDEA的`Run/Debug Configuration`中新建`JAR Application`
 + 填写相关信息，如下图
 ![debug.springboot.loader](img/debug.springboot.loader.png)
 
-在IDEA中按```command+O```查找```org.springframework.boot.loader.JarLauncher```，即可从```main()```方法开始跟踪调试。
+在IDEA中按`command+O`查找`org.springframework.boot.loader.JarLauncher`，即可从`main()`方法开始跟踪调试。
 
-```JarLauncher```继承自```org.springframework.boot.loader.Launcher```，关系如下图所示：
+`JarLauncher`继承自`org.springframework.boot.loader.Launcher`，关系如下图所示：
 
 ![](img/puml-spring-boot-loader-launcher.png)
 
-```JarLauncher```的```main()```方法为：
+`JarLauncher`的`main()`方法为：
 ```java
 	public static void main(String[] args) throws Exception {
 		new JarLauncher().launch(args);
 	}
 ```
 
-```Launcher#launch(args)```实现为：
+`Launcher#launch(args)`实现为：
 ```java
 	protected void launch(String[] args) throws Exception {
 		if (!isExploded()) {
@@ -800,7 +800,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-其中```JarFile.registerUrlProtocolHandler()```方法为：
+其中`JarFile.registerUrlProtocolHandler()`方法为：
 ```java
 	private static final String PROTOCOL_HANDLER = "java.protocol.handler.pkgs";
 
@@ -832,7 +832,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-该方法将```org.springframework.boot.loader```追加到Java系统属性```java.protocol.handler.pkgs```中，也就是```org.springframework.boot.loader```包下存在一个```Handler```类，即```org.springframework.boot.loader.jar.Handler```，它扩展了```URLStreamHandler```，这是```java.net.URLStreamHandler```的扩展机制实现的，由```URL#getURLStreamHandler(String protocol)```方法提供：
+该方法将`org.springframework.boot.loader`追加到Java系统属性`java.protocol.handler.pkgs`中，也就是`org.springframework.boot.loader`包下存在一个`Handler`类，即`org.springframework.boot.loader.jar.Handler`，它扩展了`URLStreamHandler`，这是`java.net.URLStreamHandler`的扩展机制实现的，由`URL#getURLStreamHandler(String protocol)`方法提供：
 ```java
     private static final String protocolPathProp = "java.protocol.handler.pkgs";
 
@@ -943,18 +943,18 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
     }
 ```
 
-其中JDK内建协议放在```sun.net.www.protocol```包下，类全名模式为```sun.net.www.protocol.${protocol}.Handler```，```${protocol}```为协议名，常见协议有：
+其中JDK内建协议放在`sun.net.www.protocol`包下，类全名模式为`sun.net.www.protocol.${protocol}.Handler`，`${protocol}`为协议名，常见协议有：
 
-+ FILE : ```sun.net.www.protocol.file.Handler```
-+ JAR : ```sun.net.www.prorocol.jar.Handler```
-+ HTTP : ```sun.net.www.prorocol.http.Handler```
-+ HTTPS : ```sun.net.www.prorocol.https.Handler```
-+ FTP : ```sun.net.www.prorocol.ftp.Handler```
++ FILE : `sun.net.www.protocol.file.Handler`
++ JAR : `sun.net.www.prorocol.jar.Handler`
++ HTTP : `sun.net.www.prorocol.http.Handler`
++ HTTPS : `sun.net.www.prorocol.https.Handler`
++ FTP : `sun.net.www.prorocol.ftp.Handler`
 
-回到```org.springframework.boot.loader.jar.Handler```中，按照类名模式，实现协议为JAR，覆盖了JDK的内建实现，因为Spring Boot的FAT JAR包含了传统的java JAR资源，还包含了依赖的JAR文件，它是一个独立的应用归档文件，当使用```java -jar```命令来引导时，内部的JAR文件无法被内建的```sun.net.www.prorocol.jar.Handler```当作```classpath```，所以需要替换实现。
->具体可以参考```org.springframework.boot.loader.jar.JarURLConnection#get(URL url, JarFile jarFile)```方法和```org.springframework.boot.loader.jar.JarFile```类。
+回到`org.springframework.boot.loader.jar.Handler`中，按照类名模式，实现协议为JAR，覆盖了JDK的内建实现，因为Spring Boot的FAT JAR包含了传统的java JAR资源，还包含了依赖的JAR文件，它是一个独立的应用归档文件，当使用`java -jar`命令来引导时，内部的JAR文件无法被内建的`sun.net.www.prorocol.jar.Handler`当作`classpath`，所以需要替换实现。
+>具体可以参考`org.springframework.boot.loader.jar.JarURLConnection#get(URL url, JarFile jarFile)`方法和`org.springframework.boot.loader.jar.JarFile`类。
 
-```Launcher#launch(args)```方法的第二步为```createClassLoader(getClassPathArchivesIterator())```，其中```getClassPathArchivesIterator()```方法由```ExecutableArchiveLauncher```提供：
+`Launcher#launch(args)`方法的第二步为`createClassLoader(getClassPathArchivesIterator())`，其中`getClassPathArchivesIterator()`方法由`ExecutableArchiveLauncher`提供：
 ```java
 	@Override
 	protected Iterator<Archive> getClassPathArchivesIterator() throws Exception {
@@ -968,7 +968,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-而```isNestedArchive(Archive.Entry entry)```方法则由子类```JarLauncher```或```WarLauncher```提供，在```JarLauncher```中：
+而`isNestedArchive(Archive.Entry entry)`方法则由子类`JarLauncher`或`WarLauncher`提供，在`JarLauncher`中：
 ```java
     static final EntryFilter NESTED_ARCHIVE_ENTRY_FILTER = (entry) -> {
 		if (entry.isDirectory()) {
@@ -983,7 +983,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-也就是过滤```Archive.Entry```所匹配的名称是```BOOT-INF/classes/```还是```BOOT-INF/lib/```前缀，而```getClassPathArchivesIterator()```方法返回结果还是取决于```archive```属性的内容：
+也就是过滤`Archive.Entry`所匹配的名称是`BOOT-INF/classes/`还是`BOOT-INF/lib/`前缀，而`getClassPathArchivesIterator()`方法返回结果还是取决于`archive`属性的内容：
 ```java
 	public ExecutableArchiveLauncher() {
 		try {
@@ -996,7 +996,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-此处```archive```源于父类```Launcher```的```createArchive()```方法：
+此处`archive`源于父类`Launcher`的`createArchive()`方法：
 ```java
 	protected final Archive createArchive() throws Exception {
 		ProtectionDomain protectionDomain = getClass().getProtectionDomain();
@@ -1014,9 +1014,9 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-这里主要通过```Launcher```所在的媒介，判断是```JarFileArchive```还是```ExplodedArchive```(解压目录)，因为该方法是```final```类型，所以子类```JarLauncher```或```WarLauncher```均继承该实现。
+这里主要通过`Launcher`所在的媒介，判断是`JarFileArchive`还是`ExplodedArchive`(解压目录)，因为该方法是`final`类型，所以子类`JarLauncher`或`WarLauncher`均继承该实现。
 
-再往后就是根据获取到的archives去创建```ClassLoader```，在```ExecutableArchiveLauncher```中：
+再往后就是根据获取到的archives去创建`ClassLoader`，在`ExecutableArchiveLauncher`中：
 ```java
 	@Override
 	protected ClassLoader createClassLoader(Iterator<Archive> archives) throws Exception {
@@ -1031,14 +1031,14 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-最后调用```Launcher```中的```createClassLoader(URL[] urls)```方法创建```ClassLoader```：
+最后调用`Launcher`中的`createClassLoader(URL[] urls)`方法创建`ClassLoader`：
 ```java
 	protected ClassLoader createClassLoader(URL[] urls) throws Exception {
 		return new LaunchedURLClassLoader(isExploded(), getArchive(), urls, getClass().getClassLoader());
 	}
 ```
 
-之后确定```launchClass```的内容，就是从```MANIFEST.MF```中获取```Start-Class```的内容，在```ExecutableArchiveLauncher```中：
+之后确定`launchClass`的内容，就是从`MANIFEST.MF`中获取`Start-Class`的内容，在`ExecutableArchiveLauncher`中：
 ```java
     private static final String START_CLASS_ATTRIBUTE = "Start-Class";
 
@@ -1056,7 +1056,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-紧接着调用实际的引导类```launch(String[] args, String launchClass, ClassLoader classLoader)```
+紧接着调用实际的引导类`launch(String[] args, String launchClass, ClassLoader classLoader)`
 ```java
     protected void launch(String[] args, String launchClass, ClassLoader classLoader) throws Exception {
 		Thread.currentThread().setContextClassLoader(classLoader);
@@ -1068,7 +1068,7 @@ $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplicat
 	}
 ```
 
-实际执行的方法为```MainMethodRunner#run()```：
+实际执行的方法为`MainMethodRunner#run()`：
 ```java
 public class MainMethodRunner {
 
@@ -1091,11 +1091,11 @@ public class MainMethodRunner {
 }
 ```
 
-最后将```mainClass```中的```main(String[])```方法按静态方法调用，最终```JarLauncher```是在同进程内调用```Start-Class```的```main(String[])```方法，并且在这之前准备好Class Path。
+最后将`mainClass`中的`main(String[])`方法按静态方法调用，最终`JarLauncher`是在同进程内调用`Start-Class`的`main(String[])`方法，并且在这之前准备好Class Path。
 
 #### 7. WarLauncher的差异
 
-和```JarLauncher```差异不大，二者都是继承自```ExecutableArchiveLauncher```：
+和`JarLauncher`差异不大，二者都是继承自`ExecutableArchiveLauncher`：
 ```java
 public class WarLauncher extends ExecutableArchiveLauncher {
 
@@ -1131,9 +1131,9 @@ public class WarLauncher extends ExecutableArchiveLauncher {
 }
 ```
 
-主要区别在于和JAR的Class Path不同，```WEB-INF/classes/```和```WEB-INF/lib/```是传统Servlet应用的Class Path路径，```WEB-INF/lib-provided/```是Spring Boot的```WarLauncher```定制实现。
+主要区别在于和JAR的Class Path不同，`WEB-INF/classes/`和`WEB-INF/lib/`是传统Servlet应用的Class Path路径，`WEB-INF/lib-provided/`是Spring Boot的`WarLauncher`定制实现。
 
-将```pom.xml```的```<packaging>```元素改为```war```：
+将`pom.xml`的`<packaging>`元素改为`war`：
 ```xml
 <packaging>war</packaging>
 ```
@@ -1197,7 +1197,7 @@ $ mvn clean package
 [INFO] ------------------------------------------------------------------------
 ```
 
-切换到```target```目录，将```first-spring-boot-application-1.0.0-SNAPSHOT.war```解压缩到temp目录下：
+切换到`target`目录，将`first-spring-boot-application-1.0.0-SNAPSHOT.war`解压缩到temp目录下：
 ```cmd
 $ cd target
 $ unzip first-spring-boot-application-1.0.0-SNAPSHOT.war -d temp
@@ -1276,11 +1276,11 @@ Archive:  first-spring-boot-application-1.0.0-SNAPSHOT.war
 21 directories, 99 files
 ```
 
-相比JAR的解压目录，WAR增加了```/WEB-INF/lib-provided/```，并且该目录下仅有一个JAR文件，就是```spring-boot-loader-2.3.1.RELEASE.jar```，也就是该目录下存放了```scope```为```provided```的JAR文件。
+相比JAR的解压目录，WAR增加了`/WEB-INF/lib-provided/`，并且该目录下仅有一个JAR文件，就是`spring-boot-loader-2.3.1.RELEASE.jar`，也就是该目录下存放了`scope`为`provided`的JAR文件。
 
-因为传统```Servlet```项目并不需要这个目录，那么```/WEB-INF/lib-provided/```中的JAR将被```Servlet```容器忽略，又比如Servlet API，该API由容器提供，但编码时需要。这样设计的好处在于WAR文件能够在```Servlet```容器中兼容运行。
+因为传统`Servlet`项目并不需要这个目录，那么`/WEB-INF/lib-provided/`中的JAR将被`Servlet`容器忽略，又比如Servlet API，该API由容器提供，但编码时需要。这样设计的好处在于WAR文件能够在`Servlet`容器中兼容运行。
 
-查看```META-INF/MANIFEST.MF```的内容：
+查看`META-INF/MANIFEST.MF`的内容：
 ```cmd
  $ cat META-INF/MANIFEST.MF 
 Manifest-Version: 1.0
@@ -1296,7 +1296,7 @@ Implementation-Vendor: Pivotal Software, Inc.
 Main-Class: org.springframework.boot.loader.WarLauncher
 ```
 
-更改为```war```方式打包后，```Main-Class```就是```org.springframework.boot.loader.WarLauncher```了，而```Start-Class```仍然不变。既然是```WarLauncher```为主引导类，那么依然可以使用```java -jar```命令来启动：
+更改为`war`方式打包后，`Main-Class`就是`org.springframework.boot.loader.WarLauncher`了，而`Start-Class`仍然不变。既然是`WarLauncher`为主引导类，那么依然可以使用`java -jar`命令来启动：
 ```cmd
 $ java -jar first-spring-boot-application-1.0.0-SNAPSHOT.war
 
@@ -1320,4 +1320,4 @@ $ java -jar first-spring-boot-application-1.0.0-SNAPSHOT.war
 2020-08-04 00:34:27.487  INFO 35990 --- [           main] deep.in.spring.boot.App                  : Started App in 2.373 seconds (JVM running for 2.815)
 ```
 
-由此可见，打包WAR文件是一种兼容措施，既能被```WarLauncher```启动，也能兼容```Servlet```容器。也就是说，```JarLauncher```和```WarLauncher```并无本质差别。
+由此可见，打包WAR文件是一种兼容措施，既能被`WarLauncher`启动，也能兼容`Servlet`容器。也就是说，`JarLauncher`和`WarLauncher`并无本质差别。

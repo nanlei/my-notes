@@ -16,7 +16,7 @@ nav:
     - MySQL:
       - 'Master Slave' : 'DataBase/MySQL/master-slave.md'
   - DevOps:
-    - Dokcer:
+    - Docker:
       - 'Basic' : 'DevOps/docker.md'
   - About:
     - 'Who Am I': 'about.md'

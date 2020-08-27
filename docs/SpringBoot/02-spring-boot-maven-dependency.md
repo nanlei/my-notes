@@ -1,15 +1,15 @@
 <h3 align="center"><b>02 - 固化的Maven依赖</b></h3>
 
-之前已经使用的```org.springframework.boot:spring-boot-starter-web```和```org.springframework.boot:spring-boot-loader```均继承自```org.springframework.boot:spring-boot-starter-parent```，比如版本信息，这些是Maven依赖管理的范畴，降低了Spring Boot依赖管理的成本。
+之前已经使用的`org.springframework.boot:spring-boot-starter-web`和`org.springframework.boot:spring-boot-loader`均继承自`org.springframework.boot:spring-boot-starter-parent`，比如版本信息，这些是Maven依赖管理的范畴，降低了Spring Boot依赖管理的成本。
 
-而配置```org.springframework.boot:spring-boot-starter-parent```也存在一定的限制，因为是单继承方式，限制了其依赖仅是Spring Boot相关。若要需要固化其他类型的依赖就比较麻烦，或者应用的```pom.xml```有自定义的parent。
+而配置`org.springframework.boot:spring-boot-starter-parent`也存在一定的限制，因为是单继承方式，限制了其依赖仅是Spring Boot相关。若要需要固化其他类型的依赖就比较麻烦，或者应用的`pom.xml`有自定义的parent。
 
-在官方文档 (https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/) 中，介绍了相关内容：
+在[官方文档](https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/html/) 中，介绍了相关内容：
 
 ><b>Using Spring Boot without the Parent POM</b>  
-There may be reasons for you not to inherit from the ```spring-boot-starter-parent``` POM. You may have your own corporate standard parent that you need to use or you may prefer to explicitly declare all your Maven configuration.  
+There may be reasons for you not to inherit from the `spring-boot-starter-parent` POM. You may have your own corporate standard parent that you need to use or you may prefer to explicitly declare all your Maven configuration.  
 >
->If you do not want to use the ```spring-boot-starter-parent```, you can still keep the benefit of the dependency management (but not the plugin management) by using an ```import``` scoped dependency, as follows:
+>If you do not want to use the `spring-boot-starter-parent`, you can still keep the benefit of the dependency management (but not the plugin management) by using an `import` scoped dependency, as follows:
 >```xml 
 ><dependencyManagement>
 >	<dependencies>
@@ -25,7 +25,7 @@ There may be reasons for you not to inherit from the ```spring-boot-starter-pare
 ></dependencyManagement>
 >```
 
-对示例项目作出调整，修改```pom.xml```文件：
+对示例项目作出调整，修改`pom.xml`文件：
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -87,7 +87,7 @@ There may be reasons for you not to inherit from the ```spring-boot-starter-pare
 </project>
 ```
 
-去掉```<parent>```元素，添加了```spring-boot-dependencies```，之后重新打包：
+去掉`<parent>`元素，添加了`spring-boot-dependencies`，之后重新打包：
 ```cmd
 $ mvn clean package
 [INFO] Scanning for projects...
@@ -152,9 +152,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
 ```
 
-打包失败了，错误原因是web应用的部署描述文件```WEB-INF/web.xml```在项目中并不存在，当设置```pom.xml```的```<packaging>war</packaging>```时，Maven会执行```maven-war-plugin:2.2```，```WEB-INF/web.xml```就是必须的。但是，在作出调整之前却没有这个问题，那么问题就在```spring-boot-dependencies```和```spring-boot-starter-parent```的差别之中。
+打包失败了，错误原因是web应用的部署描述文件`WEB-INF/web.xml`在项目中并不存在，当设置`pom.xml`的`<packaging>war</packaging>`时，Maven会执行`maven-war-plugin:2.2`，`WEB-INF/web.xml`就是必须的。但是，在作出调整之前却没有这个问题，那么问题就在`spring-boot-dependencies`和`spring-boot-starter-parent`的差别之中。
 
-查看```spring-boot-starter-parent-2.3.2.RELEASE.pom```
+查看`spring-boot-starter-parent-2.3.2.RELEASE.pom`
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -172,9 +172,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 </project>
 ```
 
-可以看出```spring-boot-dependencies```是```spring-boot-starter-parent```的```parent```，也就是说可以将```spring-boot-dependencies```直接作为```parent```。
+可以看出`spring-boot-dependencies`是`spring-boot-starter-parent`的`parent`，也就是说可以将`spring-boot-dependencies`直接作为`parent`。
 
-查看```spring-boot-dependencies-2.3.2.RELEASE.pom```，可以看到
+查看`spring-boot-dependencies-2.3.2.RELEASE.pom`，可以看到
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -218,9 +218,9 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 </project>
 ```
 
-无论是Spring Boot的依赖```spring-boot-starter-web```等，还是插件```maven-war-plugin```等，均定义在此处。当项目```pom.xml```文件用```<parent>```方式引入```spring-boot-starter-parent```时，```mvn package```将使用```maven-war-plugin:3.2.3```和```spring-boot-maven-plugin:2.3.2.RELEASE```。
+无论是Spring Boot的依赖`spring-boot-starter-web`等，还是插件`maven-war-plugin`等，均定义在此处。当项目`pom.xml`文件用`<parent>`方式引入`spring-boot-starter-parent`时，`mvn package`将使用`maven-war-plugin:3.2.3`和`spring-boot-maven-plugin:2.3.2.RELEASE`。
 
-相反，```<dependencyManagement>```方式导入```spring-boot-dependencies```尽管和前者相同，但此时仅关注```<dependencyManagement>```，所以```maven-war-plugin```采用的版本是2.2，手动添加```maven-war-plugin:3.2.3```到项目```pom.xml```中：
+相反，`<dependencyManagement>`方式导入`spring-boot-dependencies`尽管和前者相同，但此时仅关注`<dependencyManagement>`，所以`maven-war-plugin`采用的版本是2.2，手动添加`maven-war-plugin:3.2.3`到项目`pom.xml`中：
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -307,9 +307,9 @@ $ java -jar target/first-spring-boot-application-1.0.0-SNAPSHOT.war
 no main manifest attribute, in target/first-spring-boot-application-1.0.0-SNAPSHOT.war
 ```
 
-没有发现```MANIFEST.MF```，说明```spring-boot-maven-plugin```没有执行，官方文档对此有详细说明：
+没有发现`MANIFEST.MF`，说明`spring-boot-maven-plugin`没有执行，官方文档对此有详细说明：
 ><b>Create an Executable JAR with Maven</b>  
-The ```spring-boot-maven-plugin``` can be used to create an executable “fat” JAR. If you use the ```spring-boot-starter-parent``` POM, you can declare the plugin and your jars are repackaged as follows:
+The `spring-boot-maven-plugin` can be used to create an executable “fat” JAR. If you use the `spring-boot-starter-parent` POM, you can declare the plugin and your jars are repackaged as follows:
 >```xml
 ><build>
 >    <plugins>
@@ -321,7 +321,7 @@ The ```spring-boot-maven-plugin``` can be used to create an executable “fat”
 ></build>
 >```
 >
->If you do not use the parent POM, you can still use the plugin. However, you must additionally add an ```<executions>``` section, as follows:
+>If you do not use the parent POM, you can still use the plugin. However, you must additionally add an `<executions>` section, as follows:
 >```xml
 ><build>
 >   <plugins>
@@ -341,7 +341,7 @@ The ```spring-boot-maven-plugin``` can be used to create an executable “fat”
 ></build>
 >```
 
-对```pring-boot-maven-plugin```设置```execution```的```goal```为```repackage```后，再次打包：
+对`pring-boot-maven-plugin`设置`execution`的`goal`为`repackage`后，再次打包：
 ```cmd
 $ mvn clean package
 [INFO] Scanning for projects...
@@ -363,7 +363,7 @@ $ mvn clean package
 [INFO] ------------------------------------------------------------------------
 ```
 
-Maven日志中显示了```spring-boot-maven-plugin:2.3.2.RELEASE```插件的执行信息，再次启动程序：
+Maven日志中显示了`spring-boot-maven-plugin:2.3.2.RELEASE`插件的执行信息，再次启动程序：
 ```cmd
 $ java -jar target/first-spring-boot-application-1.0.0-SNAPSHOT.war 
 
@@ -387,11 +387,11 @@ $ java -jar target/first-spring-boot-application-1.0.0-SNAPSHOT.war
 2020-08-04 13:58:05.105  INFO 4253 --- [           main] deep.in.spring.boot.App                  : Started App in 2.212 seconds (JVM running for 2.633)
 ```
 
-至此项目可以正常启动了，在调整依赖配置的过程中(```<parent>```方式到```<dependencyManagement>```方式)，遇到了如下问题：
+至此项目可以正常启动了，在调整依赖配置的过程中(`<parent>`方式到`<dependencyManagement>`方式)，遇到了如下问题：
 
-+ ```maven-war-plugin```插件在版本上的差异  
-    + 2.2 版本默认的打包规则是必须存在Web应用部署描述文件```WEB-INF/web.xml```  
++ `maven-war-plugin`插件在版本上的差异  
+    + 2.2 版本默认的打包规则是必须存在Web应用部署描述文件`WEB-INF/web.xml`  
     + 3.2.3 版本中则调整了该行为  
-+ ```spring-boot-maven-plugin```插件在使用时注意添加```repackage```的```goal```，否则可能不会添加Spring Boot的引导依赖，从而无法启动程序
-+ 出于习惯，通常不将```spring-boot-dependencies```直接作为```<parent>```，尽管```spring-boot-starter-parent```也只是简单继承了```spring-boot-dependencies```
++ `spring-boot-maven-plugin`插件在使用时注意添加`repackage`的`goal`，否则可能不会添加Spring Boot的引导依赖，从而无法启动程序
++ 出于习惯，通常不将`spring-boot-dependencies`直接作为`<parent>`，尽管`spring-boot-starter-parent`也只是简单继承了`spring-boot-dependencies`
 
