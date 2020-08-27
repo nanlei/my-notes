@@ -613,17 +613,17 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
     
     <label class="md-nav__link" for="nav-4-1">
-      Dokcer
+      Docker
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="Dokcer" data-md-level="2">
+    <nav class="md-nav" aria-label="Docker" data-md-level="2">
       <label class="md-nav__title" for="nav-4-1">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </span>
-        Dokcer
+        Docker
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -837,23 +837,40 @@
 [INFO] Finished at: 2020-08-04T14:47:52+08:00
 [INFO] ------------------------------------------------------------------------
 </code></pre></div></p>
-<p>在Spring Boot官方网站(<a href="https://spring.io/projects/spring-boot">https://spring.io/projects/spring-boot</a>)，介绍Spring Boot的特性时，有如下内容</p>
+<p>在<a href="https://spring.io/projects/spring-boot" title="Spring Boot官方网站">Spring Boot官方网站</a>，介绍Spring Boot的特性时，有如下内容</p>
 <blockquote>
 <p>Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)</p>
 </blockquote>
-<p>示例项目都是Servlet Web程序，Spring Boot准备了3种嵌入式Web容器，分别是Tomcat，Jetty和Undertow。</p>
+<p>示例项目都是<code>Servlet</code> Web程序，Spring Boot准备了3种嵌入式Web容器，分别是<code>Tomcat</code>，<code>Jetty</code>和<code>Undertow</code>。</p>
 <p>在官方文档中，对3种Servlet容器的相关介绍：</p>
 <blockquote>
-<p>Spring Boot supports the following embedded servlet containers:
-| Name | Servlet Version |
-| :----: | :----: |
-| Tomcat 9.0 | 4.0 |
-| Jetty 9.4 | 3.1 |
-| Undertow 2.0 | 4.0 |
-You can also deploy Spring Boot applications to any Servlet 3.1+ compatible container.</p>
+<p>Spring Boot supports the following embedded servlet containers:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Servlet Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Tomcat 9.0</td>
+<td align="center">4.0</td>
+</tr>
+<tr>
+<td align="center">Jetty 9.4</td>
+<td align="center">3.1</td>
+</tr>
+<tr>
+<td align="center">Undertow 2.0</td>
+<td align="center">4.0</td>
+</tr>
+</tbody>
+</table>
+<p>You can also deploy Spring Boot applications to any Servlet 3.1+ compatible container.</p>
 </blockquote>
 <h4 id="1-tomcatservlet-web">1. Tomcat作为嵌入式Servlet Web容器<a class="headerlink" href="#1-tomcatservlet-web" title="Permanent link">&para;</a></h4>
-<p>嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Apache Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过<code>java -jar</code>命令启动。</p>
+<p>嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过<code>java -jar</code>命令启动。</p>
 <p>新建项目<code>servlet-sample</code>，结构如下：
 <div class="highlight"><pre><span></span><code>$ tree .
 .
@@ -898,18 +915,6 @@ You can also deploy Spring Boot applications to any Servlet 3.1+ compatible cont
         <span class="nt">&lt;servlet-name&gt;</span>HelloServlet<span class="nt">&lt;/servlet-name&gt;</span>
         <span class="nt">&lt;url-pattern&gt;</span>/hello<span class="nt">&lt;/url-pattern&gt;</span>
     <span class="nt">&lt;/servlet-mapping&gt;</span>
-
-    <span class="c">&lt;!-- RequestContextFilter 声明 --&gt;</span>
-    <span class="c">&lt;!--&lt;filter&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;filter-name&gt;RequestContextFilter&lt;/filter-name&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;filter-class&gt;org.springframework.web.filter.RequestContextFilter&lt;/filter-class&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;/filter&gt;--&gt;</span>
-
-    <span class="c">&lt;!-- RequestContextFilter 映射所有请求 --&gt;</span>
-    <span class="c">&lt;!--&lt;filter-mapping&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;filter-name&gt;RequestContextFilter&lt;/filter-name&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;url-pattern&gt;/*&lt;/url-pattern&gt;--&gt;</span>
-    <span class="c">&lt;!--&lt;/filter-mapping&gt;--&gt;</span>
 <span class="nt">&lt;/web-app&gt;</span>
 </code></pre></div></p>
 <p>声明了一个Servlet，并配置一对初始化参数，同时声明该Servlet的映射地址，编写Servlet类：
@@ -1117,7 +1122,7 @@ message : helloworld
 20 directories, 8 files
 </code></pre></div></p>
 <p>由此可见，Tomcat Maven插件并非嵌入式Tomcat，仍为传统Tomcat容器部署方式，将应用打包为<code>ROOT.war</code>，然后在Tomcat启动过程中将<code>ROOT.war</code>部署到<code>webapps</code>目录，但该插件支持指定<code>ServletContext</code>路径。</p>
-<p>Spring Boot使用嵌入式Tomcat构建为<code>TomcatWebServer</code> Bean，由Spring上下文将其引导，嵌入式组件的运行，ClassLoader的装载均由Spring Boot框架完成。</p>
+<p>Spring Boot使用嵌入式Tomcat构建为<code>TomcatWebServer</code> Bean，由Spring上下文将其引导，嵌入式组件的运行，<code>ClassLoader</code>的装载均由Spring Boot框架完成。</p>
 <p>Tomcat Maven插件打包后的JAR或WAR属于非FAT模式，归档文件会被压缩，而Spring Boot Maven插件<code>spring-boot-maven-plugin</code>使用零压缩模式，将应用归档到JAR或WAR包中，在jar命令帮助中有介绍：
 <div class="highlight"><pre><span></span><code>$ jar
 Usage: jar {ctxui}[vfmn0PMe] [jar-file] [manifest-file] [entry-point] [-C dir] files ...
@@ -1180,7 +1185,7 @@ Many Spring Boot starters include default embedded containers.</p>
 
 <p>The version of the Servlet API has been overridden as, unlike Tomcat 9 and Undertow 2.0, Jetty 9.4 does not support Servlet 4.0.</p>
 </blockquote>
-<p>根据官方文档的说明，修改first-spring-boot-application的pom.xml文件。前面也分析过spring-boot-starter-tomcat为spring-boot-starter-web间接引入，所以在依赖中需要排除，再添加新的Jetty依赖spring-boot-starter-jetty即可。</p>
+<p>根据官方文档的说明，新建项目<code>embedded-web-server</code>。前面分析过<code>spring-boot-starter-tomcat</code>为<code>spring-boot-starter-web</code>间接引入，所以在依赖中需要排除，再添加新的Jetty依赖<code>spring-boot-starter-jetty</code>即可。</p>
 <p>运行项目：
 <div class="highlight"><pre><span></span><code>$ mvn spring-boot:run
 [INFO] Scanning for projects...
@@ -1364,22 +1369,22 @@ Many Spring Boot starters include default embedded containers.</p>
 <p>此时仍然启动的是<code>UndertowWebServer</code>实例，但实际情况还是通过断点跟踪来一探究竟：</p>
 <p><img alt="UndertowReactiveWebServer" src="../img/undertow.reactive.web.server.png" /></p>
 <p>要注意的是，运行在REACTIVE类型下，Spring的上下文就是<code>ReactiveWebServerApplicationContext</code>了，其中的<code>createWebServer()</code>方法和<code>ServletWebServerApplicationContext</code>的略有不同：
- <code>java
-    private void createWebServer() {
-        WebServerManager serverManager = this.serverManager;
-        if (serverManager == null) {
-            String webServerFactoryBeanName = getWebServerFactoryBeanName();
-            ReactiveWebServerFactory webServerFactory = getWebServerFactory(webServerFactoryBeanName);
-            boolean lazyInit = getBeanFactory().getBeanDefinition(webServerFactoryBeanName).isLazyInit();
-            this.serverManager = new WebServerManager(this, webServerFactory, this::getHttpHandler, lazyInit);
-            getBeanFactory().registerSingleton("webServerGracefulShutdown",
-                new WebServerGracefulShutdownLifecycle(this.serverManager));
-            getBeanFactory().registerSingleton("webServerStartStop",
-                new WebServerStartStopLifecycle(this.serverManager));
-        }
-        initPropertySources();
-    }</code></p>
-<p>而Spring也为提供了<code>WebServerApplicationContext</code>，其中的<code>getWebServer()</code>方法就可以获取到运行的<code>WebServer</code>实例，在<code>App.java</code>中添加相关代码：
+<div class="highlight"><pre><span></span><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">createWebServer</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">WebServerManager</span> <span class="n">serverManager</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">serverManager</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">serverManager</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">String</span> <span class="n">webServerFactoryBeanName</span> <span class="o">=</span> <span class="n">getWebServerFactoryBeanName</span><span class="p">();</span>
+            <span class="n">ReactiveWebServerFactory</span> <span class="n">webServerFactory</span> <span class="o">=</span> <span class="n">getWebServerFactory</span><span class="p">(</span><span class="n">webServerFactoryBeanName</span><span class="p">);</span>
+            <span class="kt">boolean</span> <span class="n">lazyInit</span> <span class="o">=</span> <span class="n">getBeanFactory</span><span class="p">().</span><span class="na">getBeanDefinition</span><span class="p">(</span><span class="n">webServerFactoryBeanName</span><span class="p">).</span><span class="na">isLazyInit</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">serverManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WebServerManager</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">webServerFactory</span><span class="p">,</span> <span class="k">this</span><span class="p">::</span><span class="n">getHttpHandler</span><span class="p">,</span> <span class="n">lazyInit</span><span class="p">);</span>
+            <span class="n">getBeanFactory</span><span class="p">().</span><span class="na">registerSingleton</span><span class="p">(</span><span class="s">&quot;webServerGracefulShutdown&quot;</span><span class="p">,</span>
+                <span class="k">new</span> <span class="n">WebServerGracefulShutdownLifecycle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">serverManager</span><span class="p">));</span>
+            <span class="n">getBeanFactory</span><span class="p">().</span><span class="na">registerSingleton</span><span class="p">(</span><span class="s">&quot;webServerStartStop&quot;</span><span class="p">,</span>
+                <span class="k">new</span> <span class="n">WebServerStartStopLifecycle</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">serverManager</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="n">initPropertySources</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>二者都是<code>WebServerApplicationContext</code>接口的子类，其中的<code>getWebServer()</code>方法就可以获取到运行的<code>WebServer</code>实例，在<code>App.java</code>中添加相关代码：
 <div class="highlight"><pre><span></span><code>    <span class="nd">@Bean</span>
     <span class="kd">public</span> <span class="n">ApplicationRunner</span> <span class="nf">runner</span><span class="p">(</span><span class="n">WebServerApplicationContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="p">{</span>
@@ -1404,7 +1409,7 @@ Hello World
 <p>the following events are also published after <code>ApplicationPreparedEvent</code> and before <code>ApplicationStartedEvent</code>:<br />
 A <code>WebServerInitializedEvent</code> is sent after the <code>WebServer</code> is ready. <code>ServletWebServerInitializedEvent</code> and <code>ReactiveWebServerInitializedEvent</code> are the servlet and reactive variants respectively.</p>
 </blockquote>
-<p>Servlet和Reactive有各自的初始化事件，使用它们的父类WebServerInitializedEvent则覆盖的范围更广，修改App.java代码：
+<p>Servlet和Reactive有各自的初始化事件，使用它们的父类<code>WebServerInitializedEvent</code>则覆盖的范围更广，修改<code>App.java</code>代码：
 <div class="highlight"><pre><span></span><code><span class="c1">//    @Bean</span>
 <span class="c1">//    public ApplicationRunner runner(WebServerApplicationContext context) {</span>
 <span class="c1">//        return args -&gt; {</span>
@@ -1424,7 +1429,7 @@ WebServer Type: org.springframework.boot.web.embedded.undertow.UndertowWebServer
 </code></pre></div></p>
 <p>注意输出的顺序，理解事件机制的时序。</p>
 <h4 id="5-jettyreactive-web">5. Jetty作为嵌入式Reactive Web容器<a class="headerlink" href="#5-jettyreactive-web" title="Permanent link">&para;</a></h4>
-<p>和上面类似，若要使用Jetty作为Web容器，只需修改pom.xml中的依赖即可：
+<p>和上面类似，若要使用Jetty作为Web容器，只需修改<code>pom.xml</code>中的依赖即可：
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
             <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-jetty<span class="nt">&lt;/artifactId&gt;</span>
@@ -1437,7 +1442,7 @@ WebServer Type: org.springframework.boot.web.embedded.jetty.JettyWebServer
 </code></pre></div></p>
 <h4 id="6-tomcatreactive-web">6. Tomcat作为嵌入式Reactive Web容器<a class="headerlink" href="#6-tomcatreactive-web" title="Permanent link">&para;</a></h4>
 <p>要注意的是，Tomcat是Servlet Web的默认容器，但不是Reactive Web的默认容器。</p>
-<p>同样要使用Tomcat，修改pom.xml:
+<p>同样要使用Tomcat，修改<code>pom.xml</code>:
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
             <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-tomcat<span class="nt">&lt;/artifactId&gt;</span>

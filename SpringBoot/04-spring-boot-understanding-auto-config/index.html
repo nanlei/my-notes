@@ -435,6 +435,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 创建自动配置类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warn" class="md-nav__link">
+    *. 示例代码启动日志WARN排查
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -559,17 +573,17 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
     
     <label class="md-nav__link" for="nav-4-1">
-      Dokcer
+      Docker
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
       </span>
     </label>
-    <nav class="md-nav" aria-label="Dokcer" data-md-level="2">
+    <nav class="md-nav" aria-label="Docker" data-md-level="2">
       <label class="md-nav__title" for="nav-4-1">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </span>
-        Dokcer
+        Docker
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -682,6 +696,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 创建自动配置类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#warn" class="md-nav__link">
+    *. 示例代码启动日志WARN排查
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -712,11 +740,10 @@
 <p>You need to opt-in to auto-configuration by adding the <code>@EnableAutoConfiguration</code> or <code>@SpringBootApplication</code> annotations to one of your <code>@Configuration</code> classes.</p>
 </blockquote>
 <p>自动装配是存在前提的，基于添加的JAR文件依赖，但自动装配的实体并非一定装载。<br />
-文档举例说明当<code>HSQLDB</code>在Class Path中，不需要手动配置数据库连接的Beans，而是Spring Boot自动装配一个内存型的数据库。添加如下依赖到<code>pom.xml</code>中：
+文档举例说明当<code>HSQLDB</code>在Class Path中，不需要手动配置数据库连接的Beans，而是Spring Boot自动装配一个内存型的数据库。添加如下依赖到<code>pom.xml</code>中(<code>spring-boot-dependencies</code>中已经包含了<code>HSQLDB</code>的版本，因此不需要再次指定)：
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.hsqldb<span class="nt">&lt;/groupId&gt;</span>
             <span class="nt">&lt;artifactId&gt;</span>hsqldb<span class="nt">&lt;/artifactId&gt;</span>
-            <span class="nt">&lt;version&gt;</span>2.5.1<span class="nt">&lt;/version&gt;</span>
         <span class="nt">&lt;/dependency&gt;</span>
         <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -932,10 +959,16 @@ Many Spring Boot developers like their apps to use auto-configuration, component
     <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>可以发现层级关系为：
-+ <code>@Component</code>
-  + <code>@Configuration</code>
-    + <code>@SpringBootConfiguration</code></p>
+<p>可以发现层级关系为：</p>
+<ul>
+<li><code>@Component</code><ul>
+<li><code>@Configuration</code><ul>
+<li><code>@SpringBootConfiguration</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <p><code>@ComponentScan</code>仅关注<code>@Component</code>，而<code>@SpringBootConfiguration</code>属于<code>@Component</code>的派生注解，所以能够被<code>@ComponentScan</code>识别。</p>
 <p><code>@Repository</code>、<code>@Service</code>、<code>@Controller</code>属于<code>@Component</code>的直接派生注解，也被称为Spring模式注解(Stereotype Annotation)</p>
 <p>官方文档继续简单介绍了<code>@SpringBootApplication</code>的属性别名</p>
@@ -1160,7 +1193,7 @@ When <code>@Bean</code> methods are declared within classes that are not annotat
 <p>In common scenarios, <code>@Bean</code> methods are to be declared within <code>@Configuration</code> classes, ensuring that “full” mode is always used and that cross-method references therefore get redirected to the container’s lifecycle management. This prevents the same <code>@Bean</code> method from accidentally being invoked through a regular Java call, which helps to reduce subtle bugs that can be hard to track down when operating in “lite” mode.</p>
 </blockquote>
 <p>简而言之，<code>@Bean</code>在普通Java类被声明后，其行为和在<code>@Component</code>类下的声明一致，官方称这种方式为“轻量模式”，而在<code>@Configuration</code>类中的声明为“完全模式”，后者会执行CGLIB提升。这也就是前面代码运行结果的对比。</p>
-<h4 id="3">3. 理解自动配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<h4 id="3">3. <span id='uac'>理解自动配置</span><a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
 <p>前面所述的<code>WebConfig</code>属于编码方式装配，而不是自动装配。而其他自动装配的Bean是通过自动配置机制完成的。</p>
 <p>在Spring Boot之前，Spring Framework提供Bean的生命周期管理和编程模型，框架层面已经支持派生注解，但却不能自动装配<code>@Configuration</code>类。Spring Boot在此基础之上添加了约定配置化导入<code>@Configuration</code>类的方式。</p>
 <p>官方文档介绍了如何构建自定义自动装配类：</p>
@@ -1176,7 +1209,106 @@ When <code>@Bean</code> methods are declared within classes that are not annotat
 <p>Under the hood, auto-configuration is implemented with standard <code>@Configuration</code> classes. Additional <code>@Conditional</code> annotations are used to constrain when the auto-configuration should apply. Usually, auto-configuration classes use <code>@ConditionalOnClass</code> and <code>@ConditionalOnMissingBean</code> annotations. This ensures that auto-configuration applies only when relevant classes are found and when you have not declared your own <code>@Configuration</code>.</p>
 <p>You can browse the source code of <a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure" title="source code of spring-boot-autoconfigure">spring-boot-autoconfigure</a> to see the <code>@Configuration</code> classes that Spring provides (see the <a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-project/spring-boot-autoconfigure/src/main/resources/META-INF/spring.factories" title="spring.factories file">META-INF/spring.factories</a> file).</p>
 </blockquote>
-<p>文档中提及<code>@ConditionalOnClass</code>和<code>@ConditionalOnMissingBean</code>是常用的注解。根据名称很容易理解，当<code>@ConditionalOnClass</code>注解在<code>@Configuration</code>类上时，当目标类存在于Class Path时予以装配。这就是开头提到的<code>HSQLDB</code>存在于应用的Class Path时，Spring Boot提供了自动装配<code>HSQLDB</code>的逻辑：
+<p>文档中提及<code>@ConditionalOnClass</code>和<code>@ConditionalOnMissingBean</code>是常用的注解。根据名称很容易理解，当<code>@ConditionalOnClass</code>注解在<code>@Configuration</code>类上时，当目标类存在于Class Path时予以装配。这就是开头提到的<code>HSQLDB</code>存在于应用的Class Path时，Spring Boot提供了自动装配<code>HSQLDB</code>的逻辑，在<code>DataSourceAutoConfiguration</code>自动装配类中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.autoconfigure.jdbc</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+<span class="nd">@ConditionalOnClass</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">EmbeddedDatabaseType</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="nd">@ConditionalOnMissingBean</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="s">&quot;io.r2dbc.spi.ConnectionFactory&quot;</span><span class="p">)</span>
+<span class="nd">@EnableConfigurationProperties</span><span class="p">(</span><span class="n">DataSourceProperties</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="nd">@Import</span><span class="p">({</span> <span class="n">DataSourcePoolMetadataProvidersConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DataSourceInitializationConfiguration</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceAutoConfiguration</span> <span class="p">{</span>
+
+    <span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="nd">@Conditional</span><span class="p">(</span><span class="n">EmbeddedDatabaseCondition</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnMissingBean</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">XADataSource</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+    <span class="nd">@Import</span><span class="p">(</span><span class="n">EmbeddedDataSourceConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmbeddedDatabaseConfiguration</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="nd">@Conditional</span><span class="p">(</span><span class="n">PooledDataSourceCondition</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnMissingBean</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">XADataSource</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+    <span class="nd">@Import</span><span class="p">({</span> <span class="n">DataSourceConfiguration</span><span class="p">.</span><span class="na">Hikari</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DataSourceConfiguration</span><span class="p">.</span><span class="na">Tomcat</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+            <span class="n">DataSourceConfiguration</span><span class="p">.</span><span class="na">Dbcp2</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DataSourceConfiguration</span><span class="p">.</span><span class="na">Generic</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+            <span class="n">DataSourceJmxConfiguration</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
+    <span class="kd">protected</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">PooledDataSourceConfiguration</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>代码中并没有手动配置<code>DataSource</code> Bean，那么<code>EmbeddedDatabaseConfiguration</code>和<code>PooledDataSourceCondition</code>，<code>PooledDataSourceAvailableCondition</code>就会依次进行判断。加入的<code>HSQLDB</code>支持连接池，因此会在<code>HikariCP</code>启动的时候进行装配。</p>
+<p><code>HikariCP</code>的自动装配类是<code>org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration</code>中的<code>Hikari</code>静态内部类：
+<div class="highlight"><pre><span></span><code>    <span class="cm">/**</span>
+<span class="cm">     * Hikari DataSource configuration.</span>
+<span class="cm">     */</span>
+    <span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnClass</span><span class="p">(</span><span class="n">HikariDataSource</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnMissingBean</span><span class="p">(</span><span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+    <span class="nd">@ConditionalOnProperty</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;spring.datasource.type&quot;</span><span class="p">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&quot;com.zaxxer.hikari.HikariDataSource&quot;</span><span class="p">,</span>
+            <span class="n">matchIfMissing</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Hikari</span> <span class="p">{</span>
+
+        <span class="nd">@Bean</span>
+        <span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">&quot;spring.datasource.hikari&quot;</span><span class="p">)</span>
+        <span class="n">HikariDataSource</span> <span class="nf">dataSource</span><span class="p">(</span><span class="n">DataSourceProperties</span> <span class="n">properties</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">HikariDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="n">createDataSource</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">HikariDataSource</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">StringUtils</span><span class="p">.</span><span class="na">hasText</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="na">getName</span><span class="p">()))</span> <span class="p">{</span>
+                <span class="n">dataSource</span><span class="p">.</span><span class="na">setPoolName</span><span class="p">(</span><span class="n">properties</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">dataSource</span><span class="p">;</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+</code></pre></div></p>
+<p><code>Hikari</code>数据源能自动装配是<code>PooledDataSourceConfiguration</code>被激活后<code>@Import</code>进来的，而<code>HikariCP</code>已经是Spring Boot默认使用的连接池了。此处<code>Hikari</code>要根据<code>DataSourceProperties</code>进行数据源创建，那么在<code>DataSourceProperties</code>中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.autoconfigure.jdbc</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@ConfigurationProperties</span><span class="p">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">&quot;spring.datasource&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceProperties</span> <span class="kd">implements</span> <span class="n">BeanClassLoaderAware</span><span class="p">,</span> <span class="n">InitializingBean</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">embeddedDatabaseConnection</span> <span class="o">=</span> <span class="n">EmbeddedDatabaseConnection</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">classLoader</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>afterPropertiesSet</code>是<code>InitializingBean</code>接口中的唯一方法：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.beans.factory</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Interface to be implemented by beans that need to react once all their properties</span>
+<span class="cm"> * have been set by a {@link BeanFactory}: e.g. to perform custom initialization,</span>
+<span class="cm"> * or merely to check that all mandatory properties have been set.</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;p&gt;An alternative to implementing {@code InitializingBean} is specifying a custom</span>
+<span class="cm"> * init method, for example in an XML bean definition. For a list of all bean</span>
+<span class="cm"> * lifecycle methods, see the {@link BeanFactory BeanFactory javadocs}.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author Rod Johnson</span>
+<span class="cm"> * @author Juergen Hoeller</span>
+<span class="cm"> * @see DisposableBean</span>
+<span class="cm"> * @see org.springframework.beans.factory.config.BeanDefinition#getPropertyValues()</span>
+<span class="cm"> * @see org.springframework.beans.factory.support.AbstractBeanDefinition#getInitMethodName()</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">InitializingBean</span> <span class="p">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Invoked by the containing {@code BeanFactory} after it has set all bean properties</span>
+<span class="cm">     * and satisfied {@link BeanFactoryAware}, {@code ApplicationContextAware} etc.</span>
+<span class="cm">     * &lt;p&gt;This method allows the bean instance to perform validation of its overall</span>
+<span class="cm">     * configuration and final initialization when all bean properties have been set.</span>
+<span class="cm">     * @throws Exception in the event of misconfiguration (such as failure to set an</span>
+<span class="cm">     * essential property) or if initialization fails for any other reason</span>
+<span class="cm">     */</span>
+    <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>也就是在Bean初始化时，设置完属性后要回调的方法，<code>DataSourceProperties</code>就在此时调用<code>EmbeddedDatabaseConnection.get(this.classLoader)</code>来获取到内嵌数据库的信息，具体实现为：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.jdbc</span><span class="p">;</span>
 <span class="p">...</span>
 <span class="kd">public</span> <span class="kd">enum</span> <span class="n">EmbeddedDatabaseConnection</span> <span class="p">{</span>
@@ -1203,64 +1335,122 @@ When <code>@Bean</code> methods are declared within classes that are not annotat
     <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>而在<code>DataSourceAutoConfiguration</code>自动装配类中：
-<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.autoconfigure.jdbc</span><span class="p">;</span>
-<span class="p">...</span>
-<span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
-<span class="nd">@ConditionalOnClass</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">EmbeddedDatabaseType</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
-<span class="nd">@ConditionalOnMissingBean</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="s">&quot;io.r2dbc.spi.ConnectionFactory&quot;</span><span class="p">)</span>
-<span class="nd">@EnableConfigurationProperties</span><span class="p">(</span><span class="n">DataSourceProperties</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
-<span class="nd">@Import</span><span class="p">({</span> <span class="n">DataSourcePoolMetadataProvidersConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">DataSourceInitializationConfiguration</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceAutoConfiguration</span> <span class="p">{</span>
+<p>至此，内嵌数据库<code>HSQLDB</code>通过默认数据源<code>HikariCP</code>的自动装配实现了。</p>
+<p>综上所述，<code>DataSourceAutoConfiguration</code>和内部<code>@Configuration</code>类同样都结合了<code>@Configuration</code>和<code>@Conditional</code>特性，内部的<code>@Configuration</code>类随着<code>DataSourceAutoConfiguration</code>的装配而装配。</p>
+<p>那么<code>DataSourceAutoConfiguration</code>又是如何被装配的，回到官方文档中的最后一段介绍，这些自动装配类都在<code>META-INF/spring.factories</code>下，即在<code>spring-boot-autoconfigure</code>依赖中。</p>
+<p><code>spring-boot-autoconfigure</code>是Spring Boot的核心依赖，提供了大量的自动装配<code>@Configuration</code>类，并统一存放在<code>org.springframework.boot.autoconfigure</code>包和子包下，完整的自动装配类可参照<code>META-INF/spring.factories</code>文件。</p>
+<h4 id="4">4. 创建自动配置类<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<p>创建自动装配类<code>WebAutoConfiguration</code>：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.autoconfigure</span><span class="p">;</span>
 
-    <span class="nd">@Configuration</span><span class="p">(</span><span class="n">proxyBeanMethods</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
-    <span class="nd">@Conditional</span><span class="p">(</span><span class="n">EmbeddedDatabaseCondition</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
-    <span class="nd">@ConditionalOnMissingBean</span><span class="p">({</span> <span class="n">DataSource</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">XADataSource</span><span class="p">.</span><span class="na">class</span> <span class="p">})</span>
-    <span class="nd">@Import</span><span class="p">(</span><span class="n">EmbeddedDataSourceConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
-    <span class="kd">protected</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmbeddedDatabaseConfiguration</span> <span class="p">{</span>
+<span class="kn">import</span> <span class="nn">deep.in.spring.boot.config.WebConfig</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Import</span><span class="p">;</span>
 
-    <span class="p">}</span>
-    <span class="p">...</span>
-    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmbeddedDatabaseCondition</span> <span class="kd">extends</span> <span class="n">SpringBootCondition</span> <span class="p">{</span>
-
-        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DATASOURCE_URL_PROPERTY</span> <span class="o">=</span> <span class="s">&quot;spring.datasource.url&quot;</span><span class="p">;</span>
-
-        <span class="kd">private</span> <span class="kd">final</span> <span class="n">SpringBootCondition</span> <span class="n">pooledCondition</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PooledDataSourceCondition</span><span class="p">();</span>
-
-        <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">ConditionOutcome</span> <span class="nf">getMatchOutcome</span><span class="p">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="p">,</span> <span class="n">AnnotatedTypeMetadata</span> <span class="n">metadata</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">ConditionMessage</span><span class="p">.</span><span class="na">Builder</span> <span class="n">message</span> <span class="o">=</span> <span class="n">ConditionMessage</span><span class="p">.</span><span class="na">forCondition</span><span class="p">(</span><span class="s">&quot;EmbeddedDataSource&quot;</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">hasDataSourceUrlProperty</span><span class="p">(</span><span class="n">context</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">because</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span> <span class="o">+</span> <span class="s">&quot; is set&quot;</span><span class="p">));</span>
-            <span class="p">}</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">anyMatches</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">pooledCondition</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">foundExactly</span><span class="p">(</span><span class="s">&quot;supported pooled data source&quot;</span><span class="p">));</span>
-            <span class="p">}</span>
-            <span class="n">EmbeddedDatabaseType</span> <span class="n">type</span> <span class="o">=</span> <span class="n">EmbeddedDatabaseConnection</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">()).</span><span class="na">getType</span><span class="p">();</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">type</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">noMatch</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">didNotFind</span><span class="p">(</span><span class="s">&quot;embedded database&quot;</span><span class="p">).</span><span class="na">atAll</span><span class="p">());</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="n">ConditionOutcome</span><span class="p">.</span><span class="na">match</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="na">found</span><span class="p">(</span><span class="s">&quot;embedded database&quot;</span><span class="p">).</span><span class="na">items</span><span class="p">(</span><span class="n">type</span><span class="p">));</span>
-        <span class="p">}</span>
-
-        <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">hasDataSourceUrlProperty</span><span class="p">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">Environment</span> <span class="n">environment</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">getEnvironment</span><span class="p">();</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">environment</span><span class="p">.</span><span class="na">containsProperty</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">try</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="n">StringUtils</span><span class="p">.</span><span class="na">hasText</span><span class="p">(</span><span class="n">environment</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="n">DATASOURCE_URL_PROPERTY</span><span class="p">));</span>
-                <span class="p">}</span>
-                <span class="k">catch</span> <span class="p">(</span><span class="n">IllegalArgumentException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="c1">// Ignore unresolvable placeholder errors</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-    <span class="p">}</span>
+<span class="nd">@Configuration</span>
+<span class="nd">@Import</span><span class="p">(</span><span class="n">WebConfig</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebAutoConfiguration</span> <span class="p">{</span>
 
 <span class="p">}</span>
 </code></pre></div></p>
-<p>EmbeddedDatabaseCondition.getMatchOutcome方法会调用EmbeddedDatabaseConnection.get来获取内嵌数据库的类型，当匹配时，也就是HSQLDB的JDBC驱动类org.hsqldb.jdbcDriver存在于Class Path时，@Configuration类DataSourceAutoConfiguration.EmbeddedDatabaseConfiguration将被装配，EmbeddedDataSourceConfiguration将被@Import导入。</p>
+<p>这里使用<code>@Import</code>导入配置类<code>WebConfig</code>，同时在<code>src/main/resource</code>下创建<code>META-INF/spring.factories</code>文件，将<code>WebAutoConfiguration</code>配置进去：
+<div class="highlight"><pre><span></span><code>#Auto-Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+deep.in.spring.boot.autoconfigure.WebAutoConfiguration
+</code></pre></div></p>
+<p>同时修改<code>WebConfig</code>，使其仅作为<code>@Configuration</code>类：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.config</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@Configuration</span>
+<span class="c1">//@SpringBootApplication</span>
+<span class="c1">//@EnableAutoConfiguration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebConfig</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>最后修改引导类<code>App.java</code>，仅标注<code>@EnableAutoConfiguration</code>，同时调整SpringApplication.run()方法参数：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@RestController</span>
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="c1">//@ComponentScan</span>
+<span class="c1">//@Configuration</span>
+<span class="c1">//@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">App</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行项目，发现并无异常：
+<div class="highlight"><pre><span></span><code>  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.2.RELEASE)
+
+2020-08-27 10:54:53.368  INFO 2682 --- [           main] deep.in.spring.boot.App                  : Starting App on nanleis-MacBook-Pro.local with PID 2682 (/Users/nanlei/Dev/Codebase/deep-in-spring-boot/first-spring-boot-application/target/classes started by nanlei in /Users/nanlei/Dev/Codebase/deep-in-spring-boot)
+2020-08-27 10:54:53.370  INFO 2682 --- [           main] deep.in.spring.boot.App                  : No active profile set, falling back to default profiles: default
+2020-08-27 10:54:54.216  INFO 2682 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-08-27 10:54:54.227  WARN 2682 --- [           main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=org.hsqldb.jdbcDriver was not found, trying direct instantiation.
+2020-08-27 10:54:54.856  INFO 2682 --- [           main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (feature not supported)
+2020-08-27 10:54:54.859  INFO 2682 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-08-27 10:54:55.427  INFO 2682 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
+WebServer Type: org.springframework.boot.web.embedded.netty.NettyWebServer
+ApplicationContext: org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext
+WebConfig Bean:deep.in.spring.boot.config.WebConfig$$EnhancerBySpringCGLIB$$e99faf97
+helloworld Bean: org.springframework.web.reactive.function.server.RouterFunctions$DefaultRouterFunction
+2020-08-27 10:54:55.438  INFO 2682 --- [           main] deep.in.spring.boot.App                  : Started App in 2.441 seconds (JVM running for 2.906)
+</code></pre></div></p>
+<p>说明<code>WebAutoConfiguration</code>已被自动装配。</p>
+<h4 id="warn">*. 示例代码启动日志<code>WARN</code>排查<a class="headerlink" href="#warn" title="Permanent link">&para;</a></h4>
+<p>示例中的启动过程有如下<code>WARN</code>输出：
+<div class="highlight"><pre><span></span><code>2020-08-27 10:54:54.227  WARN 2682 --- [           main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=org.hsqldb.jdbcDriver was not found, trying direct instantiation.
+</code></pre></div></p>
+<p>这是<code>com.zaxxer.hikari.util.DriverDataSource</code>的日志输出，可以查看到源码片段：
+<div class="highlight"><pre><span></span><code>      <span class="k">if</span> <span class="p">(</span><span class="n">driverClassName</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">Enumeration</span><span class="o">&lt;</span><span class="n">Driver</span><span class="o">&gt;</span> <span class="n">drivers</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="p">.</span><span class="na">getDrivers</span><span class="p">();</span>
+         <span class="k">while</span> <span class="p">(</span><span class="n">drivers</span><span class="p">.</span><span class="na">hasMoreElements</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">Driver</span> <span class="n">d</span> <span class="o">=</span> <span class="n">drivers</span><span class="p">.</span><span class="na">nextElement</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">driverClassName</span><span class="p">))</span> <span class="p">{</span>
+               <span class="n">driver</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+               <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+         <span class="p">}</span>
+
+         <span class="k">if</span> <span class="p">(</span><span class="n">driver</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">LOGGER</span><span class="p">.</span><span class="na">warn</span><span class="p">(</span><span class="s">&quot;Registered driver with driverClassName={} was not found, trying direct instantiation.&quot;</span><span class="p">,</span> <span class="n">driverClassName</span><span class="p">);</span>
+            <span class="p">...</span>
+         <span class="p">}</span>
+         <span class="p">...</span>
+      <span class="p">}</span>
+</code></pre></div></p>
+<p>如果<code>driver == null</code>，那么就会输出该日志，说明上面获取<code>driver</code>的时候没有获取到，而获取<code>driver</code>的判断是<code>driverClassName</code>的判断。</p>
+<p>结合<a href="#uac">上面的分析过程</a>，在<code>DataSourceProperties</code>中，<code>afterPropertiesSet()</code>方法获取到的<code>embeddedDatabaseConnection</code>如下：</p>
+<p><img alt="" src="../img/debug.hsql.embedded.get.png" /></p>
+<p>其中<code>driverClass</code>的值是<code>org.hsqldb.jdbcDriver</code>，是在<code>EmbeddedDatabaseConnection</code>中由枚举定义的。之后<code>DataSourceConfiguration.Hikari</code>开始自动装配<code>HikariDataSource</code>，会执行到<code>HikariConfig</code>中如下代码：
+<div class="highlight"><pre><span></span><code>      <span class="k">try</span> <span class="p">{</span>
+         <span class="n">driverClass</span><span class="p">.</span><span class="na">getConstructor</span><span class="p">().</span><span class="na">newInstance</span><span class="p">();</span>
+         <span class="k">this</span><span class="p">.</span><span class="na">driverClassName</span> <span class="o">=</span> <span class="n">driverClassName</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;Failed to instantiate class &quot;</span> <span class="o">+</span> <span class="n">driverClassName</span><span class="p">,</span> <span class="n">e</span><span class="p">);</span>
+      <span class="p">}</span>
+</code></pre></div></p>
+<p>创建<code>driver</code>实例时，会执行到<code>java.sql.DriverManager</code>中：</p>
+<p><img alt="" src="../img/debug.hsql.drivermanager.png" /></p>
+<p>可以看到这里注册的<code>driver</code>是<code>org.hsqldb.jdbc.JDBCDriver</code>，因为和<code>EmbeddedDatabaseConnection</code>设置的不同，所以在<code>DriverDataSource</code>中比较时就造成了不匹配，会输出<code>WARN</code>日志。</p>
+<p>但程序本身并没有因此而出错，是因为：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.hsqldb</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">jdbcDriver</span> <span class="kd">extends</span> <span class="n">org</span><span class="p">.</span><span class="na">hsqldb</span><span class="p">.</span><span class="na">jdbc</span><span class="p">.</span><span class="na">JDBCDriver</span> <span class="p">{}</span>
+</code></pre></div></p>
+<p>因此，<code>DriverDataSource</code>后续依然可以使用<code>org.hsqldb.jdbcDriver</code>来通过反射创建<code>driver</code>对象：</p>
+<p><img alt="" src="../img/debug.hsql.hikari.png" /></p>
+<p>因为是Spring Boot代码中的问题，向Spring Boot官方提出该问题，并最终确认是Bug，可以参考：<a href="https://github.com/spring-projects/spring-boot/issues/23036">https://github.com/spring-projects/spring-boot/issues/23036</a></p>
                 
               
               
