@@ -12,6 +12,7 @@ nav:
       - 'Maven Dependencies' : 'SpringBoot/02-spring-boot-maven-dependency.md'
       - 'Embedded Web Server' : 'SpringBoot/03-spring-boot-embedded-web-server.md'
       - 'Understanding Auto-Configuration' : 'SpringBoot/04-spring-boot-understanding-auto-config.md'
+      - 'Understanding Production-Ready' : 'SpringBoot/05-spring-boot-understanding-prod-ready.md'
   - DataBase:
     - MySQL:
       - 'Master Slave' : 'DataBase/MySQL/master-slave.md'

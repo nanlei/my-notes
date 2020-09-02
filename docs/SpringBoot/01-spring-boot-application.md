@@ -244,7 +244,7 @@ Welcome to Spring Boot
 #### 2. 图形化构建Spring Boot应用
 https://start.spring.io/
 
-![start.spring.io](./img/start.spring.io.png)
+![start.spring.io](img/start.spring.io.png)
 
 拷贝生成好的zip包到项目目录：
 ```cmd
@@ -698,7 +698,7 @@ Main-Class: org.springframework.boot.loader.JarLauncher
 
 因为`org.springframework.boot.loader.JarLauncher`并非项目中的文件，那么它是由`spring-boot-maven-plugin`插件在打包时引入的，为了研究，先去查找它的所属，在 https://search.maven.org/ 中，可以直接按类全名搜索，找到GAV信息
 
-![search.maven.org](./img/search.maven.org.png)
+![search.maven.org](img/search.maven.org.png)
 
 ```xml
 <dependency>
