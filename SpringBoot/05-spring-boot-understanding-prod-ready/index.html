@@ -1,0 +1,1081 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Notes">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Understanding Production-Ready - Tech Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-spring-boot-actuator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Tech Notes" class="md-header-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Tech Notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Understanding Production-Ready
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01-spring-boot-application/" class="md-tabs__link md-tabs__link--active">
+          Framework
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DataBase/MySQL/master-slave/" class="md-tabs__link">
+          DataBase
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DevOps/docker/" class="md-tabs__link">
+          DevOps
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Notes" class="md-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Tech Notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Framework" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-spring-boot-application/" title="Standalone Application" class="md-nav__link">
+      Standalone Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-nav__link">
+      Embedded Web Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-nav__link">
+      Understanding Auto-Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Understanding Production-Ready
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Understanding Production-Ready" class="md-nav__link md-nav__link--active">
+      Understanding Production-Ready
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-spring-boot-actuator" class="md-nav__link">
+    1. Spring Boot Actuator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 理解外部化配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 约定优于配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      DataBase
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DataBase" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DataBase
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      MySQL
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MySQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-nav__link">
+      Master Slave
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      DevOps
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DevOps
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Docker
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/docker/" title="Basic" class="md-nav__link">
+      Basic
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-spring-boot-actuator" class="md-nav__link">
+    1. Spring Boot Actuator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 理解外部化配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 约定优于配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringBoot/05-spring-boot-understanding-prod-ready.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Understanding Production-Ready</h1>
+                
+                <h3 align="center"><b>05 - 理解Production-Ready特性</b></h3>
+
+<p><a href="https://spring.io/projects/spring-boot">Spring Boot官方首页</a>对Production-Ready的描述为：</p>
+<blockquote>
+<p>Provide production-ready features such as metrics, health checks, and externalized configuration</p>
+</blockquote>
+<p>按照官方说明，metrics(指标)，health checks(健康检查)，externalized configuration(外部化配置)都是为生产准备的特性。</p>
+<h4 id="1-spring-boot-actuator">1. Spring Boot Actuator<a class="headerlink" href="#1-spring-boot-actuator" title="Permanent link">&para;</a></h4>
+<p>在官方文档中，Production-Ready特性出自：</p>
+<blockquote>
+<p><b>Spring Boot Actuator: Production-ready Features</b></p>
+<p>Spring Boot includes a number of additional features to help you monitor and manage your application when you push it to production. You can choose to manage and monitor your application by using HTTP endpoints or with JMX. Auditing, health, and metrics gathering can also be automatically applied to your application.</p>
+</blockquote>
+<p>也就是，使用HTTP或者JMX来监控和管理投入生产的应用。审计、健康和指标收集可以自动用于应用程序中。</p>
+<p>官方文档进一步说明：</p>
+<blockquote>
+<p><b>Definition of Actuator</b></p>
+<p>An actuator is a manufacturing term that refers to a mechanical device for moving or controlling something. Actuators can generate a large amount of motion from a small change.</p>
+</blockquote>
+<p>综上，Spring Boot Actuator用于监控和管理Spring应用，可以通过HTTP edpoints或者JMX Bean来交互。</p>
+<p>要开启这个特性，官方文档进一步说明：</p>
+<blockquote>
+<p><b>Enabling Production-ready Features</b></p>
+<p>The <code>spring-boot-actuator</code> module provides all of Spring Boot’s production-ready features. The recommended way to enable the features is to add a dependency on the <code>spring-boot-starter-actuator</code> ‘Starter’.</p>
+<p>To add the actuator to a Maven based project, add the following ‘Starter’ dependency:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div>
+
+</blockquote>
+<p>也就是将上述依赖加入到pom.xml文件中，就可以开启Actuator。</p>
+<p>官方文档列出了所有的内建endpoints，可以参考：<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-endpoints</a></p>
+<p>启动项目，在启动日志中，可以看到如下输出：
+<div class="highlight"><pre><span></span><code>(省略部分输出...)
+2020-08-28 16:26:47.857  INFO 4230 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path &#39;/actuator&#39;
+2020-08-28 16:26:47.915  INFO 4230 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
+2020-08-28 16:26:47.928  INFO 4230 --- [           main] deep.in.spring.boot.App                  : Started App in 3.524 seconds (JVM running for 4.005)
+</code></pre></div></p>
+<p>这是因为默认情况下，Actuator暴露2个端点：<code>health</code>和<code>info</code>，测试这些端点，可以看到：
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:8080/actuator/health | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    15    0    15    0     0     92      0 --:--:-- --:--:-- --:--:--    92
+{
+   &quot;status&quot; : &quot;UP&quot;
+}
+$ curl http://localhost:8080/actuator/info | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100     2    0     2    0     0    181      0 --:--:-- --:--:-- --:--:--   181
+{}
+$ curl http://localhost:8080/actuator/beans | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   116    0   116    0     0   6105      0 --:--:-- --:--:-- --:--:--  6105
+{
+   &quot;status&quot; : 404,
+   &quot;path&quot; : &quot;/actuator/beans&quot;,
+   &quot;error&quot; : &quot;Not Found&quot;,
+   &quot;timestamp&quot; : &quot;2020-08-28T08:30:33.798+00:00&quot;,
+   &quot;message&quot; : &quot;&quot;
+}
+</code></pre></div></p>
+<p>如果需要暴露其他非默认开放的端点，需要在配置文件中添加如下配置：
+<div class="highlight"><pre><span></span><code><span class="nt">management</span><span class="p">:</span>
+  <span class="nt">endpoints</span><span class="p">:</span>
+    <span class="nt">web</span><span class="p">:</span>
+      <span class="nt">exposure</span><span class="p">:</span>
+        <span class="nt">include</span><span class="p">:</span> <span class="s">&quot;*&quot;</span>
+</code></pre></div></p>
+<p>查看<code>beans</code>端点的输出：</p>
+<p><img alt="" src="../img/actuator.beans.png" /></p>
+<p>可以看到装配的Bean的详细信息，将配置文件中的*替换为其他确定的端点名称即可开启指定端点。</p>
+<p><code>env</code>端点包含了系统环境配置的信息：</p>
+<p><img alt="" src="../img/actuator.env.png" /></p>
+<p>其中也能看到应用程序的配置<code>management.endpoints.web.exposure.include</code>的内容和所在位置。</p>
+<p><code>metrics</code>端点可以查看系统的一些指标数据：
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:8080/actuator/metrics | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1134    0  1134    0     0   369k      0 --:--:-- --:--:-- --:--:--  369k
+{
+   &quot;names&quot; : [
+      &quot;hikaricp.connections&quot;,
+      &quot;hikaricp.connections.acquire&quot;,
+      &quot;hikaricp.connections.active&quot;,
+      &quot;hikaricp.connections.creation&quot;,
+      &quot;hikaricp.connections.idle&quot;,
+      &quot;hikaricp.connections.max&quot;,
+      &quot;hikaricp.connections.min&quot;,
+      &quot;hikaricp.connections.pending&quot;,
+      &quot;hikaricp.connections.timeout&quot;,
+      &quot;hikaricp.connections.usage&quot;,
+      &quot;http.server.requests&quot;,
+      &quot;jdbc.connections.active&quot;,
+      &quot;jdbc.connections.idle&quot;,
+      &quot;jdbc.connections.max&quot;,
+      &quot;jdbc.connections.min&quot;,
+      &quot;jvm.buffer.count&quot;,
+      &quot;jvm.buffer.memory.used&quot;,
+      &quot;jvm.buffer.total.capacity&quot;,
+      &quot;jvm.classes.loaded&quot;,
+      &quot;jvm.classes.unloaded&quot;,
+      &quot;jvm.gc.live.data.size&quot;,
+      &quot;jvm.gc.max.data.size&quot;,
+      &quot;jvm.gc.memory.allocated&quot;,
+      &quot;jvm.gc.memory.promoted&quot;,
+      &quot;jvm.gc.pause&quot;,
+      &quot;jvm.memory.committed&quot;,
+      &quot;jvm.memory.max&quot;,
+      &quot;jvm.memory.used&quot;,
+      &quot;jvm.threads.daemon&quot;,
+      &quot;jvm.threads.live&quot;,
+      &quot;jvm.threads.peak&quot;,
+      &quot;jvm.threads.states&quot;,
+      &quot;logback.events&quot;,
+      &quot;process.cpu.usage&quot;,
+      &quot;process.files.max&quot;,
+      &quot;process.files.open&quot;,
+      &quot;process.start.time&quot;,
+      &quot;process.uptime&quot;,
+      &quot;system.cpu.count&quot;,
+      &quot;system.cpu.usage&quot;,
+      &quot;system.load.average.1m&quot;,
+      &quot;tomcat.sessions.active.current&quot;,
+      &quot;tomcat.sessions.active.max&quot;,
+      &quot;tomcat.sessions.alive.max&quot;,
+      &quot;tomcat.sessions.created&quot;,
+      &quot;tomcat.sessions.expired&quot;,
+      &quot;tomcat.sessions.rejected&quot;
+   ]
+}
+</code></pre></div></p>
+<p>使用指标的名称即可查看该指标的参数，例如查看<code>system.cpu.count</code>：
+<div class="highlight"><pre><span></span><code>$ curl http://localhost:8080/actuator/metrics/system.cpu.count | json_pp
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   193    0   193    0     0  64333      0 --:--:-- --:--:-- --:--:-- 64333
+{
+   &quot;description&quot; : &quot;The number of processors available to the Java virtual machine&quot;,
+   &quot;availableTags&quot; : [],
+   &quot;baseUnit&quot; : null,
+   &quot;name&quot; : &quot;system.cpu.count&quot;,
+   &quot;measurements&quot; : [
+      {
+         &quot;value&quot; : 16,
+         &quot;statistic&quot; : &quot;VALUE&quot;
+      }
+   ]
+}
+</code></pre></div></p>
+<h4 id="2">2. 理解外部化配置<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>官方文档对外部化配置的解释是：</p>
+<blockquote>
+<p><b>Externalized Configuration</b></p>
+<p>Spring Boot lets you externalize your configuration so that you can work with the same application code in different environments. You can use properties files, YAML files, environment variables, and command-line arguments to externalize configuration. Property values can be injected directly into your beans by using the <code>@Value</code> annotation, accessed through Spring’s <code>Environment</code> abstraction, or be <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-typesafe-configuration-properties">bound to structured objects</a> through <code>@ConfigurationProperties</code>.</p>
+</blockquote>
+<p>文档中说，相同的代码，根据所处的不同环境，可以使用不同的外部化配置，比如<code>properties</code>文件，<code>YAML</code>文件，命令行参数或者环境变量。</p>
+<p>外部化配置的属性值可以通过<code>@Value</code>注解、Spring的<code>Environment</code>，或者<code>@ConfigurationProperties</code>绑定到结构化对象的方式直接注入到Bean中。</p>
+<p>官方文档继续说明：</p>
+<blockquote>
+<p>Spring Boot uses a very particular <code>PropertySource</code> order that is designed to allow sensible overriding of values. Properties are considered in the following order:</p>
+<ol>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-devtools-globalsettings">Devtools global settings properties</a> in the <code>$HOME/.config/spring-boot</code> directory when devtools is active.</li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/context/TestPropertySource.html"><code>@TestPropertySource</code></a> annotations on your tests.</li>
+<li><code>properties</code> attribute on your tests. Available on <a href="https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/context/SpringBootTest.html"><code>@SpringBootTest</code></a> and the <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing-spring-boot-applications-testing-autoconfigured-tests">test annotations for testing a particular slice of your application</a>.</li>
+<li>Command line arguments.</li>
+<li>Properties from <code>SPRING_APPLICATION_JSON</code> (inline JSON embedded in an environment variable or system property).</li>
+<li><code>ServletConfig</code> init parameters.</li>
+<li><code>ServletContext</code> init parameters.</li>
+<li>JNDI attributes from <code>java:comp/env</code>.</li>
+<li>Java System properties (<code>System.getProperties()</code>).</li>
+<li>OS environment variables.</li>
+<li>A <code>RandomValuePropertySource</code> that has properties only in <code>random.*</code>.</li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-profile-specific-properties">Profile-specific application properties</a> outside of your packaged jar (<code>application-{profile}.properties</code> and YAML variants).</li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-profile-specific-properties">Profile-specific application properties</a> packaged inside your jar (<code>application-{profile}.properties</code> and YAML variants).</li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-application-property-files">Application properties</a> outside of your packaged jar (<code>application.properties</code> and YAML variants).</li>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-external-config-application-property-files">Application properties</a> packaged inside your jar (<code>application.properties</code> and YAML variants).</li>
+<li><a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/PropertySource.html"><code>@PropertySource</code></a> annotations on your <code>@Configuration</code> classes. Please note that such property sources are not added to the <code>Environment</code> until the application context is being refreshed. This is too late to configure certain properties such as <code>logging.*</code> and <code>spring.main.*</code> which are read before refresh begins.</li>
+<li>Default properties (specified by setting <code>SpringApplication.setDefaultProperties</code>).</li>
+</ol>
+</blockquote>
+<p>文档中所说的<code>PropertySource</code>(属性源)，就是外部化配置的属性来源，Spring Boot规定了17中内建的属性源顺序。</p>
+<p>紧接着，文档给出示例：</p>
+<blockquote>
+<p>To provide a concrete example, suppose you develop a <code>@Component</code> that uses a <code>name</code> property, as shown in the following example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyBean</span> <span class="p">{</span>
+
+    <span class="nd">@Value</span><span class="p">(</span><span class="s">&quot;${name}&quot;</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>On your application classpath (for example, inside your jar) you can have an <code>application.properties</code> file that provides a sensible default property value for <code>name</code>. When running in a new environment, an <code>application.properties</code> file can be provided outside of your jar that overrides the <code>name</code>. For one-off testing, you can launch with a specific command line switch (for example, <code>java -jar app.jar --name="Spring"</code>).</p>
+</blockquote>
+<p><code>name</code>属性在<code>application.properties</code>文件中为默认值，当应用运行在新环境时，可以通过命令行的方式来覆盖该默认值，也就是被<code>@Value("${name}")</code>注入的<code>name</code>的值也随之变化。</p>
+<p>因为Spring Boot内建属性源的顺序确定了<code>4. Command line arguments</code>的优先级是高于<code>15. Application properties packaged inside your jar (application.properties and YAML variants)</code>的，因此<code>application.properties</code>中的默认值被忽略，达到了覆盖的目的。</p>
+<p>对于可扩展的应用，其中使用的功能性组件是可配置化的，若要设置Spring应用的<code>profile</code>为<code>dev</code>，可以调用<code>ConfigurableEnvironment</code>的<code>setActiveProfiles("dev")</code>方法来实现，例如：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.config</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Profile</span><span class="p">;</span>
+
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AppConfig</span> <span class="p">{</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">defaultBean</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;default Bean&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Profile</span><span class="p">(</span><span class="s">&quot;dev&quot;</span><span class="p">)</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">devBean</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;dev Bean&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Profile</span><span class="p">(</span><span class="s">&quot;test&quot;</span><span class="p">)</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testBean</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;test Bean&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>编写指定<code>profile</code>的<code>main()</code>方法：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">getEnvironment</span><span class="p">().</span><span class="na">setActiveProfiles</span><span class="p">(</span><span class="s">&quot;dev&quot;</span><span class="p">);</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">AppConfig</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>得到输出：
+<div class="highlight"><pre><span></span><code>17:40:58.686 [main] DEBUG org.springframework.core.env.StandardEnvironment - Activating profiles [dev]
+17:40:58.725 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6bc168e5
+17:40:58.738 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;org.springframework.context.annotation.internalConfigurationAnnotationProcessor&#39;
+17:40:58.862 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;org.springframework.context.event.internalEventListenerProcessor&#39;
+17:40:58.864 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;org.springframework.context.event.internalEventListenerFactory&#39;
+17:40:58.865 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;org.springframework.context.annotation.internalAutowiredAnnotationProcessor&#39;
+17:40:58.867 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;org.springframework.context.annotation.internalCommonAnnotationProcessor&#39;
+17:40:58.873 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;appConfig&#39;
+17:40:58.878 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;defaultBean&#39;
+default Bean
+17:40:58.888 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean &#39;devBean&#39;
+dev Bean
+17:40:58.910 [main] DEBUG org.springframework.context.annotation.AnnotationConfigApplicationContext - Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@6bc168e5, started on Sat Aug 29 17:40:58 CST 2020
+
+Process finished with exit code 0
+</code></pre></div></p>
+<p>因为<code>defaultBean</code>没有设置<code>profile</code>，则每次都会加载该Bean，而<code>devBean</code>和<code>testBean</code>指定了<code>profile</code>，只当该类型的<code>profile</code>设置时才会被加载。</p>
+<p>上述代码是一种显式的代码配置，配置数据源来源于内部代码实现，也称为“内部化配置”，虽然可以达到目的，但应用程序缺少弹性。</p>
+<p>实现相同的需求，Spring Boot提供了实现，比如在<code>application.yml</code>文件中配置：
+<div class="highlight"><pre><span></span><code>spring:
+  profiles:
+    active: dev
+</code></pre></div></p>
+<p>或者使用命令行参数的方式<code>--spring.profiles.active=dev</code>。</p>
+<p>以上两种方式都是“外部化配置”，在官方文档中有明确说明，也就是外部配置属性源是“外部化配置”的读取媒介，可以是配置文件方式，环境变量方式或命令行参数方式等。</p>
+<h4 id="3">3. 约定优于配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>Spring Boot的最后一个特性：</p>
+<blockquote>
+<p>Absolutely no code generation and no requirement for XML configuration</p>
+</blockquote>
+<p>就是约定优于配置的体现。该特性是Spring Framework已经支持的，并非是Spring Boot引入的。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Understanding Auto-Configuration
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Master Slave
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
