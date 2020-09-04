@@ -24,14 +24,14 @@ Status: Downloaded newer image for docker.io/mysql:latest
 
 #### 2. 配置主从镜像(1主2从)
 
-2.1 配置主从文件夹
+##### 2.1 配置主从文件夹
 ```cmd
 # mkdir -p /usr/mysql/master
 # mkdir -p /usr/mysql/slave1
 # mkdir -p /usr/mysql/slave2
 ```
 
-2.2 在3个目录下创建Dockerfile
+##### 2.2 在3个目录下创建Dockerfile
 ```docker
 FROM mysql
 COPY my.cnf /etc/mysql/
@@ -40,7 +40,7 @@ EXPOSE 3306
 CMD ["mysqld"]
 ```
 
-2.3 在3个目录下分别创建my.cnf文件  
+##### 2.3 在3个目录下分别创建my.cnf文件  
 
 master (/usr/mysql/master/my.cnf)
 ```ini
@@ -84,13 +84,13 @@ replicate-ignore-db=performance_schema
 replicate-ignore-db=sys
 ```
 
-2.4 在3个目录下创建数据子目录data和配置子目录conf.d
+##### 2.4 在3个目录下创建数据子目录data和配置子目录conf.d
 ```cmd
 # mkdir data
 # mkdir conf.d
 ```
 
-2.5 在3个目录下分别构建Docker镜像　
+##### 2.5 在3个目录下分别构建Docker镜像　
 
 master
 ```cmd
@@ -119,7 +119,7 @@ slave1/mysql        latest              3cc0f5fb6aab        19 seconds ago      
 master/mysql        latest              a756ddedfa9d        57 seconds ago      544 MB
 ```
 
-#### 创建容器
+#### 3. 创建容器
 
 master
 ```cmd
@@ -136,7 +136,7 @@ slave2
 docker run --name mysql-slave2 -p 33308:3306 -v /usr/mysql/slave2/data:/var/lib/mysql -v /usr/mysql/slave2/conf.d:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=root -d slave2/mysql
 ```
 
-#### 主从库设置
+#### 4. 主从库设置
 
 连接到master，进行设置
 ```cmd

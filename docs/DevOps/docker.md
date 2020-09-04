@@ -1,7 +1,8 @@
 <h3 align="center"><b>Docker</b></h3>
 
-#### 1. 安装和运行
-(基于CentOS)
+#### 1. 安装和运行 (基于CentOS)
+
+##### 1.1 安装Docker
 ```cmd
 # yum install docker -y
 Failed to set locale, defaulting to C
@@ -16,34 +17,45 @@ subscription-manager-rhsm-certificates.x86_64 0:1.24.26-4.el7.centos            
 Complete!
 ```
 
-检查版本
+##### 1.2 安装ocker-compose
+```cmd
+# yum install docker-compose
+```
+
+##### 1.3 检查安装版本
 ```cmd
 # docker -v
 Docker version 1.13.1, build 64e9980/1.13.1
+
+# docker-compose version
+docker-compose version 1.18.0, build 8dd22a9
+docker-py version: 2.6.1
+CPython version: 3.6.8
+OpenSSL version: OpenSSL 1.0.2k-fips  26 Jan 2017
 ```
 
-启动Docker
+##### 1.4 启动Docker
 ```cmd
 # systemctl start docker
 ```
 
-停止Docker
+##### 1.5 停止Docker
 ```cmd
 # systemctl stop docker
 ```
 
-设置开机启动
+##### 1.6 设置开机启动
 ```cmd
 # systemctl enable docker
 Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
 ```
 
-重启Docker
+##### 1.7 重启Docker
 ```cmd
 # systemctl restart docker
 ```
 
-查看Docker
+##### 1.8 查看Docker
 ```cmd
 # docker info
 Containers: 0
@@ -94,45 +106,46 @@ Registries: docker.io (secure)
 
 #### 2. 常用命令
 
-查看镜像
+##### 2.1 查看镜像
 ```cmd
 docker images
 docker images -q #查看所有镜像ID
 ```
 
-删除镜像
+##### 2.2 删除镜像
 ```cmd
 # docker rmi master/mysql
 # docker rmi $(docker images -q) #删除所有镜像
 ```
 
-查看容器
+##### 2.3 查看容器
 ```cmd
 docker ps
 docker ps -a  #列出所有容器(包括未运行的)
 docker ps -aq #列出所有容器ID
 ```
 
-查看容器log
+##### 2.4 查看容器log
 ```cmd
 # docker logs a930350d7fe1
 ```
 
-停止容器
+##### 2.5 停止容器
 ```cmd
 docker stop a930350d7fe1
 docker stop $(docker ps -aq) #停止所有容器
 ```
 
-删除容器
+##### 2.6 删除容器
 ```cmd
 # docker rm a930350d7fe1
 # docker rm $(docker ps -aq) #删除所有容器
+# docker rm -f a930350d7fe1 # 直接删除运行中容器
 ```
 
-### 问题处理
+#### 问题处理
 
-#### 1. 拉取镜像时报错:lookup production.cloudflare.docker.com: no such host
+##### 1. 拉取镜像时报错:lookup production.cloudflare.docker.com: no such host
 ```cmd
 # docker pull mysql
 Using default tag: latest
@@ -158,7 +171,7 @@ error pulling image configuration: Get https://production.cloudflare.docker.com/
 nameserver 8.8.8.8
 ````
 
-#### 2. 下载镜像过慢
+##### 2. 下载镜像过慢
 手动配置镜像源，```/etc/docker/daemon.json```中添加：
 ```json
 {
