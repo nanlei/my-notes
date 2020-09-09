@@ -883,6 +883,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 下载镜像过慢
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1109,6 +1116,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 下载镜像过慢
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1288,14 +1302,12 @@ error pulling image configuration: Get https://production.cloudflare.docker.com/
 
 <p>进入 <code>/etc/resolv.conf</code> 添加
 <div class="highlight"><pre><span></span><code>nameserver 8.8.8.8
-````
-
-##### 2. 下载镜像过慢
-手动配置镜像源，```/etc/docker/daemon.json```中添加：
-```json
-{
-  &quot;registry-mirrors&quot; : [&quot;https://xxxxxxxx.mirror.aliyuncs.com&quot;]
-}
+</code></pre></div></p>
+<h5 id="2_1">2. 下载镜像过慢<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h5>
+<p>手动配置镜像源，<code>/etc/docker/daemon.json</code>中添加：
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;registry-mirrors&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;https://xxxxxxxx.mirror.aliyuncs.com&quot;</span><span class="p">]</span>
+<span class="p">}</span>
 </code></pre></div></p>
                 
               

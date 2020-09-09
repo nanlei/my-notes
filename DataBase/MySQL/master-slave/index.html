@@ -1036,6 +1036,7 @@ Status: Downloaded newer image for docker.io/mysql:latest
 <span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
 <span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
 <span class="na">binlog-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+<span class="na">wait_timeout</span><span class="o">=</span><span class="s">28800</span>
 </code></pre></div></p>
 <p>slave1 (/usr/mysql/slave1/my.cnf)
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
@@ -1048,6 +1049,7 @@ Status: Downloaded newer image for docker.io/mysql:latest
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+<span class="na">wait_timeout</span><span class="o">=</span><span class="s">28800</span>
 </code></pre></div></p>
 <p>slave2 (/usr/mysql/slave2/my.cnf)
 <div class="highlight"><pre><span></span><code><span class="k">[mysqld]</span>
@@ -1060,6 +1062,7 @@ Status: Downloaded newer image for docker.io/mysql:latest
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">information_schema</span>
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">performance_schema</span>
 <span class="na">replicate-ignore-db</span><span class="o">=</span><span class="s">sys</span>
+<span class="na">wait_timeout</span><span class="o">=</span><span class="s">28800</span>
 </code></pre></div></p>
 <h5 id="24-3dataconfd">2.4 在3个目录下创建数据子目录data和配置子目录conf.d<a class="headerlink" href="#24-3dataconfd" title="Permanent link">&para;</a></h5>
 <div class="highlight"><pre><span></span><code># mkdir data
@@ -1134,7 +1137,7 @@ mysql&gt;
 <div class="highlight"><pre><span></span><code># docker inspect -f &#39;{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39; mysql-master
 172.18.0.2
 </code></pre></div></p>
-<p>配置两个从库，root用户默认所有权限开放
+<p>配置两个从库，root用户默认所有权限开放，mysql用户则只开放select权限
 <div class="highlight"><pre><span></span><code><span class="n">stop</span> <span class="n">slave</span><span class="p">;</span>
 <span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span>
 <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>

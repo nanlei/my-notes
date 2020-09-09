@@ -1157,9 +1157,9 @@ Process finished with exit code 0
 <p>因为<code>defaultBean</code>没有设置<code>profile</code>，则每次都会加载该Bean，而<code>devBean</code>和<code>testBean</code>指定了<code>profile</code>，只当该类型的<code>profile</code>设置时才会被加载。</p>
 <p>上述代码是一种显式的代码配置，配置数据源来源于内部代码实现，也称为“内部化配置”，虽然可以达到目的，但应用程序缺少弹性。</p>
 <p>实现相同的需求，Spring Boot提供了实现，比如在<code>application.yml</code>文件中配置：
-<div class="highlight"><pre><span></span><code>spring:
-  profiles:
-    active: dev
+<div class="highlight"><pre><span></span><code><span class="nt">spring</span><span class="p">:</span>
+  <span class="nt">profiles</span><span class="p">:</span>
+    <span class="nt">active</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dev</span>
 </code></pre></div></p>
 <p>或者使用命令行参数的方式<code>--spring.profiles.active=dev</code>。</p>
 <p>以上两种方式都是“外部化配置”，在官方文档中有明确说明，也就是外部配置属性源是“外部化配置”的读取媒介，可以是配置文件方式，环境变量方式或命令行参数方式等。</p>
