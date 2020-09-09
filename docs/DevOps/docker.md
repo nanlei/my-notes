@@ -166,13 +166,13 @@ fff872988aba: Waiting
 error pulling image configuration: Get https://production.cloudflare.docker.com/registry-v2/docker/registry/v2/blobs/sha256/0d/0d64f46acfd1af4ee6a162f80c6e07e843761bf14d412060023bf0e69e720fb4/data?verify=1597410658-gR3hOa3pYHl9U6iRpV3OykN4STI%3D: dial tcp: lookup production.cloudflare.docker.com: no such host
 ```
 
-进入 ```/etc/resolv.conf``` 添加
+进入 `/etc/resolv.conf` 添加
 ```cmd
 nameserver 8.8.8.8
-````
+```
 
 ##### 2. 下载镜像过慢
-手动配置镜像源，```/etc/docker/daemon.json```中添加：
+手动配置镜像源，`/etc/docker/daemon.json`中添加：
 ```json
 {
   "registry-mirrors" : ["https://xxxxxxxx.mirror.aliyuncs.com"]

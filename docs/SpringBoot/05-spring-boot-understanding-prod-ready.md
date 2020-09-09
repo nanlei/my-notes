@@ -302,8 +302,8 @@ Process finished with exit code 0
 
 上述代码是一种显式的代码配置，配置数据源来源于内部代码实现，也称为“内部化配置”，虽然可以达到目的，但应用程序缺少弹性。
 
-实现相同的需求，Spring Boot提供了实现，比如在```application.yml```文件中配置：
-```yml
+实现相同的需求，Spring Boot提供了实现，比如在`application.yml`文件中配置：
+```yaml
 spring:
   profiles:
     active: dev

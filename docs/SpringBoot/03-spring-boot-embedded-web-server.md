@@ -46,9 +46,9 @@ $ mvn dependency:tree -Dincludes=*:spring-boot-starter-tomcat:jar:2.3.2.RELEASE
 
 #### 1. Tomcat作为嵌入式Servlet Web容器
 
-嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过```java -jar```命令启动。
+嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过`java -jar`命令启动。
 
-新建项目```servlet-sample```，结构如下：
+新建项目`servlet-sample`，结构如下：
 ```cmd
 $ tree .
 .
@@ -359,9 +359,9 @@ Example 2: use an existing manifest file 'mymanifest' and archive all the
 ><b>Use Another Web Server</b>  
 >Many Spring Boot starters include default embedded containers.
 >
->For servlet stack applications, the ```spring-boot-starter-web``` includes Tomcat by including ```spring-boot-starter-tomcat```, but you can use ```spring-boot-starter-jetty``` or ```spring-boot-starter-undertow``` instead.
+>For servlet stack applications, the `spring-boot-starter-web` includes Tomcat by including `spring-boot-starter-tomcat`, but you can use `spring-boot-starter-jetty` or `spring-boot-starter-undertow` instead.
 >
->For reactive stack applications, the ```spring-boot-starter-webflux``` includes Reactor Netty by including ```spring-boot-starter-reactor-netty```, but you can use ```spring-boot-starter-tomcat```, ```spring-boot-starter-jetty```, or ```spring-boot-starter-undertow``` instead.
+>For reactive stack applications, the `spring-boot-starter-webflux` includes Reactor Netty by including `spring-boot-starter-reactor-netty`, but you can use `spring-boot-starter-tomcat`, `spring-boot-starter-jetty`, or `spring-boot-starter-undertow` instead.
 >
 >When switching to a different HTTP server, you need to exclude the default dependencies in addition to including the one you need. To help with this process, Spring Boot provides a separate starter for each of the supported HTTP servers.
 >

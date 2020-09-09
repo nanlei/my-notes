@@ -54,6 +54,7 @@ binlog-ignore-db=mysql
 binlog-ignore-db=information_schema
 binlog-ignore-db=performance_schema
 binlog-ignore-db=sys
+wait_timeout=28800
 ```
 
 slave1 (/usr/mysql/slave1/my.cnf)
@@ -68,6 +69,7 @@ replicate-ignore-db=mysql
 replicate-ignore-db=information_schema
 replicate-ignore-db=performance_schema
 replicate-ignore-db=sys
+wait_timeout=28800
 ```
 
 slave2 (/usr/mysql/slave2/my.cnf)
@@ -82,6 +84,7 @@ replicate-ignore-db=mysql
 replicate-ignore-db=information_schema
 replicate-ignore-db=performance_schema
 replicate-ignore-db=sys
+wait_timeout=28800
 ```
 
 ##### 2.4 在3个目录下创建数据子目录data和配置子目录conf.d
@@ -180,7 +183,7 @@ show master status;
 172.18.0.2
 ```
 
-配置两个从库，root用户默认所有权限开放
+配置两个从库，root用户默认所有权限开放，mysql用户则只开放select权限
 ```sql
 stop slave;
 ALTER USER 'root'@'%' IDENTIFIED BY 'root';
@@ -207,5 +210,5 @@ show slave status\G;
           Replicate_Ignore_DB: mysql,information_schema,performance_schema,sys
 ```
 
-```Slave_IO_Running```和```Slave_SQL_Running```均为Yes时表示配置成功
+`Slave_IO_Running`和`Slave_SQL_Running`均为Yes时表示配置成功
 
