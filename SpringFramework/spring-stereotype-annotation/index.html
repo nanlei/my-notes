@@ -1,0 +1,1626 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Notes">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Stereotype Annotation - Tech Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Tech Notes" class="md-header-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Tech Notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Stereotype Annotation
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="./" class="md-tabs__link md-tabs__link--active">
+          Framework
+        </a>
+      
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DataBase/MySQL/master-slave/" class="md-tabs__link">
+          DataBase
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DevOps/devops-centos/" class="md-tabs__link">
+          DevOps
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Notes" class="md-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Tech Notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Framework" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Framework" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-1" type="checkbox" id="nav-2-1-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1-1">
+      Annotation Driven
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Annotation Driven" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-1-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Annotation Driven
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Stereotype Annotation
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Stereotype Annotation" class="md-nav__link md-nav__link--active">
+      Stereotype Annotation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 模式注解说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 元注解
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-component" class="md-nav__link">
+    3. @Component的派生性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-component" class="md-nav__link">
+    4. 自定义@Component派生注解
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-component" class="md-nav__link">
+    5. @Component派生原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-component" class="md-nav__link">
+    6. 多层次@Component派生性
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-1" type="checkbox" id="nav-2-2-1">
+    
+    <label class="md-nav__link" for="nav-2-2-1">
+      Notes
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Notes" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/01-spring-boot-application/" title="Standalone Application" class="md-nav__link">
+      Standalone Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-nav__link">
+      Embedded Web Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-nav__link">
+      Understanding Auto-Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/05-spring-boot-understanding-prod-ready/" title="Understanding Production-Ready" class="md-nav__link">
+      Understanding Production-Ready
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-2" type="checkbox" id="nav-2-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2-2">
+      Samples
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Samples" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-2-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/app-shardingsphere-master-slave-mysql/" title="Shardingsphere master-slave with MySQL" class="md-nav__link">
+      Shardingsphere master-slave with MySQL
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      DataBase
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DataBase" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DataBase
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      MySQL
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MySQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-nav__link">
+      Master Slave
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      MongoDB
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MongoDB" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MongoDB
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MongoDB/replica-set/" title="Replica Set" class="md-nav__link">
+      Replica Set
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      DevOps
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DevOps
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Linux
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Linux" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/devops-centos/" title="CentOS" class="md-nav__link">
+      CentOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/devops-ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Docker
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/docker/" title="Basic" class="md-nav__link">
+      Basic
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 模式注解说明
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 元注解
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-component" class="md-nav__link">
+    3. @Component的派生性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-component" class="md-nav__link">
+    4. 自定义@Component派生注解
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-component" class="md-nav__link">
+    5. @Component派生原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-component" class="md-nav__link">
+    6. 多层次@Component派生性
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringFramework/spring-stereotype-annotation.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Stereotype Annotation</h1>
+                
+                <h3 align="center"><b>Spring 模式注解(Stereotype Annotation)</b></h3>
+
+<h4 id="1">1. 模式注解说明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>Spring Framework的模式注解在官方Github的Wiki中有说明，<a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model">可以参考</a>。</p>
+<blockquote>
+<p>A <strong><em>stereotype annotation</em></strong> is an annotation that is used to declare the role that a component plays within the application. For example, the <code>@Repository</code> annotation in the Spring Framework is a marker for any class that fulfills the role or stereotype of a repository (also known as Data Access Object or DAO).</p>
+</blockquote>
+<p>Wiki说明，模式注解(Stereotype annotation)是在应用程序中用来声明组件角色的注解。并举例，<code>@Repository</code>注解就是实现仓储模式(或者说是DAO：数据访问对象)类的标记。</p>
+<blockquote>
+<p><code>@Component</code> is a generic stereotype for any Spring-managed component. Any component annotated with <code>@Component</code> is a candidate for component scanning. Similarly, any component annotated with an annotation that is itself meta-annotated with <code>@Component</code> is also a candidate for component scanning. For example, <code>@Service</code> is meta-annotated with <code>@Component</code>.</p>
+</blockquote>
+<p>紧接着，继续说明，<code>@Component</code>是Spring管理组件的通用模式注解，任何被<code>@Component</code>注解的组件都是候选的组件扫描对象。任何被<code>@Component</code>元标注的注解，例如<code>@Service</code>，任何组件被它们标注时，也被视作候选的组件扫描对象。</p>
+<blockquote>
+<p>Core Spring provides several stereotype annotations out of the box, including but not limited to: <code>@Component</code>, <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code>, <code>@RestController</code>, and <code>@Configuration</code>. <code>@Repository</code>, <code>@Service</code>, etc. are specializations of <code>@Component</code>.</p>
+</blockquote>
+<p>Spring Framework核心部分提供了几种模式注解，包括并不限于下列这些：<code>@Component</code>, <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code>, <code>@RestController</code>和 <code>@Configuration</code>，它们都是<code>@Component</code>的规范。</p>
+<p>当然也可以自定义模式注解，可以理解为模式注解就是<code>@Component</code>的派生注解。但Java中的注解不允许继承，<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.6">可以参考</a>，Spring Framework采用元标注的方式来实现派生。</p>
+<h4 id="2">2. 元注解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>上述<a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model">Wiki</a>在开头直接介绍了元注解：</p>
+<blockquote>
+<p>A <strong><em>meta-annotation</em></strong> is an annotation that is declared on another annotation. An annotation is therefore meta-annotated if it is annotated with another annotation. For example, any annotation that is declared to be documented is meta-annotated with <code>@Documented</code> from the <code>java.lang.annotation</code> package.</p>
+</blockquote>
+<p>元注解指的是一个能声明在其他注解上的注解，同时举例<code>@Documented</code>能够作为任何注解的元注解。</p>
+<p>可以看出，元注解是Java中的概念，而非Spring专有。而在Spring中，<code>@Component</code>可以视作为元注解，由上面的模式注解说明即可看出。</p>
+<h4 id="3-component">3. <code>@Component</code>的派生性<a class="headerlink" href="#3-component" title="Permanent link">&para;</a></h4>
+<p><code>@Repository</code>注解在Spring Framework 2.0被引入，可以参考<a href="https://docs.spring.io/spring-framework/docs/2.0.0/javadoc-api/index.html?org/springframework/stereotype/Repository.html">JavaDoc文档</a>，该注解仅仅作为仓储(DAO)的标记使用。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.stereotype</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Inherited</span>
+<span class="nd">@Documented</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Repository</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>而到了Spring Framework 2.5，其定义发生了变化，可以参考<a href="https://docs.spring.io/spring-framework/docs/2.5.6/javadoc-api/index.html?org/springframework/stereotype/Repository.html">JavaDoc文档</a>，其不但是标记注解，而且作为Spring Framework的组件(Component)了。在其定义上也被<code>@Component</code>注解标注。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.stereotype</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Repository</span> <span class="p">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * The value may indicate a suggestion for a logical component name,</span>
+<span class="cm">     * to be turned into a Spring bean in case of an autodetected component.</span>
+<span class="cm">     * @return the suggested component name, if any</span>
+<span class="cm">     */</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>因为Spring Framework 2.5同时引入了<code>@Component</code>注解，可以参考<a href="https://docs.spring.io/spring-framework/docs/2.5.6/javadoc-api/index.html?org/springframework/stereotype/Repository.html">JavaDoc文档</a>，被标注的类就是Spring的组件，这些类被视作使用注解配置和类路径扫描时，自动探测的候选对象。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.stereotype</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Component</span> <span class="p">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * The value may indicate a suggestion for a logical component name,</span>
+<span class="cm">     * to be turned into a Spring bean in case of an autodetected component.</span>
+<span class="cm">     * @return the suggested component name, if any</span>
+<span class="cm">     */</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+<p>可以看到，标注了<code>@Component</code>的<code>@Repository</code>注解中的属性方法和<code>@Component</code>保持一致，在Spring Framework 2.5引入的模式注解有：</p>
+<p><img alt="Spring Framework 2.5 Stereotype Annotation" src="../img/spring25.package.stereotype.png" /></p>
+<p>其中，<code>@Controller</code>，<code>@Repository</code>，<code>@Service</code>都是@<code>Component</code>的派生注解。</p>
+<h4 id="4-component">4. 自定义<code>@Component</code>派生注解<a class="headerlink" href="#4-component" title="Permanent link">&para;</a></h4>
+<p>以下示例基于Spring Framework 2.5.6 SEC03版本进行，添加如下依赖即可：
+<div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>2.5.6.SEC03<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></p>
+<p>参照<code>@Repository</code>的声明，自定义一个<code>@StringRepository</code>注解：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">StringRepository</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * 属性方法名称必须与{@link Component#value()}保持一致</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return Bean的名称</span>
+<span class="cm">     */</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>新建一个Repository类型的类，将其标注为<code>@StringRepository</code>：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.repository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.StringRepository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="p">;</span>
+
+<span class="nd">@StringRepository</span><span class="p">(</span><span class="s">&quot;nameRepository&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">NameRepository</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * 查找所有的名字</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return List</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">Arrays</span><span class="p">.</span><span class="na">asList</span><span class="p">(</span><span class="s">&quot;Tom&quot;</span><span class="p">,</span> <span class="s">&quot;Jerry&quot;</span><span class="p">,</span> <span class="s">&quot;LN&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Spring Framework 2.5暂不支持<code>@ComponentScan</code>注解，只能使用传统的XML方式进行配置：
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans</span>
+<span class="s">           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span>
+<span class="s">           http://www.springframework.org/schema/context</span>
+<span class="s">           http://www.springframework.org/schema/context/spring-context.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&quot;deep.in.springframework&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div></p>
+<p>编写引导类：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.repository.NameRepository</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationBootstrap</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="p">{</span>
+        <span class="c1">//Spring 2.5 不兼容Java8，降低Java版本</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;java.version&quot;</span><span class="p">,</span> <span class="s">&quot;1.7.0&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ClassPathXmlApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">setConfigLocation</span><span class="p">(</span><span class="s">&quot;classpath:/applicationContext.xml&quot;</span><span class="p">);</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="n">NameRepository</span> <span class="n">repository</span> <span class="o">=</span> <span class="p">(</span><span class="n">NameRepository</span><span class="p">)</span> <span class="n">context</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;nameRepository&quot;</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">repository</span><span class="p">.</span><span class="na">findAll</span><span class="p">());</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>整体项目结构为：
+<div class="highlight"><pre><span></span><code>$ tree .
+.
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── deep
+│   │   │       └── in
+│   │   │           └── springframework
+│   │   │               ├── ApplicationBootstrap.java
+│   │   │               ├── annotation
+│   │   │               │   └── StringRepository.java
+│   │   │               └── repository
+│   │   │                   └── NameRepository.java
+│   │   └── resources
+│   │       └── applicationContext.xml
+│   └── test
+│       └── java
+└── target
+    ├── classes
+    │   ├── applicationContext.xml
+    │   └── deep
+    │       └── in
+    │           └── springframework
+    │               ├── ApplicationBootstrap.class
+    │               ├── annotation
+    │               │   └── StringRepository.class
+    │               └── repository
+    │                   └── NameRepository.class
+    └── generated-sources
+        └── annotations
+
+20 directories, 9 files
+</code></pre></div></p>
+<p>运行引导类，即可得到结果：
+<div class="highlight"><pre><span></span><code>Sep 11, 2020 1:43:14 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@6e2c634b: display name [org.springframework.context.support.ClassPathXmlApplicationContext@6e2c634b]; startup date [Fri Sep 11 13:43:14 CST 2020]; root of context hierarchy
+Sep 11, 2020 1:43:14 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [applicationContext.xml]
+Sep 11, 2020 1:43:14 PM org.springframework.context.support.AbstractApplicationContext obtainFreshBeanFactory
+INFO: Bean factory for application context [org.springframework.context.support.ClassPathXmlApplicationContext@6e2c634b]: org.springframework.beans.factory.support.DefaultListableBeanFactory@c39f790
+Sep 11, 2020 1:43:14 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@c39f790: defining beans [nameRepository,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor]; root of factory hierarchy
+Sep 11, 2020 1:43:14 PM org.springframework.context.support.AbstractApplicationContext doClose
+INFO: Closing org.springframework.context.support.ClassPathXmlApplicationContext@6e2c634b: display name [org.springframework.context.support.ClassPathXmlApplicationContext@6e2c634b]; startup date [Fri Sep 11 13:43:14 CST 2020]; root of context hierarchy
+Sep 11, 2020 1:43:14 PM org.springframework.beans.factory.support.DefaultSingletonBeanRegistry destroySingletons
+INFO: Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@c39f790: defining beans [nameRepository,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor]; root of factory hierarchy
+[Tom, Jerry, LN]
+</code></pre></div></p>
+<p>运行结果表明：<code>@StringRepository</code>作为<code>@Component</code>的派生注解，经Spring Framework扫描注册后，其语义和<code>@Repository</code>类似。被标注的类被Spring上下文初始化为Spring Bean并被容器管理。</p>
+<h4 id="5-component">5. <code>@Component</code>派生原理<a class="headerlink" href="#5-component" title="Permanent link">&para;</a></h4>
+<p>基于Spring Framework 2.5.6.SEC03版本，上例中使用了<code>&lt;context:component-scan/&gt;</code>元素进行<code>@Component</code>组件扫描。</p>
+<p><code>context</code>前缀的处理类可以在<code>/META-INF/spring.handlers</code>文件中找到，就是:
+<div class="highlight"><pre><span></span><code>...
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler
+...
+</code></pre></div></p>
+<p><code>ContextNamespaceHandler</code>就是<code>context</code>对应的处理类：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.config</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContextNamespaceHandler</span> <span class="kd">extends</span> <span class="n">NamespaceHandlerSupport</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="n">registerJava5DependentParser</span><span class="p">(</span><span class="s">&quot;component-scan&quot;</span><span class="p">,</span>
+                <span class="s">&quot;org.springframework.context.annotation.ComponentScanBeanDefinitionParser&quot;</span><span class="p">);</span>
+        <span class="p">...</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>可以得到<code>&lt;context:component-scan/&gt;</code>的处理类就是<code>org.springframework.context.annotation.ComponentScanBeanDefinitionParser</code>。</p>
+<p><code>ComponentScanBeanDefinitionParser</code>是一种Bean定义解析器的实现，当Spring ApplicationContext加载并解析XML配置文件后，解析到<code>&lt;context:component-scan/&gt;</code>时，<code>ComponentScanBeanDefinitionParser.parse(Element, ParserContext)</code>方法将被调用：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComponentScanBeanDefinitionParser</span> <span class="kd">implements</span> <span class="n">BeanDefinitionParser</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">BASE_PACKAGE_ATTRIBUTE</span> <span class="o">=</span> <span class="s">&quot;base-package&quot;</span><span class="p">;</span>
+    <span class="p">...</span>
+
+    <span class="kd">public</span> <span class="n">BeanDefinition</span> <span class="nf">parse</span><span class="p">(</span><span class="n">Element</span> <span class="n">element</span><span class="p">,</span> <span class="n">ParserContext</span> <span class="n">parserContext</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">basePackages</span> <span class="o">=</span>
+                <span class="n">StringUtils</span><span class="p">.</span><span class="na">commaDelimitedListToStringArray</span><span class="p">(</span><span class="n">element</span><span class="p">.</span><span class="na">getAttribute</span><span class="p">(</span><span class="n">BASE_PACKAGE_ATTRIBUTE</span><span class="p">));</span>
+
+        <span class="c1">// Actually scan for bean definitions and register them.</span>
+        <span class="n">ClassPathBeanDefinitionScanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="n">configureScanner</span><span class="p">(</span><span class="n">parserContext</span><span class="p">,</span> <span class="n">element</span><span class="p">);</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinitionHolder</span><span class="o">&gt;</span> <span class="n">beanDefinitions</span> <span class="o">=</span> <span class="n">scanner</span><span class="p">.</span><span class="na">doScan</span><span class="p">(</span><span class="n">basePackages</span><span class="p">);</span>
+        <span class="n">registerComponents</span><span class="p">(</span><span class="n">parserContext</span><span class="p">.</span><span class="na">getReaderContext</span><span class="p">(),</span> <span class="n">beanDefinitions</span><span class="p">,</span> <span class="n">element</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>解析到属性<code>base-package</code>后，<code>basePackages</code>接收将逗号分隔的列表转为字符串数组，之后传入<code>ClassPathBeanDefinitionScanner.doScan(String...)</code>方法，并返回<code>Set&lt;BeanDefinitionHolder&gt;</code>，而<code>BeanDefinitionHolder</code>包含Bean定义(<code>BeanDefinition</code>)，bean名称和别名信息：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.beans.factory.config</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanDefinitionHolder</span> <span class="kd">implements</span> <span class="n">BeanMetadataElement</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BeanDefinition</span> <span class="n">beanDefinition</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">beanName</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">aliases</span><span class="p">;</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>在上例中，<code>@StringRepository</code>标注的<code>NameRepository</code>类将被解析为<code>BeanDefinitionHolder</code>，其中的<code>beanName</code>为<code>nameRepository</code>，<code>deep.in.springframework.repository.NameRepository</code>即为<code>BeanDefinition</code>的类型。之后，Spring ApplicationContext将其初始化为Spring Bean。</p>
+<p>在 <code>doScan(String...)</code>方法中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathBeanDefinitionScanner</span> <span class="kd">extends</span> <span class="n">ClassPathScanningCandidateComponentProvider</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">protected</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinitionHolder</span><span class="o">&gt;</span> <span class="nf">doScan</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">basePackages</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinitionHolder</span><span class="o">&gt;</span> <span class="n">beanDefinitions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashSet</span><span class="o">&lt;</span><span class="n">BeanDefinitionHolder</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">basePackages</span><span class="p">.</span><span class="na">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">candidates</span> <span class="o">=</span> <span class="n">findCandidateComponents</span><span class="p">(</span><span class="n">basePackages</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">BeanDefinition</span> <span class="n">candidate</span> <span class="p">:</span> <span class="n">candidates</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">String</span> <span class="n">beanName</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">beanNameGenerator</span><span class="p">.</span><span class="na">generateBeanName</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">registry</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span> <span class="k">instanceof</span> <span class="n">AbstractBeanDefinition</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">postProcessBeanDefinition</span><span class="p">((</span><span class="n">AbstractBeanDefinition</span><span class="p">)</span> <span class="n">candidate</span><span class="p">,</span> <span class="n">beanName</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">ScopeMetadata</span> <span class="n">scopeMetadata</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">scopeMetadataResolver</span><span class="p">.</span><span class="na">resolveScopeMetadata</span><span class="p">(</span><span class="n">candidate</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">checkCandidate</span><span class="p">(</span><span class="n">beanName</span><span class="p">,</span> <span class="n">candidate</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">BeanDefinitionHolder</span> <span class="n">definitionHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BeanDefinitionHolder</span><span class="p">(</span><span class="n">candidate</span><span class="p">,</span> <span class="n">beanName</span><span class="p">);</span>
+                    <span class="n">definitionHolder</span> <span class="o">=</span> <span class="n">applyScope</span><span class="p">(</span><span class="n">definitionHolder</span><span class="p">,</span> <span class="n">scopeMetadata</span><span class="p">);</span>
+                    <span class="n">beanDefinitions</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">definitionHolder</span><span class="p">);</span>
+                    <span class="n">registerBeanDefinition</span><span class="p">(</span><span class="n">definitionHolder</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">registry</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">beanDefinitions</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>根据<code>basePackages</code>依次迭代，通过父类<code>ClassPathScanningCandidateComponentProvider</code>提供的<code>findCandidateComponents(String)</code>方法，返回候选的<code>BeanDefinition</code>集合：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">public</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="nf">findCandidateComponents</span><span class="p">(</span><span class="n">String</span> <span class="n">basePackage</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">candidates</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashSet</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">String</span> <span class="n">packageSearchPath</span> <span class="o">=</span> <span class="n">ResourcePatternResolver</span><span class="p">.</span><span class="na">CLASSPATH_ALL_URL_PREFIX</span> <span class="o">+</span>
+                    <span class="n">resolveBasePackage</span><span class="p">(</span><span class="n">basePackage</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">resourcePattern</span><span class="p">;</span>
+            <span class="n">Resource</span><span class="o">[]</span> <span class="n">resources</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">resourcePatternResolver</span><span class="p">.</span><span class="na">getResources</span><span class="p">(</span><span class="n">packageSearchPath</span><span class="p">);</span>
+            <span class="kt">boolean</span> <span class="n">traceEnabled</span> <span class="o">=</span> <span class="n">logger</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">();</span>
+            <span class="kt">boolean</span> <span class="n">debugEnabled</span> <span class="o">=</span> <span class="n">logger</span><span class="p">.</span><span class="na">isDebugEnabled</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">resources</span><span class="p">.</span><span class="na">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">Resource</span> <span class="n">resource</span> <span class="o">=</span> <span class="n">resources</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">traceEnabled</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">logger</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&quot;Scanning &quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">resource</span><span class="p">.</span><span class="na">isReadable</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="n">MetadataReader</span> <span class="n">metadataReader</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">metadataReaderFactory</span><span class="p">.</span><span class="na">getMetadataReader</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">isCandidateComponent</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">))</span> <span class="p">{</span>
+                        <span class="n">ScannedGenericBeanDefinition</span> <span class="n">sbd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ScannedGenericBeanDefinition</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">);</span>
+                        <span class="n">sbd</span><span class="p">.</span><span class="na">setResource</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+                        <span class="n">sbd</span><span class="p">.</span><span class="na">setSource</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">isCandidateComponent</span><span class="p">(</span><span class="n">sbd</span><span class="p">))</span> <span class="p">{</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">debugEnabled</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="n">logger</span><span class="p">.</span><span class="na">debug</span><span class="p">(</span><span class="s">&quot;Identified candidate component class: &quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="p">);</span>
+                            <span class="p">}</span>
+                            <span class="n">candidates</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">sbd</span><span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span> <span class="p">{</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="n">debugEnabled</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="n">logger</span><span class="p">.</span><span class="na">debug</span><span class="p">(</span><span class="s">&quot;Ignored because not a concrete top-level class: &quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="p">);</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">traceEnabled</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="n">logger</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&quot;Ignored because not matching any filter: &quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">traceEnabled</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">logger</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&quot;Ignored because not readable: &quot;</span> <span class="o">+</span> <span class="n">resource</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">IOException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">BeanDefinitionStoreException</span><span class="p">(</span><span class="s">&quot;I/O failure during classpath scanning&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">candidates</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>其中，
+<div class="highlight"><pre><span></span><code><span class="n">String</span> <span class="n">packageSearchPath</span> <span class="o">=</span> <span class="n">ResourcePatternResolver</span><span class="p">.</span><span class="na">CLASSPATH_ALL_URL_PREFIX</span> <span class="o">+</span>
+                    <span class="n">resolveBasePackage</span><span class="p">(</span><span class="n">basePackage</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">resourcePattern</span><span class="p">;</span>
+</code></pre></div>
+将<code>basePackage</code>转换为搜索路径，上例中参数转换为：<code>classpath*:deep/in/springframework/**/*.class</code></p>
+<p>之后，通过：
+<div class="highlight"><pre><span></span><code><span class="n">Resource</span><span class="o">[]</span> <span class="n">resources</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">resourcePatternResolver</span><span class="p">.</span><span class="na">getResources</span><span class="p">(</span><span class="n">packageSearchPath</span><span class="p">);</span>
+</code></pre></div></p>
+<p>获取到搜索路径下的所有资源，上例中的运行结果为：
+<img alt="Debug in ClassPathScanningCandidateComponentProvider.findCandidateComponents()" src="../img/spring25.stereotype.debug.findcandidatecomponents.png" /></p>
+<p>紧接着，迭代获取到的<code>resources</code>对象，资源可以被读取，<code>resource.isReadable()</code>为<code>true</code>时，通过：
+<div class="highlight"><pre><span></span><code><span class="n">MetadataReader</span> <span class="n">metadataReader</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">metadataReaderFactory</span><span class="p">.</span><span class="na">getMetadataReader</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+</code></pre></div></p>
+<p>获取该资源的<code>MetadataReader</code>对象：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.core.type.classreading</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.AnnotationMetadata</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.ClassMetadata</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MetadataReader</span> <span class="p">{</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Read basic class metadata for the underlying class.</span>
+<span class="cm">     */</span>
+    <span class="n">ClassMetadata</span> <span class="nf">getClassMetadata</span><span class="p">();</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Read full annotation metadata for the underlying class.</span>
+<span class="cm">     */</span>
+    <span class="n">AnnotationMetadata</span> <span class="nf">getAnnotationMetadata</span><span class="p">();</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>之后进行<code>isCandidateComponent(MetadataReader)</code>判断：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isCandidateComponent</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">TypeFilter</span> <span class="n">tf</span> <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="na">excludeFilters</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="na">match</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">metadataReaderFactory</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">TypeFilter</span> <span class="n">tf</span> <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="na">includeFilters</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="na">match</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">metadataReaderFactory</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>其中使用<code>excludeFilters</code>和<code>includeFilters</code>两个条件来进行判断，它们的初始化是在：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComponentScanBeanDefinitionParser</span> <span class="kd">implements</span> <span class="n">BeanDefinitionParser</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">protected</span> <span class="n">ClassPathBeanDefinitionScanner</span> <span class="nf">configureScanner</span><span class="p">(</span><span class="n">ParserContext</span> <span class="n">parserContext</span><span class="p">,</span> <span class="n">Element</span> <span class="n">element</span><span class="p">)</span> <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="kt">boolean</span> <span class="n">useDefaultFilters</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">element</span><span class="p">.</span><span class="na">hasAttribute</span><span class="p">(</span><span class="n">USE_DEFAULT_FILTERS_ATTRIBUTE</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">useDefaultFilters</span> <span class="o">=</span> <span class="n">Boolean</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">element</span><span class="p">.</span><span class="na">getAttribute</span><span class="p">(</span><span class="n">USE_DEFAULT_FILTERS_ATTRIBUTE</span><span class="p">));</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Delegate bean definition registration to scanner class.</span>
+        <span class="n">ClassPathBeanDefinitionScanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="n">createScanner</span><span class="p">(</span><span class="n">readerContext</span><span class="p">,</span> <span class="n">useDefaultFilters</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="kd">protected</span> <span class="n">ClassPathBeanDefinitionScanner</span> <span class="nf">createScanner</span><span class="p">(</span><span class="n">XmlReaderContext</span> <span class="n">readerContext</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ClassPathBeanDefinitionScanner</span><span class="p">(</span><span class="n">readerContext</span><span class="p">.</span><span class="na">getRegistry</span><span class="p">(),</span> <span class="n">useDefaultFilters</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+中通过<code>ClassPathBeanDefinitionScanner</code>的构造方法完成的：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathBeanDefinitionScanner</span> <span class="kd">extends</span> <span class="n">ClassPathScanningCandidateComponentProvider</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="nf">ClassPathBeanDefinitionScanner</span><span class="p">(</span><span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">(</span><span class="n">useDefaultFilters</span><span class="p">);</span>
+
+        <span class="n">Assert</span><span class="p">.</span><span class="na">notNull</span><span class="p">(</span><span class="n">registry</span><span class="p">,</span> <span class="s">&quot;BeanDefinitionRegistry must not be null&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">registry</span> <span class="o">=</span> <span class="n">registry</span><span class="p">;</span>
+
+        <span class="c1">// Determine ResourceLoader to use.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">registry</span> <span class="k">instanceof</span> <span class="n">ResourceLoader</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">setResourceLoader</span><span class="p">((</span><span class="n">ResourceLoader</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="na">registry</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>useDefaultFilters</code>默认为<code>true</code>，则由其父类构造方法：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+
+<span class="p">...</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="kd">public</span> <span class="nf">ClassPathScanningCandidateComponentProvider</span><span class="p">(</span><span class="kt">boolean</span> <span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">registerDefaultFilters</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">registerDefaultFilters</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">includeFilters</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">AnnotationTypeFilter</span><span class="p">(</span><span class="n">Component</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+最终完成，可以看到，<code>includeFilters</code>对象包含了<code>@Component</code>类型的<code>AnnotationTypeFilter</code>对象，而没有设置<code>excludeFilters</code>对象。也就是说，此时的<code>AnnotationTypeFilter</code>可以识别<code>@Component</code>，<code>@Controller</code>，<code>@Repository</code>，<code>@Service</code>类型的注解元信息。</p>
+<p>判断完候选<code>Component</code>后，继续执行：
+<div class="highlight"><pre><span></span><code><span class="n">ScannedGenericBeanDefinition</span> <span class="n">sbd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ScannedGenericBeanDefinition</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">);</span>
+</code></pre></div></p>
+<p><code>ScannedGenericBeanDefinition</code>的定义为：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScannedGenericBeanDefinition</span> <span class="kd">extends</span> <span class="n">GenericBeanDefinition</span> <span class="kd">implements</span> <span class="n">AnnotatedBeanDefinition</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AnnotationMetadata</span> <span class="n">metadata</span><span class="p">;</span>
+
+    <span class="kd">public</span> <span class="nf">ScannedGenericBeanDefinition</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Assert</span><span class="p">.</span><span class="na">notNull</span><span class="p">(</span><span class="n">metadataReader</span><span class="p">,</span> <span class="s">&quot;MetadataReader must not be null&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">metadata</span> <span class="o">=</span> <span class="n">metadataReader</span><span class="p">.</span><span class="na">getAnnotationMetadata</span><span class="p">();</span>
+        <span class="n">setBeanClassName</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">metadata</span><span class="p">.</span><span class="na">getClassName</span><span class="p">());</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">AnnotationMetadata</span> <span class="nf">getMetadata</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">metadata</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>最终，只有资源<code>deep.in.springframework.repository.NameRepository</code>被装入<code>Set&lt;BeanDefinition&gt; candidates</code>对象中，而<code>deep.in.springframework.annotation.StringRepository</code>不被装入是因为<code>Ignored because not a concrete top-level class</code>，引导类则是<code>Ignored because not matching any filter</code>的原因被排除了。</p>
+<p>至此，<code>deep.in.springframework.repository.NameRepository</code>作为<code>BeanDefinition</code>返回并进行后续的初始化。</p>
+<p>同样，在<code>ClassPathBeanDefinitionScanner</code>的<a href="https://docs.spring.io/spring-framework/docs/2.5.6/javadoc-api/index.html?org/springframework/stereotype/Repository.html">JavaDoc文档</a>中，也有说明：</p>
+<blockquote>
+<p>Candidate classes are detected through configurable type filters. The default filters include classes that are annotated with Spring's <code>@Component</code>, <code>@Repository</code>, <code>@Service</code>, or <code>@Controller</code> stereotype</p>
+</blockquote>
+<p><code>ClassPathBeanDefinitionScanner</code>通过默认过滤器引入标记了<code>@Component</code>，<code>@Repository</code>，<code>@Service</code>，或<code>@Controller</code>的类，同理，它也能引入所有标记了<code>@Component</code>的派生注解，比如上例中的<code>@StringRepository</code>。</p>
+<p>Spring 3.0引入的<code>@Configuration</code>注解，也是<code>@Component</code>的派生注解，<a href="https://docs.spring.io/spring-framework/docs/3.0.x/javadoc-api/org/springframework/context/annotation/Configuration.html">可以参考</a>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Configuration</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>ClassPathBeanDefinitionScanner</code>也允许自定义类型过滤器，可以通过<code>&lt;context:component-scan/&gt;</code>的<code>include-filter</code>和<code>exclude-filter</code>属性来配置。</p>
+<h4 id="6-component">6. 多层次<code>@Component</code>派生性<a class="headerlink" href="#6-component" title="Permanent link">&para;</a></h4>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../.." title="Home" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../SpringBoot/01-spring-boot-application/" title="Standalone Application" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Standalone Application
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
