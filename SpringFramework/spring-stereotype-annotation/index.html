@@ -453,6 +453,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7-component" class="md-nav__link">
+    7. 多层次@Component派生性原理
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -984,6 +991,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#7-component" class="md-nav__link">
+    7. 多层次@Component派生性原理
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1090,7 +1104,7 @@
 <p><img alt="Spring Framework 2.5 Stereotype Annotation" src="../img/spring25.package.stereotype.png" /></p>
 <p>其中，<code>@Controller</code>，<code>@Repository</code>，<code>@Service</code>都是@<code>Component</code>的派生注解。</p>
 <h4 id="4-component">4. 自定义<code>@Component</code>派生注解<a class="headerlink" href="#4-component" title="Permanent link">&para;</a></h4>
-<p>以下示例基于Spring Framework 2.5.6 SEC03版本进行，添加如下依赖即可：
+<p>以下示例基于**Spring Framework 2.5.6 SEC03**版本进行，添加如下依赖即可：
 <div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
         <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
@@ -1226,7 +1240,7 @@ INFO: Destroying singletons in org.springframework.beans.factory.support.Default
 </code></pre></div></p>
 <p>运行结果表明：<code>@StringRepository</code>作为<code>@Component</code>的派生注解，经Spring Framework扫描注册后，其语义和<code>@Repository</code>类似。被标注的类被Spring上下文初始化为Spring Bean并被容器管理。</p>
 <h4 id="5-component">5. <code>@Component</code>派生原理<a class="headerlink" href="#5-component" title="Permanent link">&para;</a></h4>
-<p>基于Spring Framework 2.5.6.SEC03版本，上例中使用了<code>&lt;context:component-scan/&gt;</code>元素进行<code>@Component</code>组件扫描。</p>
+<p>基于**Spring Framework 2.5.6.SEC03**版本，上例中使用了<code>&lt;context:component-scan/&gt;</code>元素进行<code>@Component</code>组件扫描。</p>
 <p><code>context</code>前缀的处理类可以在<code>/META-INF/spring.handlers</code>文件中找到，就是:
 <div class="highlight"><pre><span></span><code>...
 http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler
@@ -1234,9 +1248,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p><code>ContextNamespaceHandler</code>就是<code>context</code>对应的处理类：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.config</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ContextNamespaceHandler</span> <span class="kd">extends</span> <span class="n">NamespaceHandlerSupport</span> <span class="p">{</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
         <span class="p">...</span>
@@ -1250,9 +1262,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 <p>可以得到<code>&lt;context:component-scan/&gt;</code>的处理类就是<code>org.springframework.context.annotation.ComponentScanBeanDefinitionParser</code>。</p>
 <p><code>ComponentScanBeanDefinitionParser</code>是一种Bean定义解析器的实现，当Spring ApplicationContext加载并解析XML配置文件后，解析到<code>&lt;context:component-scan/&gt;</code>时，<code>ComponentScanBeanDefinitionParser.parse(Element, ParserContext)</code>方法将被调用：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComponentScanBeanDefinitionParser</span> <span class="kd">implements</span> <span class="n">BeanDefinitionParser</span> <span class="p">{</span>
     <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">BASE_PACKAGE_ATTRIBUTE</span> <span class="o">=</span> <span class="s">&quot;base-package&quot;</span><span class="p">;</span>
     <span class="p">...</span>
@@ -1272,9 +1282,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p>解析到属性<code>base-package</code>后，<code>basePackages</code>接收将逗号分隔的列表转为字符串数组，之后传入<code>ClassPathBeanDefinitionScanner.doScan(String...)</code>方法，并返回<code>Set&lt;BeanDefinitionHolder&gt;</code>，而<code>BeanDefinitionHolder</code>包含Bean定义(<code>BeanDefinition</code>)，bean名称和别名信息：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.beans.factory.config</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanDefinitionHolder</span> <span class="kd">implements</span> <span class="n">BeanMetadataElement</span> <span class="p">{</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">BeanDefinition</span> <span class="n">beanDefinition</span><span class="p">;</span>
@@ -1289,9 +1297,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 <p>在上例中，<code>@StringRepository</code>标注的<code>NameRepository</code>类将被解析为<code>BeanDefinitionHolder</code>，其中的<code>beanName</code>为<code>nameRepository</code>，<code>deep.in.springframework.repository.NameRepository</code>即为<code>BeanDefinition</code>的类型。之后，Spring ApplicationContext将其初始化为Spring Bean。</p>
 <p>在 <code>doScan(String...)</code>方法中：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathBeanDefinitionScanner</span> <span class="kd">extends</span> <span class="n">ClassPathScanningCandidateComponentProvider</span> <span class="p">{</span>
     <span class="p">...</span>
     <span class="kd">protected</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinitionHolder</span><span class="o">&gt;</span> <span class="nf">doScan</span><span class="p">(</span><span class="n">String</span><span class="p">...</span> <span class="n">basePackages</span><span class="p">)</span> <span class="p">{</span>
@@ -1319,9 +1325,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p>根据<code>basePackages</code>依次迭代，通过父类<code>ClassPathScanningCandidateComponentProvider</code>提供的<code>findCandidateComponents(String)</code>方法，返回候选的<code>BeanDefinition</code>集合：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
     <span class="p">...</span>
     <span class="kd">public</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="nf">findCandidateComponents</span><span class="p">(</span><span class="n">String</span> <span class="n">basePackage</span><span class="p">)</span> <span class="p">{</span>
@@ -1411,9 +1415,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p>之后进行<code>isCandidateComponent(MetadataReader)</code>判断：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
     <span class="p">...</span>
     <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isCandidateComponent</span><span class="p">(</span><span class="n">MetadataReader</span> <span class="n">metadataReader</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="p">{</span>
@@ -1434,9 +1436,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p>其中使用<code>excludeFilters</code>和<code>includeFilters</code>两个条件来进行判断，它们的初始化是在：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComponentScanBeanDefinitionParser</span> <span class="kd">implements</span> <span class="n">BeanDefinitionParser</span> <span class="p">{</span>
     <span class="p">...</span>
     <span class="kd">protected</span> <span class="n">ClassPathBeanDefinitionScanner</span> <span class="nf">configureScanner</span><span class="p">(</span><span class="n">ParserContext</span> <span class="n">parserContext</span><span class="p">,</span> <span class="n">Element</span> <span class="n">element</span><span class="p">)</span> <span class="p">{</span>
@@ -1458,9 +1458,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div>
 中通过<code>ClassPathBeanDefinitionScanner</code>的构造方法完成的：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathBeanDefinitionScanner</span> <span class="kd">extends</span> <span class="n">ClassPathScanningCandidateComponentProvider</span> <span class="p">{</span>
     <span class="kd">public</span> <span class="nf">ClassPathBeanDefinitionScanner</span><span class="p">(</span><span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
         <span class="kd">super</span><span class="p">(</span><span class="n">useDefaultFilters</span><span class="p">);</span>
@@ -1477,9 +1475,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p><code>useDefaultFilters</code>默认为<code>true</code>，则由其父类构造方法：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
-
 <span class="p">...</span>
-
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
     <span class="p">...</span>
     <span class="kd">public</span> <span class="nf">ClassPathScanningCandidateComponentProvider</span><span class="p">(</span><span class="kt">boolean</span> <span class="n">useDefaultFilters</span><span class="p">)</span> <span class="p">{</span>
@@ -1538,6 +1534,419 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 </code></pre></div></p>
 <p><code>ClassPathBeanDefinitionScanner</code>也允许自定义类型过滤器，可以通过<code>&lt;context:component-scan/&gt;</code>的<code>include-filter</code>和<code>exclude-filter</code>属性来配置。</p>
 <h4 id="6-component">6. 多层次<code>@Component</code>派生性<a class="headerlink" href="#6-component" title="Permanent link">&para;</a></h4>
+<p><code>@SpringBootApplication</code> 是Spring Boot中最常见的注解，在<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">官方文档</a>中，有如下描述：</p>
+<blockquote>
+<p>A single <code>@SpringBootApplication</code> annotation can be used to enable those three features, that is:</p>
+<ul>
+<li>
+<p><code>@EnableAutoConfiguration</code>: enable <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-auto-configuration">Spring Boot’s auto-configuration mechanism</a></p>
+</li>
+<li>
+<p><code>@ComponentScan</code>: enable <code>@Component</code> scan on the package where the application is located (see <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-structuring-your-code">the best practices</a>)</p>
+</li>
+<li>
+<p><code>@Configuration</code>: allow to register extra beans in the context or import additional configuration classes</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">com.example.myapplication</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+
+<span class="nd">@SpringBootApplication</span> <span class="c1">// same as @Configuration @EnableAutoConfiguration @ComponentScan</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">args</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+</blockquote>
+<p>也就是说使用了<code>@SpringBootApplication</code>相当于<code>@Configuration</code>，<code>@ComponentScan</code>和<code>@EnableAutoConfiguration</code>的联合注解.</p>
+<p><code>@SpringBootApplication</code>注解的定义为：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot.autoconfigure</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Inherited</span>
+<span class="nd">@SpringBootConfiguration</span>
+<span class="nd">@EnableAutoConfiguration</span>
+<span class="nd">@ComponentScan</span><span class="p">(</span><span class="n">excludeFilters</span> <span class="o">=</span> <span class="p">{</span> <span class="nd">@Filter</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FilterType</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">TypeExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">),</span>
+        <span class="nd">@Filter</span><span class="p">(</span><span class="n">type</span> <span class="o">=</span> <span class="n">FilterType</span><span class="p">.</span><span class="na">CUSTOM</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">AutoConfigurationExcludeFilter</span><span class="p">.</span><span class="na">class</span><span class="p">)</span> <span class="p">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SpringBootApplication</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>可以看到，<code>@ComponentScan</code>和<code>@EnableAutoConfiguration</code>是直接标注的，而<code>@Configuration</code>却不是，而在<code>@SpringBootConfiguration</code>中：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.boot</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="cm">/**</span>
+<span class="cm"> * Indicates that a class provides Spring Boot application</span>
+<span class="cm"> * {@link Configuration @Configuration}. Can be used as an alternative to the Spring&#39;s</span>
+<span class="cm"> * standard {@code @Configuration} annotation so that configuration can be found</span>
+<span class="cm"> * automatically (for example in tests).</span>
+<span class="cm"> * &lt;p&gt;</span>
+<span class="cm"> * Application should only ever include &lt;em&gt;one&lt;/em&gt; {@code @SpringBootConfiguration} and</span>
+<span class="cm"> * most idiomatic Spring Boot applications will inherit it from</span>
+<span class="cm"> * {@code @SpringBootApplication}.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author Phillip Webb</span>
+<span class="cm"> * @author Andy Wilkinson</span>
+<span class="cm"> * @since 1.4.0</span>
+<span class="cm"> */</span>
+<span class="nd">@Target</span><span class="p">(</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">)</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SpringBootConfiguration</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>其标注了<code>@Configuration</code>注解，已知<code>@Configuration</code>是<code>@Component</code>的派生注解，根据层次关系，可以得到：
++ <code>@SpringBootApplication</code>
+  + <code>@SpringBootConfiguration</code>
+     + <code>@Configuration</code>
+       + <code>@Component</code></p>
+<p>根据注释，<code>@SpringBootConfiguration</code>是Spring Boot 1.4.0版本引入的，之前<code>@SpringBootApplication</code>是直接使用<code>@Configuration</code>注解的。</p>
+<p>为了验证<code>@Component</code>派生性的多层次，可以进行验证：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springboot</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.boot.WebApplicationType</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.builder.SpringApplicationBuilder</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.ConfigurableApplicationContext</span><span class="p">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComponentHierarchyApp</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Class</span> <span class="n">appClass</span> <span class="o">=</span> <span class="n">ComponentHierarchyApp</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="n">ConfigurableApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpringApplicationBuilder</span><span class="p">(</span><span class="n">appClass</span><span class="p">).</span><span class="na">web</span><span class="p">(</span><span class="n">WebApplicationType</span><span class="p">.</span><span class="na">NONE</span><span class="p">).</span><span class="na">run</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">appClass</span><span class="p">));</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，可以得到输出：
+<img alt="" src="../img/springboot.application.annotation.png" /></p>
+<p>所用Spring Boot的版本为2.3.2.RELEASE，其依赖的Spring Framework版本可以从<code>org/springframework/boot/spring-boot-dependencies/2.3.2.RELEASE/spring-boot-dependencies-2.3.2.RELEASE.pom</code>中查到，是5.2.8.RELEASE</p>
+<p>说明在该版本下，<code>@Component</code>派生性是多层次的。</p>
+<p>回到**Spring Framework 2.5.6.SEC03**下，将示例代码做如下调整：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Repository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Repository</span> <span class="c1">//替换@Component</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">StringRepository</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * 属性方法名称必须与{@link Component#value()}保持一致</span>
+<span class="cm">     *</span>
+<span class="cm">     * @return Bean的名称</span>
+<span class="cm">     */</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>将<code>@Component</code>注解替换为<code>@Repository</code>注解，再次运行引导程序：</p>
+<p><img alt="" src="../img/spring25.component.hierarchy.test.png" /></p>
+<p>替换注解之后，报错<code>Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'nameRepository' is defined</code>。说明Spring不再将<code>nameRepository</code>视为Bean。</p>
+<p>说明当前版本的Spring Framework不支持多层次派生注解，而上面Spring Boot的示例中，<code>ComponentHierarchyApp</code>是支持的，说明是后续Spring版本作出了修改，支持了这一特性。</p>
+<p>将Spring版本调整为**3.0.0.RELEASE**：
+<div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="c">&lt;!--        &lt;dependency&gt;--&gt;</span>
+        <span class="c">&lt;!--            &lt;groupId&gt;org.springframework&lt;/groupId&gt;--&gt;</span>
+        <span class="c">&lt;!--            &lt;artifactId&gt;spring&lt;/artifactId&gt;--&gt;</span>
+        <span class="c">&lt;!--            &lt;version&gt;2.5.6.SEC03&lt;/version&gt;--&gt;</span>
+        <span class="c">&lt;!--        &lt;/dependency&gt;--&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.0.0.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></p>
+<p>再次运行程序，一切正常，说明该版本中提升了该特性。</p>
+<h4 id="7-component">7. 多层次<code>@Component</code>派生性原理<a class="headerlink" href="#7-component" title="Permanent link">&para;</a></h4>
+<p>在上面第5部分分析了<code>@Component</code>派生性原理，下面继续分析**2.5.6.SEC03**和**3.0.0.RELEASE**版本中源码的差异，解释对多层次派生的支持。</p>
+<p>首先对比<code>ClassPathScanningCandidateComponentProvider</code>：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClassPathScanningCandidateComponentProvider</span> <span class="kd">implements</span> <span class="n">ResourceLoaderAware</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="nd">@SuppressWarnings</span><span class="p">(</span><span class="s">&quot;unchecked&quot;</span><span class="p">)</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">registerDefaultFilters</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">includeFilters</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">AnnotationTypeFilter</span><span class="p">(</span><span class="n">Component</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+        <span class="n">ClassLoader</span> <span class="n">cl</span> <span class="o">=</span> <span class="n">ClassPathScanningCandidateComponentProvider</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">includeFilters</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">AnnotationTypeFilter</span><span class="p">(</span>
+                    <span class="p">((</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">cl</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="s">&quot;javax.annotation.ManagedBean&quot;</span><span class="p">)),</span> <span class="kc">false</span><span class="p">));</span>
+            <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;JSR-250 &#39;javax.annotation.ManagedBean&#39; found and supported for component scanning&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">ClassNotFoundException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// JSR-250 1.1 API (as included in Java EE 6) not available - simply skip.</span>
+        <span class="p">}</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">includeFilters</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="n">AnnotationTypeFilter</span><span class="p">(</span>
+                    <span class="p">((</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">cl</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="s">&quot;javax.inject.Named&quot;</span><span class="p">)),</span> <span class="kc">false</span><span class="p">));</span>
+            <span class="n">logger</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&quot;JSR-330 &#39;javax.inject.Named&#39; annotation found and supported for component scanning&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">ClassNotFoundException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// JSR-330 API not available - simply skip.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><code>registerDefaultFilters()</code>方法变化较大，开始支持JSR-250的<code>@ManagedBean</code>和JSR-330的<code>@Named</code>的<code>AnnotationTypeFilter</code></p>
+<p><code>findCandidateComponents(String)</code>方法则是小幅改动：</p>
+<p><img alt="" src="../img/spring25.compare.classpathscanningcandidatecomponentprovider.png" /></p>
+<p>Java 5的增强for循环和一段try-catch控制，并没有本质性变化。</p>
+<p>对比<code>AnnotationTypeFilter</code>：</p>
+<p><img alt="" src="../img/spring25.compare.annotationtypefilter.png" /></p>
+<p>仅有Java 5泛型和自动装箱调整，也没有本质性变化。</p>
+<p><code>SimpleMetadataReader</code>是接口<code>MetadataReader</code>唯一非公有实现类，进行对比：</p>
+<p><img alt="" src="../img/spring25.compare.simplemetadatareader.png" /></p>
+<p>新增了<code>classMetadata</code>和<code>annotationMetadata</code>属性，且当方法多次调用时，进行非空判断，避免了重复创建。</p>
+<p>至此仍没有本质性变化，就需要继续分析<code>ClassMetadataReadingVisitor</code>和<code>AnnotationMetadataReadingVisitor</code>了。</p>
+<p>3.0.0.RELEASE的<code>ClassMetadataReadingVisitor</code>新增了一些<code>visit*</code>方法，没有实现层面的变化。</p>
+<p>对比<code>AnnotationMetadataReadingVisitor</code>：</p>
+<p><img alt="" src="../img/spring25.compare.annotationmetadatareadingvistor.png" /></p>
+<p>可以发现，**3.0.0.RELEASE**的变化主要集中在<code>visitAnnotation</code>方法上，使用<code>AnnotationAttributesReadingVisitor</code>取代了**2.5.6.SEC03**中的<code>EmptyVisitor</code>匿名内部类实现。</p>
+<p>**2.5.6.SEC03**的主要实现是：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitEnd</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="n">Class</span> <span class="n">annotationClass</span> <span class="o">=</span> <span class="n">classLoader</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="n">className</span><span class="p">);</span>
+        <span class="p">...</span>
+        <span class="c1">// Register annotations that the annotation type is annotated with.</span>
+        <span class="n">Annotation</span><span class="o">[]</span> <span class="n">metaAnnotations</span> <span class="o">=</span> <span class="n">annotationClass</span><span class="p">.</span><span class="na">getAnnotations</span><span class="p">();</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">metaAnnotationTypeNames</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">Annotation</span> <span class="n">metaAnnotation</span> <span class="p">:</span> <span class="n">metaAnnotations</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">metaAnnotationTypeNames</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="n">metaAnnotationMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">className</span><span class="p">,</span> <span class="n">metaAnnotationTypeNames</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="n">ClassNotFoundException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Class not found - can&#39;t determine meta-annotations.</span>
+    <span class="p">}</span>
+    <span class="n">attributesMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">className</span><span class="p">,</span> <span class="n">attributes</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>之前编写的<code>NameRepository</code>的注解层次为：
++ <code>@Component</code>
+  + <code>@StringRepository</code>
+    + <code>NameRepository</code> </p>
+<p>结合上述代码，<code>annotationClass</code>就是<code>@StringRepository</code>，因为<code>metaAnnotations</code>数组仅仅获取当前类所标注的注解，所以此时只有<code>@Repository</code>而没有 <code>@Component</code>，由于**2.5.6.SEC03**中的实现未使用层次递归获取<code>Annotation[]</code>，所以仅支持单层次的 <code>@Component</code>派生。</p>
+<p>**3.0.0.RELEASE**的实现为：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitEnd</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">annotationType</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">localAttributes</span><span class="p">);</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">annotationClass</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">classLoader</span><span class="p">.</span><span class="na">loadClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">annotationType</span><span class="p">);</span>
+            <span class="p">...</span>
+            <span class="c1">// Register annotations that the annotation type is annotated with.</span>
+            <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">metaAnnotationTypeNames</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">Annotation</span> <span class="n">metaAnnotation</span> <span class="p">:</span> <span class="n">annotationClass</span><span class="p">.</span><span class="na">getAnnotations</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">metaAnnotationTypeNames</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">()))</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">(),</span>
+                            <span class="n">AnnotationUtils</span><span class="p">.</span><span class="na">getAnnotationAttributes</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">,</span> <span class="kc">true</span><span class="p">));</span>
+                <span class="p">}</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">Annotation</span> <span class="n">metaMetaAnnotation</span> <span class="p">:</span> <span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getAnnotations</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="n">metaAnnotationTypeNames</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">metaMetaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">metaAnnotationMap</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">metaAnnotationMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">annotationType</span><span class="p">,</span> <span class="n">metaAnnotationTypeNames</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="n">ClassNotFoundException</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Class not found - can&#39;t determine meta-annotations.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>从代码中可以看出，第一层循环<code>for (Annotation metaAnnotation : annotationClass.getAnnotations())</code>是获取第一层元注解数组，第二层循环<code>for (Annotation metaMetaAnnotation : metaAnnotation.annotationType().getAnnotations())</code>是在第一层的基础上再次获取元注解数组。</p>
+<p>结合<code>@StringRepository</code>，第一层元注解<code>@Repository</code>是<code>metaAnnotation</code>，第二层元注解<code>@Component</code>是<code>metaMetaAnnotation</code>。</p>
+<p>此处的实现仍然存在问题，它指处理了两层<code>@Component</code>派生，而没有处理多层<code>@Component</code>派生，下面进行验证：</p>
+<ul>
+<li>声明<code>@FirstLevelRepository</code>和<code>@SecondLevelRepository</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Repository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">FirstLevelRepository</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@FirstLevelRepository</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SecondLevelRepository</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>其中<code>@FirstLevelRepository</code>是第二层<code>@Component</code>注解，<code>@SecondLevelRepository</code>是第三层<code>@Component</code>注解，整体的派生层次为：</p>
+<div class="highlight"><pre><span></span><code>@SecondLevelRepository
+|- @FirstLevelRepository
+   |- @Repository
+      |- @Component
+</code></pre></div>
+
+<ul>
+<li>标注<code>@FirstLevelRepository</code>和<code>@SecondLevelRepository</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.repository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.FirstLevelRepository</span><span class="p">;</span>
+
+<span class="nd">@FirstLevelRepository</span><span class="p">(</span><span class="s">&quot;myFirstLevelRepository&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyFirstLevelRepository</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.repository</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.SecondLevelRepository</span><span class="p">;</span>
+
+<span class="nd">@SecondLevelRepository</span><span class="p">(</span><span class="s">&quot;mySecondLevelRepository&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySecondLevelRepository</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>配置<code>@Component</code>扫描</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans</span>
+<span class="s">           http://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<span class="s">           http://www.springframework.org/schema/context</span>
+<span class="s">           http://www.springframework.org/schema/context/spring-context.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 激活注解驱动特性 --&gt;</span>
+    <span class="nt">&lt;context:annotation-config/&gt;</span>
+
+    <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">&quot;deep.in.springframework&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div>
+
+<p>由于Spring Framework 3.0.0.RELEASE还未引入<code>@ComponentScan</code>，因此仍然采用XML元素<code>&lt;context:component-scan&gt;</code>组件扫描的方式。</p>
+<ul>
+<li>编写引导类</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ApplicationBootstrap</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ClassPathXmlApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">();</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">setConfigLocation</span><span class="p">(</span><span class="s">&quot;classpath:/applicationContext.xml&quot;</span><span class="p">);</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">containsBean</span><span class="p">(</span><span class="s">&quot;myFirstLevelRepository&quot;</span><span class="p">));</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">context</span><span class="p">.</span><span class="na">containsBean</span><span class="p">(</span><span class="s">&quot;mySecondLevelRepository&quot;</span><span class="p">));</span>
+        <span class="n">context</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>运行程序，得到结果：
+<div class="highlight"><pre><span></span><code>Oct 14, 2020 11:10:45 PM org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@439f5b3d: startup date [Wed Oct 14 23:10:45 CST 2020]; root of context hierarchy
+Oct 14, 2020 11:10:45 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [applicationContext.xml]
+Oct 14, 2020 11:10:45 PM org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3b6eb2ec: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,myFirstLevelRepository]; root of factory hierarchy
+true
+false
+Oct 14, 2020 11:10:45 PM org.springframework.context.support.AbstractApplicationContext doClose
+INFO: Closing org.springframework.context.support.ClassPathXmlApplicationContext@439f5b3d: startup date [Wed Oct 14 23:10:45 CST 2020]; root of context hierarchy
+Oct 14, 2020 11:10:45 PM org.springframework.beans.factory.support.DefaultSingletonBeanRegistry destroySingletons
+INFO: Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@3b6eb2ec: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,myFirstLevelRepository]; root of factory hierarchy
+
+Process finished with exit code 0
+</code></pre></div></p>
+<p>从结果即可看出，Spring Framework 3.0.0.RELEASE仅仅支持两层<code>@Component</code>派生，原因就是<code>AnnotationAttributesReadingVisitor</code>没有递归查找所有层次的元注解。</p>
+<p>继续查看Spring 3.x的<code>AnnotationAttributesReadingVisitor</code>源代码：</p>
+<ul>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/3.0.x/org.springframework.core/src/main/java/org/springframework/core/type/classreading/AnnotationAttributesReadingVisitor.java">3.0.x</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/3.1.x/org.springframework.core/src/main/java/org/springframework/core/type/classreading/AnnotationAttributesReadingVisitor.java">3.1.x</a></li>
+<li><a href="https://github.com/spring-projects/spring-framework/blob/3.2.x/spring-core/src/main/java/org/springframework/core/type/classreading/AnnotationAttributesReadingVisitor.java">3.2.x</a></li>
+</ul>
+<p>若要详细查看各个版本中的源代码，修改<code>pom.xml</code>中的版本号即可：
+<div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.0.0.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></p>
+<p>其中的版本号，可以<a href="https://docs.spring.io/spring-framework/docs/">在此查看</a></p>
+<p>在Spring Framework 3的各版本中，<code>AnnotationAttributesReadingVisitor</code>都没有本质的变化，而在Spring Framework 4.0.x中，<a href="https://github.com/spring-projects/spring-framework/blob/4.0.x/spring-core/src/main/java/org/springframework/core/type/classreading/AnnotationAttributesReadingVisitor.java">代码</a>发生了改变。</p>
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doVisitEnd</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">annotationClass</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">.</span><span class="na">doVisitEnd</span><span class="p">(</span><span class="n">annotationClass</span><span class="p">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">AnnotationAttributes</span><span class="o">&gt;</span> <span class="n">attributes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">annotationType</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">attributes</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">annotationType</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">attributes</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="n">attributes</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">attributes</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">metaAnnotationTypeNames</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashSet</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="n">Annotation</span><span class="o">[]</span> <span class="n">metaAnnotations</span> <span class="o">=</span> <span class="n">AnnotationUtils</span><span class="p">.</span><span class="na">getAnnotations</span><span class="p">(</span><span class="n">annotationClass</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ObjectUtils</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(</span><span class="n">metaAnnotations</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">Annotation</span> <span class="n">metaAnnotation</span> <span class="p">:</span> <span class="n">metaAnnotations</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">AnnotationUtils</span><span class="p">.</span><span class="na">isInJavaLangAnnotationPackage</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">recursivelyCollectMetaAnnotations</span><span class="p">(</span><span class="n">metaAnnotationTypeNames</span><span class="p">,</span> <span class="n">metaAnnotation</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">metaAnnotationMap</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">metaAnnotationMap</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">annotationClass</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span> <span class="n">metaAnnotationTypeNames</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">recursivelyCollectMetaAnnotations</span><span class="p">(</span><span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">,</span> <span class="n">Annotation</span> <span class="n">annotation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">annotationName</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getName</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">AnnotationUtils</span><span class="p">.</span><span class="na">isInJavaLangAnnotationPackage</span><span class="p">(</span><span class="n">annotation</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">visited</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">annotationName</span><span class="p">))</span> <span class="p">{</span>
+            <span class="c1">// Only do further scanning for public annotations; we&#39;d run into</span>
+            <span class="c1">// IllegalAccessExceptions otherwise, and we don&#39;t want to mess with</span>
+            <span class="c1">// accessibility in a SecurityManager environment.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">isPublic</span><span class="p">(</span><span class="n">annotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getModifiers</span><span class="p">()))</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="na">attributesMap</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">annotationName</span><span class="p">,</span> <span class="n">AnnotationUtils</span><span class="p">.</span><span class="na">getAnnotationAttributes</span><span class="p">(</span><span class="n">annotation</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">));</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">Annotation</span> <span class="n">metaMetaAnnotation</span> <span class="p">:</span> <span class="n">annotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getAnnotations</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="n">recursivelyCollectMetaAnnotations</span><span class="p">(</span><span class="n">visited</span><span class="p">,</span> <span class="n">metaMetaAnnotation</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+<p>即采用递归方式获取元注解，支持多层次<code>@Component</code>派生。</p>
+<p>而Spring Boot诞生之初，就基于了Spring Framework 4.1版本，<a href="https://docs.spring.io/spring-boot/docs/0.0.x/reference/htmlsingle/#appendix-dependency-versions">可以查看</a>，所以Spring Boot与生俱来就支持多层次<code>@Component</code>派生性。</p>
                 
               
               
