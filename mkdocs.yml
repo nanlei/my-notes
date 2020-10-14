@@ -7,6 +7,9 @@ site_author : Nan Lei
 nav:
   - Home: index.md
   - Framework:
+    - Spring Framework:
+      - Annotation Driven:
+        - 'Stereotype Annotation' : 'SpringFramework/spring-stereotype-annotation.md'
     - Spring Boot:
       - Notes:
         - 'Standalone Application' : 'SpringBoot/01-spring-boot-application.md'
@@ -14,7 +17,7 @@ nav:
         - 'Embedded Web Server' : 'SpringBoot/03-spring-boot-embedded-web-server.md'
         - 'Understanding Auto-Configuration' : 'SpringBoot/04-spring-boot-understanding-auto-config.md'
         - 'Understanding Production-Ready' : 'SpringBoot/05-spring-boot-understanding-prod-ready.md'
-      - Application Samples:
+      - Samples:
         - 'Shardingsphere master-slave with MySQL' : 'SpringBoot/app-shardingsphere-master-slave-mysql.md'
   - DataBase:
     - MySQL:
