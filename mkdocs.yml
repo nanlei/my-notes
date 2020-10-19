@@ -10,6 +10,7 @@ nav:
     - Spring Framework:
       - Annotation Driven:
         - 'Stereotype Annotation' : 'SpringFramework/spring-stereotype-annotation.md'
+        - 'Composed Annotation' : 'SpringFramework/spring-composed-annotation.md'
     - Spring Boot:
       - Notes:
         - 'Standalone Application' : 'SpringBoot/01-spring-boot-application.md'
