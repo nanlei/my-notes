@@ -6,7 +6,7 @@ Spring Framework的模式注解在官方Github的Wiki中有说明，[可以参�
 
 >A ***stereotype annotation*** is an annotation that is used to declare the role that a component plays within the application. For example, the `@Repository` annotation in the Spring Framework is a marker for any class that fulfills the role or stereotype of a repository (also known as Data Access Object or DAO).
 
-Wiki说明，模式注解(stereotype annotation)是在应用程序中用来声明组件角色的注解。并举例，`@Repository`注解就是实现仓储模式(或者说是DAO：数据访问对象)类的标记。
+Wiki说明，模式注解(Stereotype annotation)是在应用程序中用来声明组件角色的注解。并举例，`@Repository`注解就是实现仓储模式(或者说是DAO：数据访问对象)类的标记。
 
 >`@Component` is a generic stereotype for any Spring-managed component. Any component annotated with `@Component` is a candidate for component scanning. Similarly, any component annotated with an annotation that is itself meta-annotated with `@Component` is also a candidate for component scanning. For example, `@Service` is meta-annotated with `@Component`.
 

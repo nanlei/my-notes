@@ -22,7 +22,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Inherited
 @Transactional
 @Service
 public @interface TransactionalService {

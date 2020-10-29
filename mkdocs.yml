@@ -8,31 +8,35 @@ nav:
   - Home: index.md
   - Framework:
     - Spring Framework:
+      - IoC:
+        - Spring IoC:  'SpringFramework/spring-ioc.md'
+        - Spring Beans: 'SpringFramework/spring-beans.md'
       - Annotation Driven:
-        - 'Stereotype Annotation' : 'SpringFramework/spring-stereotype-annotation.md'
-        - 'Composed Annotation' : 'SpringFramework/spring-composed-annotation.md'
+        - Stereotype Annotation : 'SpringFramework/spring-annotation-stereotype-annotation.md'
+        - Composed Annotation : 'SpringFramework/spring-annotation-composed-annotation.md'
+        - Annotation Attributes : 'SpringFramework/spring-annotation-attributes.md'
     - Spring Boot:
       - Notes:
-        - 'Standalone Application' : 'SpringBoot/01-spring-boot-application.md'
-        - 'Maven Dependencies' : 'SpringBoot/02-spring-boot-maven-dependency.md'
-        - 'Embedded Web Server' : 'SpringBoot/03-spring-boot-embedded-web-server.md'
-        - 'Understanding Auto-Configuration' : 'SpringBoot/04-spring-boot-understanding-auto-config.md'
-        - 'Understanding Production-Ready' : 'SpringBoot/05-spring-boot-understanding-prod-ready.md'
+        - Standalone Application : 'SpringBoot/01-spring-boot-application.md'
+        - Maven Dependencies : 'SpringBoot/02-spring-boot-maven-dependency.md'
+        - Embedded Web Server : 'SpringBoot/03-spring-boot-embedded-web-server.md'
+        - Understanding Auto-Configuration : 'SpringBoot/04-spring-boot-understanding-auto-config.md'
+        - Understanding Production-Ready : 'SpringBoot/05-spring-boot-understanding-prod-ready.md'
       - Samples:
         - 'Shardingsphere master-slave with MySQL' : 'SpringBoot/app-shardingsphere-master-slave-mysql.md'
   - DataBase:
     - MySQL:
-      - 'Master Slave' : 'DataBase/MySQL/master-slave.md'
+      - Master Slave : 'DataBase/MySQL/master-slave.md'
     - MongoDB:
-      - 'Replica Set' : 'DataBase/MongoDB/replica-set.md'
+      - Replica Set : 'DataBase/MongoDB/replica-set.md'
   - DevOps:
     - Linux:
-      - 'CentOS' : 'DevOps/devops-centos.md'
-      - 'Ubuntu' : 'DevOps/devops-ubuntu.md'
+      - CentOS : 'DevOps/devops-centos.md'
+      - Ubuntu : 'DevOps/devops-ubuntu.md'
     - Docker:
-      - 'Basic' : 'DevOps/docker.md'
+      - Basic : 'DevOps/docker.md'
   - About:
-    - 'Who Am I': 'about.md'
+    - Who Am I: 'about.md'
 
 theme:
   name: 'material'
