@@ -1089,7 +1089,7 @@
     <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>在讨论<a href="./spring-stereotype-annotation.md">Spring模式注解</a>时，<code>@Component</code>派生原理的源码解析中，Spring Framework抽象出了<code>AnnotationMetadata</code>接口和实现类<code>AnnotationMetadataReadingVisitor</code>，并且从Spring Framework 4.0开始，其关联的<code>AnnotationAttributesReadingVisitor</code>采用递归方式查找元注解，支持了多层次元注解信息查找。</p>
+<p>在讨论<a href="../spring-annotation-stereotype-annotation/">Spring模式注解</a>时，<code>@Component</code>派生原理的源码解析中，Spring Framework抽象出了<code>AnnotationMetadata</code>接口和实现类<code>AnnotationMetadataReadingVisitor</code>，并且从Spring Framework 4.0开始，其关联的<code>AnnotationAttributesReadingVisitor</code>采用递归方式查找元注解，支持了多层次元注解信息查找。</p>
 <p>Spring通过ASM读取类资源，直接操作其中的字节码，获取相关元信息，相关接口为<code>MetadataReader</code>：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.core.type.classreading</span><span class="p">;</span>
 
@@ -1152,7 +1152,7 @@
 <span class="p">}</span>
 </code></pre></div></p>
 <p>其关联的<code>ClassMetadata</code>信息和<code>AnnotationMetadata</code>信息在构造阶段完成初始化。<code>SimpleAnnotationMetadataReadingVisitor</code>替代了原有的<code>AnnotationMetadataReadingVisitor</code>和<code>AnnotationAttributesReadingVisitor</code>。</p>
-<p>在解析<a href="./spring-stereotype-annotation.md">Spring模式注解</a>时，分析到<code>ClassPathScanningCandidateComponentProvider</code>的<code>findCandidateComponents()</code>方法有读取<code>MetadataReader</code>的方式(<strong>5.2.8.RELEASE</strong>)：
+<p>在解析<a href="../spring-annotation-stereotype-annotation/">Spring模式注解</a>时，分析到<code>ClassPathScanningCandidateComponentProvider</code>的<code>findCandidateComponents()</code>方法有读取<code>MetadataReader</code>的方式(<strong>5.2.8.RELEASE</strong>)：
 <div class="highlight"><pre><span></span><code><span class="n">MetadataReader</span> <span class="n">metadataReader</span> <span class="o">=</span> <span class="n">getMetadataReaderFactory</span><span class="p">().</span><span class="na">getMetadataReader</span><span class="p">(</span><span class="n">type</span><span class="p">);</span>
 </code></pre></div>
 或
