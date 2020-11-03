@@ -1,0 +1,1431 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Tech Notes">
+      
+      
+      
+        <meta name="author" content="Nan Lei">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.7">
+    
+    
+      
+        <title>Annotation Attributes - Tech Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.b8ac9624.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.28f3ef9a.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1annotationmeta" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Tech Notes" class="md-header-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Tech Notes
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Annotation Attributes
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+  
+  
+    
+    
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../01-spring-ioc/" class="md-tabs__link">
+          Framework
+        </a>
+      
+    </li>
+  
+
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DataBase/MySQL/master-slave/" class="md-tabs__link">
+          DataBase
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    
+    
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../DevOps/devops-centos/" class="md-tabs__link">
+          DevOps
+        </a>
+      
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../about/" class="md-tabs__link">
+          About
+        </a>
+      
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Tech Notes" class="md-nav__button md-logo" aria-label="Tech Notes">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Tech Notes
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nanlei/my-notes/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Framework" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+    
+    <label class="md-nav__link" for="nav-2-1">
+      Spring Framework
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Framework" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Framework
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-1" type="checkbox" id="nav-2-1-1">
+    
+    <label class="md-nav__link" for="nav-2-1-1">
+      IoC
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="IoC" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-1-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        IoC
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-spring-ioc/" title="Spring IoC" class="md-nav__link">
+      Spring IoC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-spring-beans/" title="Spring Beans" class="md-nav__link">
+      Spring Beans
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-2" type="checkbox" id="nav-2-1-2" checked>
+    
+    <label class="md-nav__link" for="nav-2-1-2">
+      Annotation Driven
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Annotation Driven" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-1-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Annotation Driven
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spring-annotation-stereotype-annotation/" title="Stereotype Annotation" class="md-nav__link">
+      Stereotype Annotation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spring-annotation-composed-annotation/" title="Composed Annotation" class="md-nav__link">
+      Composed Annotation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Annotation Attributes
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="Annotation Attributes" class="md-nav__link md-nav__link--active">
+      Annotation Attributes
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1annotationmeta" class="md-nav__link">
+    1.理解AnnotationMeta
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2">
+      Spring Boot
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Spring Boot" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Spring Boot
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-1" type="checkbox" id="nav-2-2-1">
+    
+    <label class="md-nav__link" for="nav-2-2-1">
+      Notes
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Notes" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-2-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/01-spring-boot-application/" title="Standalone Application" class="md-nav__link">
+      Standalone Application
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/02-spring-boot-maven-dependency/" title="Maven Dependencies" class="md-nav__link">
+      Maven Dependencies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/03-spring-boot-embedded-web-server/" title="Embedded Web Server" class="md-nav__link">
+      Embedded Web Server
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/04-spring-boot-understanding-auto-config/" title="Understanding Auto-Configuration" class="md-nav__link">
+      Understanding Auto-Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/05-spring-boot-understanding-prod-ready/" title="Understanding Production-Ready" class="md-nav__link">
+      Understanding Production-Ready
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2-2" type="checkbox" id="nav-2-2-2">
+    
+    <label class="md-nav__link" for="nav-2-2-2">
+      Samples
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Samples" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-2-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Samples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SpringBoot/app-shardingsphere-master-slave-mysql/" title="Shardingsphere master-slave with MySQL" class="md-nav__link">
+      Shardingsphere master-slave with MySQL
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      DataBase
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DataBase" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DataBase
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      MySQL
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MySQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MySQL/master-slave/" title="Master Slave" class="md-nav__link">
+      Master Slave
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      MongoDB
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="MongoDB" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        MongoDB
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DataBase/MongoDB/replica-set/" title="Replica Set" class="md-nav__link">
+      Replica Set
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      DevOps
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="DevOps" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        DevOps
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Linux
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Linux" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/devops-centos/" title="CentOS" class="md-nav__link">
+      CentOS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/devops-ubuntu/" title="Ubuntu" class="md-nav__link">
+      Ubuntu
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      Docker
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Docker" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../DevOps/docker/" title="Basic" class="md-nav__link">
+      Basic
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      About
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" title="Who Am I" class="md-nav__link">
+      Who Am I
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1annotationmeta" class="md-nav__link">
+    1.理解AnnotationMeta
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringFramework/spring-annotation-attributes.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                  <h1>Annotation Attributes</h1>
+                
+                <h3 align="center"><b>Spring 注解属性</b></h3>
+
+<p>在Java语言中，注解之间没有继承关系，也不能实现接口，但Java默认所有注解实现<code>Annotation</code>接口：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">java.lang.annotation</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Annotation</span> <span class="p">{</span>
+    <span class="kt">boolean</span> <span class="nf">equals</span><span class="p">(</span><span class="n">Object</span> <span class="n">obj</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="nf">hashCode</span><span class="p">();</span>
+
+    <span class="n">String</span> <span class="nf">toString</span><span class="p">();</span>
+
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">&gt;</span> <span class="nf">annotationType</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>被标注的对象可以通过<code>AnnotatedElement</code> API进行表达，<code>&lt;T extends Annotation&gt; T getAnnotation(Class&lt;T&gt; annotationClass)</code>方法返回指定类的注解对象，获取注解属性即可调用对应的属性方法。</p>
+<h4 id="1annotationmeta">1.理解<code>AnnotationMeta</code><a class="headerlink" href="#1annotationmeta" title="Permanent link">&para;</a></h4>
+<p>以<code>@TransactionalService</code>为例，增加属性方法<code>name()</code>，表示Bean名称，默认为空字符串：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+
+<span class="nd">@Target</span><span class="p">({</span><span class="n">ElementType</span><span class="p">.</span><span class="na">TYPE</span><span class="p">})</span>
+<span class="nd">@Retention</span><span class="p">(</span><span class="n">RetentionPolicy</span><span class="p">.</span><span class="na">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Documented</span>
+<span class="nd">@Transactional</span>
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">TransactionalService</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="nf">name</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>在Java反射中，表示类的<code>Class</code>类型定义为<code>public final class Class&lt;T&gt; implements java.io.Serializable,GenericDeclaration,Type,AnnotatedElement</code>，也就是说<code>Class</code>本身实现了<code>AnnotatedElement</code>接口，那么就可以利用Java反射机制来获取<code>@TransactionalService</code>属性方法<code>name()</code>的内容：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.TransactionalService</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.reflect.AnnotatedElement</span><span class="p">;</span>
+
+<span class="nd">@TransactionalService</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationReflectionBootstrap</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Class实现了AnnotatedElement接口</span>
+        <span class="n">AnnotatedElement</span> <span class="n">annotatedElement</span> <span class="o">=</span> <span class="n">AnnotationReflectionBootstrap</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="c1">//从AnnotatedElement获取TransactionalService</span>
+        <span class="n">TransactionalService</span> <span class="n">transactionalService</span> <span class="o">=</span> <span class="n">annotatedElement</span><span class="p">.</span><span class="na">getAnnotation</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//显式调用属性方法获取内容</span>
+        <span class="n">String</span> <span class="n">nameAttribute</span> <span class="o">=</span> <span class="n">transactionalService</span><span class="p">.</span><span class="na">name</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;TransactionalService.name() = &quot;</span> <span class="o">+</span> <span class="n">nameAttribute</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序即可得到结果：
+<div class="highlight"><pre><span></span><code>TransactionalService.name() = test
+</code></pre></div></p>
+<p>结果来源于<code>@TransactionalService(name = "test")</code>语句，但以上实现并没有完全使用反射，获取name属性是显式调用<code>@TransactionalService.name()</code>获取的，修改代码完全使用反射：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.TransactionalService</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.reflect.AnnotatedElement</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="p">;</span>
+
+<span class="nd">@TransactionalService</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationReflectionBootstrap</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="c1">//Class实现了AnnotatedElement接口</span>
+        <span class="n">AnnotatedElement</span> <span class="n">annotatedElement</span> <span class="o">=</span> <span class="n">AnnotationReflectionBootstrap</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="c1">//从AnnotatedElement获取TransactionalService</span>
+        <span class="n">TransactionalService</span> <span class="n">transactionalService</span> <span class="o">=</span> <span class="n">annotatedElement</span><span class="p">.</span><span class="na">getAnnotation</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//Java反射实现</span>
+        <span class="n">Class</span> <span class="n">clz</span> <span class="o">=</span> <span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">clz</span><span class="p">.</span><span class="na">getMethod</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">);</span>
+        <span class="n">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">method</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">transactionalService</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;@TransactionalService.%s() = %s\n&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span> <span class="n">result</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序即可得到结果：
+<div class="highlight"><pre><span></span><code>@TransactionalService.name() = test
+</code></pre></div></p>
+<p>也可以使用Spring Framework提供的<code>ReflectionUtils</code>工具类来实现：
+<div class="highlight"><pre><span></span><code>        <span class="c1">//Java反射实现(ReflectionUtils为Spring反射工具类)</span>
+        <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">doWithMethods</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;@TransactionalService.%s() = %s\n&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span> <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">invokeMethod</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">transactionalService</span><span class="p">)),</span><span class="c1">//执行method调用</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="n">method</span><span class="p">.</span><span class="na">getParameterCount</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span><span class="c1">//ReflectionUtils.invokeMethod(method, transactionalService)决定是无参数方法</span>
+</code></pre></div></p>
+<p>再次运行程序，可以得到：
+<div class="highlight"><pre><span></span><code>@TransactionalService.name() = test
+@TransactionalService.toString() = @deep.in.springframework.annotation.TransactionalService(name=test)
+@TransactionalService.hashCode() = 431984231
+@TransactionalService.annotationType() = interface deep.in.springframework.annotation.TransactionalService
+</code></pre></div></p>
+<p>这里<code>ReflectionUtils.invokeMethod(method, transactionalService)</code>的写法表示的是无参数方法，所以第三个参数要设置为过滤出无参数的方法。</p>
+<p>因为前面提到所有注解都默认实现了<code>Annotation</code>接口，因此结果中也包含<code>Annotation</code>接口的无参数方法。</p>
+<p>若需要将<code>Annotation</code>接口的方法予以剔除，可以修改为：
+<div class="highlight"><pre><span></span><code>        <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">doWithMethods</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;@TransactionalService.%s() = %s\n&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span> <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">invokeMethod</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">transactionalService</span><span class="p">)),</span><span class="c1">//执行method调用</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">method</span><span class="p">.</span><span class="na">getDeclaringClass</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">Annotation</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+</code></pre></div></p>
+<p><code>@TransactionalService</code>元标注了<code>@Transactional</code>和<code>@Service</code>注解，在<code>@Transactional</code>中也有不少方法：
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Transactional</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="s">&quot;transactionManager&quot;</span><span class="p">)</span>
+    <span class="n">String</span> <span class="nf">value</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="nd">@AliasFor</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">)</span>
+    <span class="n">String</span> <span class="nf">transactionManager</span><span class="p">()</span> <span class="k">default</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="n">Propagation</span> <span class="nf">propagation</span><span class="p">()</span> <span class="k">default</span> <span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRED</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="n">Isolation</span> <span class="nf">isolation</span><span class="p">()</span> <span class="k">default</span> <span class="n">Isolation</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="kt">int</span> <span class="nf">timeout</span><span class="p">()</span> <span class="k">default</span> <span class="n">TransactionDefinition</span><span class="p">.</span><span class="na">TIMEOUT_DEFAULT</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="kt">boolean</span> <span class="nf">readOnly</span><span class="p">()</span> <span class="k">default</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="p">...</span>
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Throwable</span><span class="o">&gt;[]</span> <span class="nf">rollbackFor</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="p">...</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="nf">rollbackForClassName</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="p">...</span>
+    <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Throwable</span><span class="o">&gt;[]</span> <span class="nf">noRollbackFor</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+    <span class="p">...</span>
+    <span class="n">String</span><span class="o">[]</span> <span class="nf">noRollbackForClassName</span><span class="p">()</span> <span class="k">default</span> <span class="p">{};</span>
+
+<span class="p">}</span>
+</code></pre></div></p>
+<p>用Java反射描述<code>@Transactional</code>，因为其也是标注在<code>@TransactionalService</code>上的<code>Annotation</code>对象，所以<code>Transactional.class</code>也是<code>AnnotatedElement</code>对象，需要再次调用<code>getAnnotation(Class&lt;T&gt; annotationClass)</code>方法获取<code>@Transactional</code>对象，继续修改代码：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.TransactionalService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.ObjectUtils</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.ReflectionUtils</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.Annotation</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.AnnotatedElement</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Collections</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Stream</span><span class="p">;</span>
+
+<span class="nd">@TransactionalService</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;test&quot;</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationReflectionBootstrap</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="c1">//Class实现了AnnotatedElement接口</span>
+        <span class="n">AnnotatedElement</span> <span class="n">annotatedElement</span> <span class="o">=</span> <span class="n">AnnotationReflectionBootstrap</span><span class="p">.</span><span class="na">class</span><span class="p">;</span>
+        <span class="c1">//从AnnotatedElement获取TransactionalService</span>
+        <span class="n">TransactionalService</span> <span class="n">transactionalService</span> <span class="o">=</span> <span class="n">annotatedElement</span><span class="p">.</span><span class="na">getAnnotation</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//获取transactionalService的所有元注解</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Annotation</span><span class="o">&gt;</span> <span class="n">metaAnnotations</span> <span class="o">=</span> <span class="n">getAllMetaAnnotations</span><span class="p">(</span><span class="n">transactionalService</span><span class="p">);</span>
+        <span class="c1">//打印结果</span>
+        <span class="n">metaAnnotations</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">AnnotationReflectionBootstrap</span><span class="p">::</span><span class="n">printAnnotationAttributes</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">Annotation</span><span class="o">&gt;</span> <span class="nf">getAllMetaAnnotations</span><span class="p">(</span><span class="n">Annotation</span> <span class="n">annotation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Annotation</span><span class="o">[]</span> <span class="n">metaAnnotations</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getAnnotations</span><span class="p">();</span>
+
+        <span class="c1">//没有找到，返回空集合</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ObjectUtils</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(</span><span class="n">metaAnnotations</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">//获取所有非Java标准的元注解集合(通过java.lang.annotation包名排除，因为@Target，@Documented等相互依赖，会导致无限递归)</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Annotation</span><span class="o">&gt;</span> <span class="n">metaAnnotationsSet</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">metaAnnotations</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">metaAnnotation</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">Annotation</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getPackage</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">().</span><span class="na">getPackage</span><span class="p">()))</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">toSet</span><span class="p">());</span>
+
+        <span class="c1">//递归查找元注解的元注解集合</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Annotation</span><span class="o">&gt;</span> <span class="n">metaMetaAnnotationsSet</span> <span class="o">=</span> <span class="n">metaAnnotationsSet</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">AnnotationReflectionBootstrap</span><span class="p">::</span><span class="n">getAllMetaAnnotations</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">HashSet</span><span class="p">::</span><span class="k">new</span><span class="p">,</span> <span class="n">Set</span><span class="p">::</span><span class="n">addAll</span><span class="p">,</span> <span class="n">Set</span><span class="p">::</span><span class="n">addAll</span><span class="p">);</span>
+
+        <span class="c1">//添加递归结果</span>
+        <span class="n">metaAnnotationsSet</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">metaMetaAnnotationsSet</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">metaAnnotationsSet</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printAnnotationAttributes</span><span class="p">(</span><span class="n">Annotation</span> <span class="n">annotation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">annotationType</span> <span class="o">=</span> <span class="n">annotation</span><span class="p">.</span><span class="na">annotationType</span><span class="p">();</span>
+
+        <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">doWithMethods</span><span class="p">(</span><span class="n">annotationType</span><span class="p">,</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;@%s.%s() = %s\n&quot;</span><span class="p">,</span> <span class="n">annotationType</span><span class="p">.</span><span class="na">getSimpleName</span><span class="p">(),</span> <span class="n">method</span><span class="p">.</span><span class="na">getName</span><span class="p">(),</span> <span class="n">ReflectionUtils</span><span class="p">.</span><span class="na">invokeMethod</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">annotation</span><span class="p">)),</span>
+                <span class="n">method</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">method</span><span class="p">.</span><span class="na">getDeclaringClass</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">Annotation</span><span class="p">.</span><span class="na">class</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，可以得到：
+<div class="highlight"><pre><span></span><code>@Service.value() = 
+@Component.value() = 
+@Transactional.transactionManager() = 
+@Transactional.propagation() = REQUIRED
+@Transactional.isolation() = DEFAULT
+@Transactional.rollbackFor() = [Ljava.lang.Class;@736e9adb
+@Transactional.rollbackForClassName() = [Ljava.lang.String;@6d21714c
+@Transactional.noRollbackFor() = [Ljava.lang.Class;@108c4c35
+@Transactional.noRollbackForClassName() = [Ljava.lang.String;@4ccabbaa
+@Transactional.value() = 
+@Transactional.readOnly() = false
+@Transactional.timeout() = -1
+</code></pre></div></p>
+<p>结果中包含<code>@TransactionalService</code>所有元注解的属性方法值。基于反射获取元注解及属性信息的实现依赖递归查找。而从Spring Framework 4.0.x开始，<code>AnnotationMetadata</code>的<code>getMetaAnnotationTypes(String annotationName)</code>方法可以获取到所有元注解的类型集合。</p>
+<p><code>AnnotationMetadata</code>有两种实现方式，基于<code>ASM</code>的<code>AnnotationMetadataReadingVisitor</code>(Spring Framework 5.2开始在其内部使用<code>SimpleAnnotationMetadataReadingVisitor</code>代替)和基于反射的<code>StandardAnnotationMetadata</code>。</p>
+<p>使用<code>StandardAnnotationMetadata</code>重构上述代码：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.TransactionalService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.AnnotationMetadata</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.ClassUtils</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.util.CollectionUtils</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.LinkedHashSet</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="p">;</span>
+
+<span class="nd">@TransactionalService</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StandardAnnotationMetadataBootstrap</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//读取@TransactionalService的AnnotationMetadata</span>
+        <span class="c1">//Spring Framework 5.2开始不直接使用new StandardAnnotationMetadata(Class&lt;?&gt; introspectedClass)</span>
+        <span class="c1">//AnnotationMetadata.introspect(Class&lt;?&gt; type)方法使用StandardAnnotationMetadata.from(Class&lt;?&gt; introspectedClass)</span>
+        <span class="c1">//StandardAnnotationMetadata.from(Class&lt;?&gt; introspectedClass)调用new StandardAnnotationMetadata(introspectedClass, true)</span>
+        <span class="n">AnnotationMetadata</span> <span class="n">annotationMetadata</span> <span class="o">=</span> <span class="n">AnnotationMetadata</span><span class="p">.</span><span class="na">introspect</span><span class="p">(</span><span class="n">StandardAnnotationMetadataBootstrap</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//获取所有的元注解类型(类全名)的集合</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">metaAnnotationTypes</span> <span class="o">=</span> <span class="n">annotationMetadata</span><span class="p">.</span><span class="na">getAnnotationTypes</span><span class="p">().</span><span class="na">stream</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">annotationMetadata</span><span class="p">::</span><span class="n">getMetaAnnotationTypes</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">LinkedHashSet</span><span class="p">::</span><span class="k">new</span><span class="p">,</span> <span class="n">Set</span><span class="p">::</span><span class="n">addAll</span><span class="p">,</span> <span class="n">Set</span><span class="p">::</span><span class="n">addAll</span><span class="p">);</span>
+
+        <span class="n">metaAnnotationTypes</span><span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">metaAnnotation</span> <span class="o">-&gt;</span> <span class="p">{</span>
+            <span class="c1">//获取元注解属性信息</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">annotationAttributes</span> <span class="o">=</span> <span class="n">annotationMetadata</span><span class="p">.</span><span class="na">getAnnotationAttributes</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CollectionUtils</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(</span><span class="n">annotationAttributes</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">annotationAttributes</span><span class="p">.</span><span class="na">forEach</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;Annotation @%s attribute %s = %s\n&quot;</span><span class="p">,</span>
+                        <span class="n">ClassUtils</span><span class="p">.</span><span class="na">getShortName</span><span class="p">(</span><span class="n">metaAnnotation</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，可以得到：
+<div class="highlight"><pre><span></span><code>Annotation @Transactional attribute isolation = DEFAULT
+Annotation @Transactional attribute noRollbackFor = [Ljava.lang.Class;@4d591d15
+Annotation @Transactional attribute noRollbackForClassName = [Ljava.lang.String;@65ae6ba4
+Annotation @Transactional attribute propagation = REQUIRED
+Annotation @Transactional attribute readOnly = false
+Annotation @Transactional attribute rollbackFor = [Ljava.lang.Class;@48cf768c
+Annotation @Transactional attribute rollbackForClassName = [Ljava.lang.String;@65ae6ba4
+Annotation @Transactional attribute timeout = -1
+Annotation @Transactional attribute transactionManager = 
+Annotation @Transactional attribute value = 
+Annotation @Service attribute value = 
+Annotation @Component attribute value = 
+</code></pre></div></p>
+<p>可以看出，使用<code>AnnotationMetadata</code> API重构后的代码降低了递归查找元注解的逻辑复杂度。</p>
+<p>根据<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/type/AnnotationMetadata.html"><code>AnnotationMetadata</code>的JavaDoc</a>，可以看到其实现有<code>AnnotationMetadataReadingVisitor</code>和<code>StandardAnnotationMetadata</code>，二者实现方式不同，语义相同。</p>
+<p>基于<code>ASM</code>实现的更适用于指定Java package扫描Spring模式注解，因为反射实现时，那么被反射的类必须要被<code>ClassLoader</code>加载。使用<code>ASM</code>方式无需全部将类加载，若当Class已经被加载并能被程序获取时，则直接使用反射即可。</p>
+<p><code>ASM</code>和反射性能比较：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.springframework.annotation.TransactionalService</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.AnnotationMetadata</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.classreading.MetadataReader</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.core.type.classreading.SimpleMetadataReaderFactory</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationMetadataPerformanceBootstrap</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">AnnotationMetadata</span> <span class="n">byReflection</span> <span class="o">=</span> <span class="n">AnnotationMetadata</span><span class="p">.</span><span class="na">introspect</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+
+        <span class="n">SimpleMetadataReaderFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleMetadataReaderFactory</span><span class="p">();</span>
+        <span class="n">MetadataReader</span> <span class="n">metadataReader</span> <span class="o">=</span> <span class="n">factory</span><span class="p">.</span><span class="na">getMetadataReader</span><span class="p">(</span><span class="n">TransactionalService</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getName</span><span class="p">());</span>
+        <span class="n">AnnotationMetadata</span> <span class="n">byASM</span> <span class="o">=</span> <span class="n">metadataReader</span><span class="p">.</span><span class="na">getAnnotationMetadata</span><span class="p">();</span>
+
+        <span class="kt">int</span> <span class="n">times</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span><span class="c1">//100,000</span>
+
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byReflection</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byASM</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">100</span><span class="p">;</span><span class="c1">//1,000,000</span>
+
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byReflection</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byASM</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span><span class="c1">//10,000,000</span>
+
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byReflection</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byASM</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">;</span><span class="c1">//100,000,000</span>
+
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byReflection</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+        <span class="n">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">byASM</span><span class="p">,</span> <span class="n">times</span><span class="p">);</span>
+
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">testAnnotationMetadataPerformance</span><span class="p">(</span><span class="n">AnnotationMetadata</span> <span class="n">annotationMetadata</span><span class="p">,</span> <span class="kt">int</span> <span class="n">times</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">times</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">annotationMetadata</span><span class="p">.</span><span class="na">getAnnotationTypes</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="kt">long</span> <span class="n">endTime</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">printf</span><span class="p">(</span><span class="s">&quot;%d %s.getAnnotationTypes() took %s ms\n&quot;</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">annotationMetadata</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getSimpleName</span><span class="p">(),</span> <span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，可以得到：
+<div class="highlight"><pre><span></span><code>100000 StandardAnnotationMetadata.getAnnotationTypes() took 14 ms
+100000 SimpleAnnotationMetadata.getAnnotationTypes() took 5 ms
+1000000 StandardAnnotationMetadata.getAnnotationTypes() took 7 ms
+1000000 SimpleAnnotationMetadata.getAnnotationTypes() took 1 ms
+10000000 StandardAnnotationMetadata.getAnnotationTypes() took 7 ms
+10000000 SimpleAnnotationMetadata.getAnnotationTypes() took 0 ms
+100000000 StandardAnnotationMetadata.getAnnotationTypes() took 0 ms
+100000000 SimpleAnnotationMetadata.getAnnotationTypes() took 0 ms
+</code></pre></div></p>
+<p>虽然执行速度已经很快(测试环境：<code>Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz</code>  <code>16G DDR4 2400MHz</code>)，但<code>SimpleAnnotationMetadata</code>的性能还是要优于<code>StandardAnnotationMetadata</code></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../spring-annotation-composed-annotation/" title="Composed Annotation" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Composed Annotation
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../SpringBoot/01-spring-boot-application/" title="Standalone Application" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Standalone Application
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2020 Nan Lei
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ["tabs"],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

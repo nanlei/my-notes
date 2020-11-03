@@ -181,7 +181,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="./" class="md-tabs__link md-tabs__link--active">
+        <a href="../01-spring-ioc/" class="md-tabs__link">
           Framework
         </a>
       
@@ -352,21 +352,75 @@
           
           
 
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-1" type="checkbox" id="nav-2-1-1">
+    
+    <label class="md-nav__link" for="nav-2-1-1">
+      IoC
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="IoC" data-md-level="3">
+      <label class="md-nav__title" for="nav-2-1-1">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        IoC
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../01-spring-ioc/" title="Spring IoC" class="md-nav__link">
+      Spring IoC
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../02-spring-beans/" title="Spring Beans" class="md-nav__link">
+      Spring Beans
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
   <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-1" type="checkbox" id="nav-2-1-1" checked>
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1-2" type="checkbox" id="nav-2-1-2" checked>
     
-    <label class="md-nav__link" for="nav-2-1-1">
+    <label class="md-nav__link" for="nav-2-1-2">
       Annotation Driven
       <span class="md-nav__icon md-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
       </span>
     </label>
     <nav class="md-nav" aria-label="Annotation Driven" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-1-1">
+      <label class="md-nav__title" for="nav-2-1-2">
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
         </span>
@@ -473,8 +527,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../spring-composed-annotation/" title="Composed Annotation" class="md-nav__link">
+    <a href="../spring-annotation-composed-annotation/" title="Composed Annotation" class="md-nav__link">
       Composed Annotation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../spring-annotation-attributes/" title="Annotation Attributes" class="md-nav__link">
+      Annotation Attributes
     </a>
   </li>
 
@@ -1022,7 +1088,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringFramework/spring-stereotype-annotation.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/nanlei/my-notes/edit/master/docs/SpringFramework/spring-annotation-stereotype-annotation.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1039,7 +1105,7 @@
 <blockquote>
 <p>A <strong><em>stereotype annotation</em></strong> is an annotation that is used to declare the role that a component plays within the application. For example, the <code>@Repository</code> annotation in the Spring Framework is a marker for any class that fulfills the role or stereotype of a repository (also known as Data Access Object or DAO).</p>
 </blockquote>
-<p>Wiki说明，模式注解(stereotype annotation)是在应用程序中用来声明组件角色的注解。并举例，<code>@Repository</code>注解就是实现仓储模式(或者说是DAO：数据访问对象)类的标记。</p>
+<p>Wiki说明，模式注解(Stereotype annotation)是在应用程序中用来声明组件角色的注解。并举例，<code>@Repository</code>注解就是实现仓储模式(或者说是DAO：数据访问对象)类的标记。</p>
 <blockquote>
 <p><code>@Component</code> is a generic stereotype for any Spring-managed component. Any component annotated with <code>@Component</code> is a candidate for component scanning. Similarly, any component annotated with an annotation that is itself meta-annotated with <code>@Component</code> is also a candidate for component scanning. For example, <code>@Service</code> is meta-annotated with <code>@Component</code>.</p>
 </blockquote>
@@ -1977,7 +2043,7 @@ Process finished with exit code 0
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../.." title="Home" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../02-spring-beans/" title="Spring Beans" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1986,13 +2052,13 @@ Process finished with exit code 0
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Home
+                Spring Beans
               </div>
             </div>
           </a>
         
         
-          <a href="../spring-composed-annotation/" title="Composed Annotation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../spring-annotation-composed-annotation/" title="Composed Annotation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
