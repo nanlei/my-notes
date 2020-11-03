@@ -1294,7 +1294,7 @@ java.beans.PropertyDescriptor[name=name; propertyType=class java.lang.String; re
 <p>为了排除<code>Object</code>类的影响，修改代码：
 <div class="highlight"><pre><span></span><code><span class="n">BeanInfo</span> <span class="n">beanInfo</span> <span class="o">=</span> <span class="n">Introspector</span><span class="p">.</span><span class="na">getBeanInfo</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">Object</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
 </code></pre></div></p>
-<p><code>getBeanInfo</code>的重载方法<code>public static BeanInfo getBeanInfo(Class&lt;?&gt; beanClass, Class&lt;?&gt; stopClass) throws IntrospectionException</code>可以设置一个<code>stopClass</code>，表示不分析的父类起始点。再次运行程序，就没有<code>class</code>的<code>PropertyDescriptor</code>了。</p>
+<p><code>getBeanInfo</code>的重载方法<code>public static BeanInfo getBeanInfo(Class&lt;?&gt; beanClass, Class&lt;?&gt; stopClass) throws IntrospectionException</code>可以设置一个<code>stopClass</code>，表示不分析的父类起始点。再次运行程序，就没有<code>java.lang.Class</code>类型的<code>PropertyDescriptor</code>了。</p>
 <p>在实际应用中，若要创建一个<code>Person</code>对象，其信息接受用户在UI上输入，那么传输的信息以字符串形式表示，但对于<code>age</code>属性，Java操作的是<code>Integer</code>类型对象，这就有类型转换的问题，要把<code>String</code>转为<code>Integer</code>类型，这里可以给<code>PropertyDescriptor</code>添加<code>PropertyEditor</code>来实现：
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">bean.Person</span><span class="p">;</span>
 
@@ -1424,6 +1424,10 @@ java.beans.PropertyDescriptor[name=name; propertyType=class java.lang.String; re
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div></p>
+<p><code>person.properties</code>文件内容为：
+<div class="highlight"><pre><span></span><code><span class="na">name</span><span class="o">=</span><span class="s">Tom</span>
+<span class="na">age</span><span class="o">=</span><span class="s">18</span>
 </code></pre></div></p>
 <p>最终运行结果为：
 <div class="highlight"><pre><span></span><code>java.beans.PropertyDescriptor[name=age; propertyType=class java.lang.Integer; writeMethod=public void bean.Person.setAge(java.lang.Integer)]
