@@ -1,12 +1,12 @@
-<h3 align="center"><b>Spring IoC</b></h3>
+<h3 align="center"><b>Spring IoC 基础</b></h3>
 
-#### 1. 什么是IoC
+## 1. 什么是IoC
 
 **IoC**(Inversion of Control，控制反转)并不是Spring Framework特有的概念，站在从软件开发角度来理解，[可以参考](https://en.wikipedia.org/wiki/Inversion_of_control)。
 
 而广义上的IoC，可以从一句话理解：`Don’t call me, we will call you`(好莱坞原则)
 
-#### 2. IoC的基本概念
+## 2. IoC的基本概念
 
 广义上的IoC实现，[可以参考](https://en.wikipedia.org/wiki/Inversion_of_control#Implementation_techniques)。
 
@@ -16,6 +16,7 @@
 >***IoC Implementation Strategies***
 >
 >IoC is a broad concept that can be implemented in different ways. There are two main types:
+>
 >+ **Dependency Lookup**:The container provides callbacks to components, and a lookup context. This is the EJB and Apache Avalon approach. It leaves the onus on each component to use container APIs to look up resources and collaborators. The Inversion of Control is limited to the container invoking callback methods that application code can use to obtain resources.
 >+ **Dependency Injection**:Components do no look up; they provide plain Java methods enabling the container to resolve dependencies. The container is wholly responsible for wiring up components, passing resolved objects in to JavaBean properties or constructors. Use of JavaBean properties is called Setter Injection; use of constructor arguments is called Constructor Injection.
 
@@ -38,7 +39,7 @@
 + 生命周期管理： 容器，托管的资源(Java Bean或其他资源)
 + 配置：容器，外部化配置，托管的资源(Java Bean或其他资源)
 
-#### 3. IoC的实现
+## 3. IoC的实现
 
 + Java SE
   + Java Beans
@@ -141,7 +142,7 @@ java.beans.PropertyDescriptor[name=name; propertyType=class java.lang.String; re
 BeanInfo beanInfo = Introspector.getBeanInfo(Person.class, Object.class);
 ```
 
-`getBeanInfo`的重载方法`public static BeanInfo getBeanInfo(Class<?> beanClass, Class<?> stopClass) throws IntrospectionException`可以设置一个`stopClass`，表示不分析的父类起始点。再次运行程序，就没有`class`的`PropertyDescriptor`了。
+`getBeanInfo`的重载方法`public static BeanInfo getBeanInfo(Class<?> beanClass, Class<?> stopClass) throws IntrospectionException`可以设置一个`stopClass`，表示不分析的父类起始点。再次运行程序，就没有`java.lang.Class`类型的`PropertyDescriptor`了。
 
 在实际应用中，若要创建一个`Person`对象，其信息接受用户在UI上输入，那么传输的信息以字符串形式表示，但对于`age`属性，Java操作的是`Integer`类型对象，这就有类型转换的问题，要把`String`转为`Integer`类型，这里可以给`PropertyDescriptor`添加`PropertyEditor`来实现：
 ```java
@@ -279,6 +280,12 @@ public class BeanInfoDemo {
 }
 ```
 
+`person.properties`文件内容为：
+```properties
+name=Tom
+age=18
+```
+
 最终运行结果为：
 ```txt
 java.beans.PropertyDescriptor[name=age; propertyType=class java.lang.Integer; writeMethod=public void bean.Person.setAge(java.lang.Integer)]
@@ -320,7 +327,7 @@ Person {name='Tom', age=18}
 >
 >**Greater productivity**
 
-#### 4. 依赖查找和依赖注入
+## 4. 依赖查找和依赖注入
 
 依赖查找是主动通过容器API进行的获取依赖。
 
@@ -334,6 +341,7 @@ Spring对依赖注入支持构造器注入和Setter注入，二者的比较[可�
 >***Choosing between Setter and Constructor Injection***
 >
 >Advantages of Setter Injection include:
+>
 >+ JavaBean properties are well supported in IDEs.
 >+ JavaBean properties are self-documenting.
 >+ JavaBean properties are inherited by subclasses without the need for any code.
@@ -343,14 +351,17 @@ Spring对依赖注入支持构造器注入和Setter注入，二者的比较[可�
 >+ Setter Injection works well for objects that have default values, meaning that not all properties need to be supplied at runtime.
 >
 >Disadvantages include:
+>
 >+ The order in which setters are called is not expressed in any contract. Thus, we sometimes need to invoke a method after the last setter has been called to initialize the component. Spring provides the `org.springframework.beans.factory.InitializingBean` interface for this; it also provides the ability to invoke an arbitrary init method. However, this contract must be documented to ensure correct use outside a container.
 >+ Not all the necessary setters may have been called before use. The object can thus be left partially configured.
 >
 >Advantages of Constructor Injection include:
+>
 >+ Each managed object is guaranteed to be in a consistent state—fully configured—before it can be invoked in any business methods. This is the primary motivation of Constructor Injection. (However, it is possible to achieve the same result with JavaBeans via dependency checking, as Spring can optionally perform.) There’s no need for initialization methods.
 >+ There may be slightly less code than results from the use of multiple JavaBean methods, although will be no difference in complexity.
 >
 >Disadvantages include:
+>
 >+ Although also a Java-language feature, multi-argument constructors are probably less common in existing code than use of JavaBean properties.
 >+ Java constructor arguments don’t have names visible by introspection. (现在可以通过注解来处理)
 >+ Constructor argument lists are less well supported by IDEs than JavaBean setter methods.
@@ -362,11 +373,12 @@ Spring对依赖注入支持构造器注入和Setter注入，二者的比较[可�
 
 两种方式并无好坏之分，在各自合适的场景下使用即可。
 
-#### 5. Spring IoC容器
+## 5. Spring IoC容器
 
-##### 5.1 Spring IoC 依赖查找
+### 5.1 Spring IoC 依赖查找
 
 Spring IoC容器中依赖查找可以分为：
+
 + 根据Bean名称查找(实时，延迟)
 + 根据Bean类型查找(单对象，集合对象)
 + 根据Bean名称+类型复合查找
@@ -619,7 +631,7 @@ public class Administrator extends Person {
 Lookup collection Admin: {admin=Administrator{userName='tom@abc.com', password='123456'} Person{name='Tom', age=18}}
 ```
 
-##### 5.2 Spring IoC依赖注入
+### 5.2 Spring IoC依赖注入
 
 Spring IoC依赖注入可以分为：
 
@@ -931,17 +943,18 @@ StandardEnvironment {activeProfiles=[], defaultProfiles=[default], propertySourc
 ```
 
 由此总结Spring IoC依赖来源：
+
 + 自定义Bean
 + 容器内建依赖
 + 容器内建Bean对象
 
-##### 5.3 Spring IoC配置元信息
+### 5.3 Spring IoC配置元信息
 
 + Bean的定义配置：XML文件/Properties文件/Java注解/Java API
 + IoC容器配置：XML文件/Java注解/Java API
 + 外部化属性配置：Java注解
 
-##### 5.4 `BeanFactory`和`ApplictionContext`
+### 5.4 `BeanFactory`和`ApplictionContext`
 
 Spring官方文档对此有解释，[可以参考](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-introduction)：
 >The `org.springframework.beans` and `org.springframework.context` packages are the basis for Spring Framework’s IoC container. The [`BeanFactory`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html) interface provides an advanced configuration mechanism capable of managing any type of **object**. [`ApplicationContext`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) is a sub-interface of `BeanFactory`. It adds:
@@ -983,3 +996,392 @@ public class DependencyInjectionDemo {
 ```
 
 下面来看`applicationContext == personRepository.getBeanFactory()`为`false`的问题。
+
+因为在配置`bean`的时候，设置了`autowire="byType"`，所以`BeanFactory`依赖被注入到`personRepository`中，可以通过`personRepository.getBeanFactory()`获取到，但这里注入的`BeanFactory`和引导类中的`ApplicationContext`(`BeanFactory`)并不是一回事，因为在`ApplicationContext`的继承链上，既有继承，还有组合。
+
+在`ClassPathXmlApplicationContext`的继承链上，有抽象类`AbstractApplicationContext`，其中有抽象方法`getBeanFactory()`：
+![](img/spring.ioc.applicationcontext.getbeanfactory.png)
+(如图所示继承关系不包含所实现的接口)
+
+而这个方法依然是覆盖了`ConfigurableApplicationContext`接口中的`getBeanFactory()`方法。其接口继承关系为：`ConfigurableApplicationContext --> ApplicationContext --> ListableBeanFactory --> BeanFactory`。
+
+既然有`BeanFactory`继承关系，子接口还定义方法去获取，说明这里不单单是继承。在`AbstractRefreshableApplicationContext`中有`getBeanFactory()`的实现代码：
+```java
+	/** Bean factory for this context. */
+	@Nullable
+	private volatile DefaultListableBeanFactory beanFactory;
+    ...
+	@Override
+	public final ConfigurableListableBeanFactory getBeanFactory() {
+		DefaultListableBeanFactory beanFactory = this.beanFactory;
+		if (beanFactory == null) {
+			throw new IllegalStateException("BeanFactory not initialized or already closed - " +
+					"call 'refresh' before accessing beans via the ApplicationContext");
+		}
+		return beanFactory;
+	}
+```
+
+所以上面程序打印`personRepository.getBeanFactory()`的结果时，返回的就是`DefaultListableBeanFactory`，就是从这里来的，是组合来的。再看其中的`getBean()`系列方法：
+![](img/spring.ioc.applicationcontext.getbean.png)
+
+可以看到`getBean()`系列方法也是从组合对象中进行获取的。而引导类中的`beanFactory`才是`ClassPathXmlApplicationContext`，是继承来的。
+
+综上所述，`ApplicationContext`就是`BeanFactory`，它们具有继承关系，但`ApplicationContext`又组合了一个`BeanFactory`的实现。
+
+而`ApplicationContext`和`BeanFactory`本身的区别，参考官方文档的解释即可。
+
+`BeanFactory`是Spring底层IoC容器，`ApplicationContext`除了作为IoC容器，还提供：
+
++ 面向切面(AOP)
++ 配置元信息(Configuration Metadata)
++ 资源管理(Resources)
++ 事件(Events)
++ 国际化(i18n)
++ 注解(Annotation)
++ Environment抽象(配置，外部化配置)
+
+### 5.5 `BeanFactory`和`ApplicationContext`比较
+
+上节示例中，Spring为Bean默认注入的`BeanFactory`类型是`DefaultListableBeanFactory`，它实现了`ListableBeanFactory`接口，`ListableBeanFactory`接口继承自`BeanFactory`接口。
+
+由此，也可以直接使用`DefaultListableBeanFactory`作为IoC容器，比如：
+```java
+DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+```
+
+但上节示例中，使用的是基于类路径下XML的`ApplicationContext`实现，将配置文件地址作为构造方法参数传入，而直接使用`BeanFactory`类型时，需要将Bean信息(配置文件)手动加载。
+
+基于XML方式的Bean的加载API是`XmlBeanDefinitionReader`，其需要一个`BeanDefinitionRegistry`类型的参数来进行构造，而`DefaultListableBeanFactory`恰好实现了`BeanDefinitionRegistry`接口，可以直接使用：
+```java
+XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+```
+
+有了`XmlBeanDefinitionReader`之后，加载配置文件即可，其`loadBeanDefinitions(String location)`方法即可读取配置文件，方法返回值为`int`类型，是找到`bean`定义的数量：
+```java
+String configLocation = "classpath:/dependency-lookup.xml";
+int beanDefinitionsCount = reader.loadBeanDefinitions(configLocation);
+```
+
+调用该方法后，`BeanFactory`类型的IoC容器就已经初始化好，可以继续使用了，完整示例如下：
+```java
+package deep.in.spring.ioc.overview.container;
+
+import deep.in.spring.ioc.overview.domain.Person;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+
+import java.util.Map;
+
+/**
+ * {@link BeanFactory} IoC容器示例
+ */
+public class BeanFactoryIoCContainerDemo {
+    public static void main(String[] args) {
+        //创建 BeanFactory 容器
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        //XML配置文件路径
+        String configLocation = "classpath:/dependency-lookup.xml";
+        //加载配置
+        int beanDefinitionsCount = reader.loadBeanDefinitions(configLocation);
+        System.out.println("Bean count: " + beanDefinitionsCount);
+        //依赖查找集合对象
+        lookupByCollectionType(beanFactory, Person.class);
+    }
+
+    private static void lookupByCollectionType(BeanFactory beanFactory, Class<?> clazz) {
+        if (beanFactory instanceof ListableBeanFactory) {
+            ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;
+            Map<String, ?> collection = listableBeanFactory.getBeansOfType(clazz);
+            System.out.println("Lookup By collection: " + collection);
+        }
+    }
+}
+```
+
+沿用之前的配置文件`dependency-lookup.xml`，运行程序，得到输出：
+```txt
+Bean count: 4
+Lookup By collection: {person=Person{name='Tom', age=18}, person2=Person{name='Jerry', age=18}, admin=Administrator{userName='tom@abc.com', password='123456'} Person{name='Tom', age=18}}
+```
+
+使用`BeanFactory`就是典型的IoC容器，没有事件，资源等特性。
+
+上面示例一直使用的是基于XML的配置信息，下面使用基于注解配置的实现，使用`AnnotationConfigApplicationContext`：
+```java
+AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+```
+
+创建好`ApplicationContext`对象后，需要注册配置类，使用`register(Class<?>... componentClasses)`方法即可将配置类进行注册。配置好后，再调用`refresh()`方法即可初始化IoC容器，完整示例如下：
+```java
+package deep.in.spring.ioc.overview.container;
+
+import deep.in.spring.ioc.overview.domain.Person;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+import java.util.Map;
+
+/**
+ * 注解能力 {@link ApplicationContext} IoC容器
+ */
+public class AnnotationApplicationContextIoCContainerDemo {
+    public static void main(String[] args) {
+        //创建 ApplicationContext
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        //将当前类作为配置类
+        applicationContext.register(AnnotationApplicationContextIoCContainerDemo.class);
+        //启动应用上下文
+        applicationContext.refresh();
+        //依赖查找集合对象
+        lookupByCollectionType(applicationContext, Person.class);
+    }
+
+    /**
+     * 通过Java注解的方式定义Bean
+     */
+    @Bean
+    public Person person() {
+        Person person = new Person();
+        person.setName("Leo");
+        person.setAge(20);
+        return person;
+    }
+
+    private static void lookupByCollectionType(BeanFactory beanFactory, Class<?> clazz) {
+        if (beanFactory instanceof ListableBeanFactory) {
+            ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;
+            Map<String, ?> collection = listableBeanFactory.getBeansOfType(clazz);
+            System.out.println("Lookup By collection: " + collection);
+        }
+    }
+}
+```
+
+这里通过注解的方式定义Bean，执行程序，即可得到：
+```txt
+Lookup By collection: {person=Person{name='Leo', age=20}}
+```
+
+### 5.6 Spring IoC容器的生命周期
+
+Spring IoC容器的生命周期简单分为以下过程：
+
++ 启动
++ 运行
++ 停止
+
+上节的示例中，使用了`applicationContext.refresh()`方法来启动应用上下文，对应了启动过程，该方法在`AbstractApplicationContext`中实现：
+(以下代码基于Spring Framework **5.2.8.RELEASE**)
+```java
+@Override
+	public void refresh() throws BeansException, IllegalStateException {
+		synchronized (this.startupShutdownMonitor) {
+			// Prepare this context for refreshing.
+			prepareRefresh();
+
+			// Tell the subclass to refresh the internal bean factory.
+			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+
+			// Prepare the bean factory for use in this context.
+			prepareBeanFactory(beanFactory);
+
+			try {
+				// Allows post-processing of the bean factory in context subclasses.
+				postProcessBeanFactory(beanFactory);
+
+				// Invoke factory processors registered as beans in the context.
+				invokeBeanFactoryPostProcessors(beanFactory);
+
+				// Register bean processors that intercept bean creation.
+				registerBeanPostProcessors(beanFactory);
+
+				// Initialize message source for this context.
+				initMessageSource();
+
+				// Initialize event multicaster for this context.
+				initApplicationEventMulticaster();
+
+				// Initialize other special beans in specific context subclasses.
+				onRefresh();
+
+				// Check for listener beans and register them.
+				registerListeners();
+
+				// Instantiate all remaining (non-lazy-init) singletons.
+				finishBeanFactoryInitialization(beanFactory);
+
+				// Last step: publish corresponding event.
+				finishRefresh();
+			}
+
+			catch (BeansException ex) {
+				if (logger.isWarnEnabled()) {
+					logger.warn("Exception encountered during context initialization - " +
+							"cancelling refresh attempt: " + ex);
+				}
+
+				// Destroy already created singletons to avoid dangling resources.
+				destroyBeans();
+
+				// Reset 'active' flag.
+				cancelRefresh(ex);
+
+				// Propagate exception to caller.
+				throw ex;
+			}
+
+			finally {
+				// Reset common introspection caches in Spring's core, since we
+				// might not ever need metadata for singleton beans anymore...
+				resetCommonCaches();
+			}
+		}
+	}
+```
+
+整个逻辑放在`synchronized`同步块中进行。
+
++ `prepareRefresh()`方法做一些启动前的准备工作：记录启动时间、设置状态、初始化`Environment`属性并校验，准备启动前监听器等。
+
++ `obtainFreshBeanFactory()`方法为获取`BeanFactory`，主要方法由子类实现。其中`AbstractRefreshableApplicationContext`的实现为：
+```java
+	/**
+	 * This implementation performs an actual refresh of this context's underlying
+	 * bean factory, shutting down the previous bean factory (if any) and
+	 * initializing a fresh bean factory for the next phase of the context's lifecycle.
+	 */
+	@Override
+	protected final void refreshBeanFactory() throws BeansException {
+		if (hasBeanFactory()) {
+			destroyBeans();
+			closeBeanFactory();
+		}
+		try {
+			DefaultListableBeanFactory beanFactory = createBeanFactory();
+			beanFactory.setSerializationId(getId());
+			customizeBeanFactory(beanFactory);
+			loadBeanDefinitions(beanFactory);
+			this.beanFactory = beanFactory;
+		}
+		catch (IOException ex) {
+			throw new ApplicationContextException("I/O error parsing bean definition source for " + getDisplayName(), ex);
+		}
+	}
+    ...
+    protected DefaultListableBeanFactory createBeanFactory() {
+		return new DefaultListableBeanFactory(getInternalParentBeanFactory());
+	}
+    ...
+    @Override
+	public final ConfigurableListableBeanFactory getBeanFactory() {
+		DefaultListableBeanFactory beanFactory = this.beanFactory;
+		if (beanFactory == null) {
+			throw new IllegalStateException("BeanFactory not initialized or already closed - " +
+					"call 'refresh' before accessing beans via the ApplicationContext");
+		}
+		return beanFactory;
+	}
+```
+该类中的`beanFactory`使用`volatile`关键字修饰，老版本中也是使用`synchronized`加锁。
+
++ `prepareBeanFactory(beanFactory)`方法，注册了一些基本的内建依赖，比如`BeanFactory`和`Environment`等其他操作。
+  
++ `postProcessBeanFactory(beanFactory)`方法由子类具体实现，`invokeBeanFactoryPostProcessors(beanFactory)`就是进行调用：
+```java
+	/**
+	 * Modify the application context's internal bean factory after its standard
+	 * initialization. All bean definitions will have been loaded, but no beans
+	 * will have been instantiated yet. This allows for registering special
+	 * BeanPostProcessors etc in certain ApplicationContext implementations.
+	 * @param beanFactory the bean factory used by the application context
+	 */
+	protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
+	}
+    ...
+    protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
+
+		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime
+		// (e.g. through an @Bean method registered by ConfigurationClassPostProcessor)
+		if (beanFactory.getTempClassLoader() == null && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
+			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
+			beanFactory.setTempClassLoader(new ContextTypeMatchClassLoader(beanFactory.getBeanClassLoader()));
+		}
+	}
+```
+
++ `registerBeanPostProcessors(beanFactory)`就是注册Bean的后置处理器。
+
++ `initMessageSource()`是对国际化的支持，初始化`Message`资源，体现了`ApplicationContext`和`BeanFactory`的不同。
+  
++ `initApplicationEventMulticaster()`初始化应用事件广播，具备事件特性。
+
++ `onRefresh()`是初始化特定上下文中的特定`bean`。
+
++ `registerListeners()`是注册监听器。
+
++ `finishBeanFactoryInitialization(beanFactory)`实例化一些单例对象并完成`BeanFactory`的初始化。
+
++ `finishRefresh()`完成初始化并发布对应事件。
+
+`ApplicationContext`的初始化工作较为复杂，这里只是简单介绍了其中各个步骤，其具体内容需要深入了解。
+
+停止操作可以调用如下方法完成：
+```java
+        //关闭应用上下文
+        applicationContext.close();
+```
+
+`close()`方法也在`AbstractApplicationContext`中定义：
+```java
+	/**
+	 * Close this application context, destroying all beans in its bean factory.
+	 * <p>Delegates to {@code doClose()} for the actual closing procedure.
+	 * Also removes a JVM shutdown hook, if registered, as it's not needed anymore.
+	 * @see #doClose()
+	 * @see #registerShutdownHook()
+	 */
+	@Override
+	public void close() {
+		synchronized (this.startupShutdownMonitor) {
+			doClose();
+			// If we registered a JVM shutdown hook, we don't need it anymore now:
+			// We've already explicitly closed the context.
+			if (this.shutdownHook != null) {
+				try {
+					Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
+				}
+				catch (IllegalStateException ex) {
+					// ignore - VM is already shutting down
+				}
+			}
+		}
+	}
+```
+
+其中Spring Framework的关闭操作在`doClose()`方法中完成，其中主要是以下3个方法：
+```java
+            ...
+			// Destroy all cached singletons in the context's BeanFactory.
+			destroyBeans();
+
+			// Close the state of this context itself.
+			closeBeanFactory();
+
+			// Let subclasses do some final clean-up if they wish...
+			onClose();
+            ...
+```
+
+也就是销毁所有的Bean，关闭`BeanFactory`，并且给子类留有特定关闭逻辑的`onClose()`方法。
+
+其余内容可以具体参考源代码。
+
+(不同版本之间的代码实现会有差别)

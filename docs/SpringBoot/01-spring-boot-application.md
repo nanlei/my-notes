@@ -1,6 +1,6 @@
 <h3 align="center"><b>01 - Spring Boot 应用程序</b></h3>
 
-#### 1. 使用Maven命令行构建项目
+## 1. 使用Maven命令行构建项目
 ```cmd
 $ mvn archetype:generate -DgroupId=deep-in-spring-boot -DartifactId=first-spring-boot-application -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false -Dpackage=deep.in.spring.boot
 ```
@@ -241,7 +241,7 @@ $ curl http://127.0.0.1:8080/
 Welcome to Spring Boot
 ```
 
-#### 2. 图形化构建Spring Boot应用
+## 2. 图形化构建Spring Boot应用
 https://start.spring.io/
 
 ![start.spring.io](img/start.spring.io.png)
@@ -409,7 +409,7 @@ $ curl http://127.0.0.1:8080 | jsonpp
 }
 ```
 
-#### 3. 创建Spring Boot应用程序的可执行JAR
+## 3. 创建Spring Boot应用程序的可执行JAR
 
 >2.4.5. Creating an Executable Jar  
 We finish our example by creating a completely self-contained executable jar file that we could run in production. Executable jars (sometimes called “fat jars”) are archives containing your compiled classes along with all of the jar dependencies that your code needs to run.
@@ -502,7 +502,7 @@ $ java -jar target/first-application-by-gui-0.0.1-SNAPSHOT.jar
 
 `java -jar`方式和`mvn spring-boot:run`方式基本无异
 
-#### 4. Spring Boot可执行JAR资源结构
+## 4. Spring Boot可执行JAR资源结构
 
 在`target`目录下执行`tree -h`
 ```cmd
@@ -657,7 +657,7 @@ original/
 
 除了`META-INF`目录，其余均发生了变化，将class文件和`application.properties`放到了`BOOT-INF/classes`下，将所有依赖的jar包都放到了`BOOT-INF/lib`下。这和传统Java Web项目是类似的，所有class文件放在`WEB-INF/classes`下，而所有依赖在`WEB-INF/lib`下。
 
-#### 5. JAR执行模块`spring-boot-loader`
+## 5. JAR执行模块`spring-boot-loader`
 
 可执行JAR包被`java -jar`命令执行时，其并不能感知jar文件是否是Spring Boot插件打包而来，执行按照标准JAR文件来进行。
 
@@ -752,7 +752,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.boot.SpringAppl
 $ java -classpath ".:../lib/*" deep.in.spring.boot.FirstApplicationByGuiApplication
 ```
 
-#### 6. JarLauncher的实现原理
+## 6. JarLauncher的实现原理
 
 在`pom.xml`中添加如下内容，用于源码分析：
 ```xml
@@ -1093,7 +1093,7 @@ public class MainMethodRunner {
 
 最后将`mainClass`中的`main(String[])`方法按静态方法调用，最终`JarLauncher`是在同进程内调用`Start-Class`的`main(String[])`方法，并且在这之前准备好Class Path。
 
-#### 7. WarLauncher的差异
+## 7. WarLauncher的差异
 
 和`JarLauncher`差异不大，二者都是继承自`ExecutableArchiveLauncher`：
 ```java

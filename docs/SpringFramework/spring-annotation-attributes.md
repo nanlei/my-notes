@@ -17,7 +17,7 @@ public interface Annotation {
 
 被标注的对象可以通过`AnnotatedElement` API进行表达，`<T extends Annotation> T getAnnotation(Class<T> annotationClass)`方法返回指定类的注解对象，获取注解属性即可调用对应的属性方法。
 
-#### 1.理解`AnnotationMeta`
+## 1.理解`AnnotationMeta`
 
 以`@TransactionalService`为例，增加属性方法`name()`，表示Bean名称，默认为空字符串：
 ```java

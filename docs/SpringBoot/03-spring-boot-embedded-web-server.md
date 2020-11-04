@@ -1,6 +1,6 @@
 <h3 align="center"><b>03 - 嵌入式Web容器</b></h3>
 
-### 嵌入式Servlet Web容器
+## 嵌入式Servlet Web容器
 
 从之前项目启动的日志中，总能看到一行：
 ```text
@@ -44,7 +44,7 @@ $ mvn dependency:tree -Dincludes=*:spring-boot-starter-tomcat:jar:2.3.2.RELEASE
 >
 >You can also deploy Spring Boot applications to any Servlet 3.1+ compatible container.
 
-#### 1. Tomcat作为嵌入式Servlet Web容器
+### 1. Tomcat作为嵌入式Servlet Web容器
 
 嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过`java -jar`命令启动。
 
@@ -353,7 +353,7 @@ Example 2: use an existing manifest file 'mymanifest' and archive all the
 
 传统Servlet容器将压缩的WAR文件解压到对应目录，再加载该目录中的资源。而Spring Boot的可执行WAR文件需要在不解压的前提下读取其中资源，也就是`spring-boot-loader`需要覆盖内建JAR协议的URLStreamHandler的原因所在。
 
-#### 2. Jetty作为嵌入式Servlet Web容器
+### 2. Jetty作为嵌入式Servlet Web容器
 
 将默认的嵌入式容器Tomact切换至Jetty的步骤非常简单，官方文档对此有详细说明：
 ><b>Use Another Web Server</b>  
@@ -435,7 +435,7 @@ $ mvn spring-boot:run
 
 项目正常启动，不同的是，运行容器切换到了Jetty，其中`org.springframework.boot.web.embedded.jetty.JettyWebServer`就是Spring Boot结合Jetty API实现的`org.springframework.boot.web.server.WebServer` Bean。
 
-#### 3. Undertow作为嵌入式Servlet Web容器
+### 3. Undertow作为嵌入式Servlet Web容器
 
 若将Servlet容器切换到Undertow，移除`spring-boot-starter-tomcat`依赖后再添加`spring-boot-starter-undertow`依赖即可，再次运行项目：
 ```cmd
@@ -476,7 +476,7 @@ $ mvn spring-boot:run
 
 ![UndertowServletWebServer](img/undertow.servlet.web.server.png)
 
-### 嵌入式Reactive Web容器
+## 嵌入式Reactive Web容器
 
 嵌入式Reactive Web容器通常处于被动激活状态，需要增加`spring-boot-starter-webflux`依赖，而它和`spring-boot-starter-web`同时存在时，`spring-boot-starter-webflux`会被忽略，这是`SpringApplication`中对Web应用类型的推断决定的：
 ```java
@@ -528,7 +528,7 @@ $ mvn spring-boot:run
 
 可以很容易看出，只有当`spring-boot-starter-webflux`单独存在是，`WebApplicationType`才是REACTIVE类型。
 
-#### 4. Undertow作为嵌入式Reactive Web容器
+### 4. Undertow作为嵌入式Reactive Web容器
 
 修改pom.xml，添加相关依赖：
 ```xml
@@ -672,7 +672,7 @@ WebServer Type: org.springframework.boot.web.embedded.undertow.UndertowWebServer
 
 注意输出的顺序，理解事件机制的时序。
 
-#### 5. Jetty作为嵌入式Reactive Web容器
+### 5. Jetty作为嵌入式Reactive Web容器
 
 和上面类似，若要使用Jetty作为Web容器，只需修改`pom.xml`中的依赖即可：
 ```xml
@@ -689,7 +689,7 @@ WebServer Type: org.springframework.boot.web.embedded.jetty.JettyWebServer
 2020-08-07 15:32:04.579  INFO 4478 --- [           main] deep.in.spring.boot.App                  : Started App in 1.448 seconds (JVM running for 1.877)
 ```
 
-#### 6. Tomcat作为嵌入式Reactive Web容器
+### 6. Tomcat作为嵌入式Reactive Web容器
 
 要注意的是，Tomcat是Servlet Web的默认容器，但不是Reactive Web的默认容器。
 
@@ -708,7 +708,7 @@ WebServer Type: org.springframework.boot.web.embedded.tomcat.TomcatWebServer
 2020-08-07 15:35:03.977  INFO 4497 --- [           main] deep.in.spring.boot.App                  : Started App in 1.677 seconds (JVM running for 2.116)
 ```
 
-#### 7. 默认的嵌入式Reactive Web容器
+### 7. 默认的嵌入式Reactive Web容器
 
 Netty作为默认的Reactive Web容器，若要使用，去掉容器依赖即可：
 ```cmd

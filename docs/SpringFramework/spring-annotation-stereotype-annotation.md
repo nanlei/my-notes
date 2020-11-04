@@ -1,6 +1,6 @@
 <h3 align="center"><b>Spring 模式注解(Stereotype Annotation)</b></h3>
 
-#### 1. 模式注解说明
+## 1. 模式注解说明
 
 Spring Framework的模式注解在官方Github的Wiki中有说明，[可以参考](https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model)。
 
@@ -18,7 +18,7 @@ Spring Framework核心部分提供了几种模式注解，包括并不限于下�
 
 当然也可以自定义模式注解，可以理解为模式注解就是`@Component`的派生注解。但Java中的注解不允许继承，[可以参考](https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.6)，Spring Framework采用元标注的方式来实现派生。
 
-#### 2. 元注解
+## 2. 元注解
 
 上述[Wiki](https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model)在开头直接介绍了元注解：
 
@@ -28,7 +28,7 @@ Spring Framework核心部分提供了几种模式注解，包括并不限于下�
 
 可以看出，元注解是Java中的概念，而非Spring专有。而在Spring中，`@Component`可以视作为元注解，由上面的模式注解说明即可看出。
 
-#### 3. `@Component`的派生性
+## 3. `@Component`的派生性
 
 `@Repository`注解在Spring Framework 2.0被引入，可以参考[JavaDoc文档](https://docs.spring.io/spring-framework/docs/2.0.0/javadoc-api/index.html?org/springframework/stereotype/Repository.html)，该注解仅仅作为仓储(DAO)的标记使用。
 
@@ -97,7 +97,7 @@ public @interface Component {
 
 其中，`@Controller`，`@Repository`，`@Service`都是@`Component`的派生注解。
 
-#### 4. 自定义`@Component`派生注解
+## 4. 自定义`@Component`派生注解
 
 以下示例基于**Spring Framework 2.5.6 SEC03**版本进行，添加如下依赖即可：
 ```xml
@@ -249,7 +249,7 @@ INFO: Destroying singletons in org.springframework.beans.factory.support.Default
 
 运行结果表明：`@StringRepository`作为`@Component`的派生注解，经Spring Framework扫描注册后，其语义和`@Repository`类似。被标注的类被Spring上下文初始化为Spring Bean并被容器管理。
 
-#### 5. `@Component`派生原理
+## 5. `@Component`派生原理
 
 基于**Spring Framework 2.5.6.SEC03**版本，上例中使用了`<context:component-scan/>`元素进行`@Component`组件扫描。
 
@@ -585,7 +585,7 @@ public @interface Configuration {
 
 `ClassPathBeanDefinitionScanner`也允许自定义类型过滤器，可以通过`<context:component-scan/>`的`include-filter`和`exclude-filter`属性来配置。
 
-#### 6. 多层次`@Component`派生性
+## 6. 多层次`@Component`派生性
 
 `@SpringBootApplication` 是Spring Boot中最常见的注解，在[官方文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)中，有如下描述：
 >A single `@SpringBootApplication` annotation can be used to enable those three features, that is:
@@ -743,7 +743,7 @@ public @interface StringRepository {
 
 再次运行程序，一切正常，说明该版本中提升了该特性。
 
-#### 7. 多层次`@Component`派生性原理
+## 7. 多层次`@Component`派生性原理
 
 在上面第5部分分析了`@Component`派生性原理，下面继续分析**2.5.6.SEC03**和**3.0.0.RELEASE**版本中源码的差异，解释对多层次派生的支持。
 

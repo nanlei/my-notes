@@ -88,7 +88,7 @@ $ curl http://localhost:8080/listuser | json_pp
 
 官方文档继续介绍，注解`@EnableAutoConfiguration` 或 `@SpringBootApplication`标注到任一`@Configuration`类上，即可开启自动装配。但却没有介绍`@Configuration`如何装配。在Spring Framework中，可以使用`@Import`和`@ComponentScan`注解来装配，由`AnnotationConfigApplicationContext`来注册。
 
-#### 1. 理解`@SpringBootApplication`
+## 1. 理解`@SpringBootApplication`
 官方文档也说了使用`@SpringBootApplication`可以开启自动装配，下面从此处入手，首先看官方文档的解释：
 ><b>Using the @SpringBootApplication Annotation</b>  
 Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their "application class". A single `@SpringBootApplication` annotation can be used to enable those three features, that is:
@@ -408,7 +408,7 @@ public class FirstSpringBootApp {
 
 重新启动程序，运行效果依旧。
 
-#### 2. 理解`@EnableAutoConfiguration`
+## 2. 理解`@EnableAutoConfiguration`
 
 官方文档提到了`@EnableAutoConfiguration`和`@SpringBootApplication`都能激活自动装配特性，但为了说明`@EnableAutoConfiguration`和`@SpringBootApplication`的差别，将项目调整为`webflux`项目：
 ```xml
@@ -506,7 +506,7 @@ When `@Bean` methods are declared within classes that are not annotated with `@C
 
 简而言之，`@Bean`在普通Java类被声明后，其行为和在`@Component`类下的声明一致，官方称这种方式为“轻量模式”，而在`@Configuration`类中的声明为“完全模式”，后者会执行CGLIB提升。这也就是前面代码运行结果的对比。
 
-#### 3. <span id='uac'>理解自动配置</span>
+## 3. <span id='uac'>理解自动配置</span>
 
 前面所述的`WebConfig`属于编码方式装配，而不是自动装配。而其他自动装配的Bean是通过自动配置机制完成的。
 
@@ -673,7 +673,7 @@ public enum EmbeddedDatabaseConnection {
 
 `spring-boot-autoconfigure`是Spring Boot的核心依赖，提供了大量的自动装配`@Configuration`类，并统一存放在`org.springframework.boot.autoconfigure`包和子包下，完整的自动装配类可参照`META-INF/spring.factories`文件。
 
-#### 4. 创建自动配置类
+## 4. 创建自动配置类
 
 创建自动装配类`WebAutoConfiguration`：
 ```java
@@ -752,7 +752,7 @@ helloworld Bean: org.springframework.web.reactive.function.server.RouterFunction
 
 说明`WebAutoConfiguration`已被自动装配。
 
-#### *. 示例代码启动日志`WARN`排查
+## *. 示例代码启动日志`WARN`排查
 
 示例中的启动过程有如下`WARN`输出：
 ```cmd

@@ -1,10 +1,10 @@
 <h3 align="center"><b>App 示例 - 使用ShardingSphere连接MySQL主从库</b></h3>
 
-#### 1. 构建MySQL主从库
+## 1. 构建MySQL主从库
 
 具体方法请点击[参考文档](../DataBase/MySQL/master-slave.md)
 
-#### 2. ShardingSphere
+## 2. ShardingSphere
 
 Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案，可以参考[官方文档](https://shardingsphere.apache.org/document/current/cn/overview/)，更多内容也可查询[官方网站](https://shardingsphere.apache.org/)
 
@@ -12,9 +12,9 @@ Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案�
 
 使用ShardingSphere中间件的目的在于其帮助我们实现在主从库之间的转换，而程序中无需指定读写操作的数据库。
 
-#### 3. 代码示例
+## 3. 代码示例
 
-##### 3.1 引入依赖
+### 3.1 引入依赖
 
 Spring Boot的版本为2.3.2.RELEASE，ShardingSphere的版本为4.1.1
 
@@ -56,7 +56,7 @@ Spring Boot的版本为2.3.2.RELEASE，ShardingSphere的版本为4.1.1
     </dependencies>
 ```
 
-##### 3.2 Spring Boot配置
+### 3.2 Spring Boot配置
 
 `spring.shardingsphere`就是ShardingSphere配置的起始头，数据库使用的是一主二从，即配置`datasource`时直接指明`names: master, slave1, slave2`
 
@@ -133,7 +133,7 @@ mybatis:
   configLocation: classpath:mybatis/mybatis-config.xml
 ```
 
-##### 3.3 数据模型和MyBatis配置
+### 3.3 数据模型和MyBatis配置
 
 演示使用的简单数据模型为
 ```sql
@@ -259,7 +259,7 @@ public interface UserMapper {
 }
 ```
 
-##### 3.4 编写业务代码
+### 3.4 编写业务代码
 
 示例代码仅包含按ID获取User信息、增加User两个功能：
 ```java
@@ -333,7 +333,7 @@ public class ShardingSphereDemoApp {
 }
 ```
 
-#### 4. 运行示例
+## 4. 运行示例
 
 直接运行引导类，启动项目：
 ```cmd

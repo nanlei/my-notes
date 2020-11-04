@@ -6,7 +6,7 @@
 
 按照官方说明，metrics(指标)，health checks(健康检查)，externalized configuration(外部化配置)都是为生产准备的特性。
 
-#### 1. Spring Boot Actuator
+## 1. Spring Boot Actuator
 
 在官方文档中，Production-Ready特性出自：
 
@@ -180,7 +180,7 @@ $ curl http://localhost:8080/actuator/metrics/system.cpu.count | json_pp
 }
 ```
 
-#### 2. 理解外部化配置
+## 2. 理解外部化配置
 
 官方文档对外部化配置的解释是：
 ><b>Externalized Configuration</b>
@@ -313,7 +313,7 @@ spring:
 
 以上两种方式都是“外部化配置”，在官方文档中有明确说明，也就是外部配置属性源是“外部化配置”的读取媒介，可以是配置文件方式，环境变量方式或命令行参数方式等。
 
-#### 3. 约定优于配置
+## 3. 约定优于配置
 
 Spring Boot的最后一个特性：
 >Absolutely no code generation and no requirement for XML configuration

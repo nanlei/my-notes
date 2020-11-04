@@ -1,6 +1,6 @@
 <h3 align="center"><b>Spring 组合注解(Composed Annotation)</b></h3>
 
-#### 1. 组合注解说明
+## 1. 组合注解说明
 
 Spring Framework的组合注解在官方Github的Wiki中有说明，[可以参考](https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model)。
 
@@ -49,7 +49,7 @@ public @interface SpringBootApplication {
 }
 ```
 
-#### 2. 理解组合注解
+## 2. 理解组合注解
 
 以上面的`@TransactionalService`为例，其元注解层次关系为：
 ```txt
@@ -74,7 +74,7 @@ public @interface Transactional {
 }
 ```
 
-在讨论[Spring模式注解](./spring-stereotype-annotation.md)时，`@Component`派生原理的源码解析中，Spring Framework抽象出了`AnnotationMetadata`接口和实现类`AnnotationMetadataReadingVisitor`，并且从Spring Framework 4.0开始，其关联的`AnnotationAttributesReadingVisitor`采用递归方式查找元注解，支持了多层次元注解信息查找。
+在讨论[Spring模式注解](./spring-annotation-stereotype-annotation.md)时，`@Component`派生原理的源码解析中，Spring Framework抽象出了`AnnotationMetadata`接口和实现类`AnnotationMetadataReadingVisitor`，并且从Spring Framework 4.0开始，其关联的`AnnotationAttributesReadingVisitor`采用递归方式查找元注解，支持了多层次元注解信息查找。
 
 Spring通过ASM读取类资源，直接操作其中的字节码，获取相关元信息，相关接口为`MetadataReader`：
 ```java
@@ -144,7 +144,7 @@ final class SimpleMetadataReader implements MetadataReader {
 
 其关联的`ClassMetadata`信息和`AnnotationMetadata`信息在构造阶段完成初始化。`SimpleAnnotationMetadataReadingVisitor`替代了原有的`AnnotationMetadataReadingVisitor`和`AnnotationAttributesReadingVisitor`。
 
-在解析[Spring模式注解](./spring-stereotype-annotation.md)时，分析到`ClassPathScanningCandidateComponentProvider`的`findCandidateComponents()`方法有读取`MetadataReader`的方式(**5.2.8.RELEASE**)：
+在解析[Spring模式注解](./spring-annotation-stereotype-annotation.md)时，分析到`ClassPathScanningCandidateComponentProvider`的`findCandidateComponents()`方法有读取`MetadataReader`的方式(**5.2.8.RELEASE**)：
 ```java
 MetadataReader metadataReader = getMetadataReaderFactory().getMetadataReader(type);
 ```

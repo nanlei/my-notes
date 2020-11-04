@@ -9,8 +9,8 @@ nav:
   - Framework:
     - Spring Framework:
       - IoC:
-        - Spring IoC:  'SpringFramework/spring-ioc.md'
-        - Spring Beans: 'SpringFramework/spring-beans.md'
+        - Spring IoC:  'SpringFramework/01-spring-ioc.md'
+        - Spring Beans: 'SpringFramework/02-spring-beans.md'
       - Annotation Driven:
         - Stereotype Annotation : 'SpringFramework/spring-annotation-stereotype-annotation.md'
         - Composed Annotation : 'SpringFramework/spring-annotation-composed-annotation.md'
@@ -40,6 +40,7 @@ nav:
 
 theme:
   name: 'material'
+  custom_dir: overrides
   language: 'en'
   palette:
     primary: 'indigo'
@@ -50,6 +51,11 @@ theme:
     - tabs
   #collapse_navigation: true
   highlightjs: true
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/extra.js
 
 markdown_extensions:
   - markdown.extensions.admonition
