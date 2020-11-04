@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1030,7 +1042,7 @@
                 
                 <h3 align="center"><b>Spring 组合注解(Composed Annotation)</b></h3>
 
-<h4 id="1">1. 组合注解说明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<h2 id="1">1. 组合注解说明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>Spring Framework的组合注解在官方Github的Wiki中有说明，<a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model">可以参考</a>。</p>
 <blockquote>
 <p>A <strong><em>composed annotation</em></strong> is an annotation that is <em>meta-annotated</em> with one or more annotations with the intent of combining the behavior associated with those meta-annotations into a single custom annotation. For example, an annotation named <code>@TransactionalService</code> that is meta-annotated with Spring's <code>@Transactional</code> and <code>@Service</code> annotations is a composed annotation that combines the semantics of <code>@Transactional</code> and <code>@Service</code>. <code>@TransactionalService</code> is technically also a custom <em>stereotype annotation</em>.</p>
@@ -1070,7 +1082,7 @@
 <span class="p">}</span>
 </code></pre></div>
 
-<h4 id="2">2. 理解组合注解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h2 id="2">2. 理解组合注解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>以上面的<code>@TransactionalService</code>为例，其元注解层次关系为：
 <div class="highlight"><pre><span></span><code>@TransactionalService
 |- @Transactional
@@ -1343,6 +1355,8 @@
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

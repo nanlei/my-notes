@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1147,7 +1159,7 @@
 </code></pre></div></p>
 <p>没有配置数据源，没有配置<code>JdbcTemplate</code> Bean，但可以直接注入使用，这些组件都是自动装配的。</p>
 <p>官方文档继续介绍，注解<code>@EnableAutoConfiguration</code> 或 <code>@SpringBootApplication</code>标注到任一<code>@Configuration</code>类上，即可开启自动装配。但却没有介绍<code>@Configuration</code>如何装配。在Spring Framework中，可以使用<code>@Import</code>和<code>@ComponentScan</code>注解来装配，由<code>AnnotationConfigApplicationContext</code>来注册。</p>
-<h4 id="1-springbootapplication">1. 理解<code>@SpringBootApplication</code><a class="headerlink" href="#1-springbootapplication" title="Permanent link">&para;</a></h4>
+<h2 id="1-springbootapplication">1. 理解<code>@SpringBootApplication</code><a class="headerlink" href="#1-springbootapplication" title="Permanent link">&para;</a></h2>
 <p>官方文档也说了使用<code>@SpringBootApplication</code>可以开启自动装配，下面从此处入手，首先看官方文档的解释：</p>
 <blockquote>
 <p><b>Using the <a class="magiclink magiclink-github magiclink-mention" href="https://github.com/SpringBootApplication" title="GitHub User: SpringBootApplication">@SpringBootApplication</a> Annotation</b><br />
@@ -1446,7 +1458,7 @@ ApplicationContext: org.springframework.boot.web.servlet.context.AnnotationConfi
 <span class="p">}</span>
 </code></pre></div></p>
 <p>重新启动程序，运行效果依旧。</p>
-<h4 id="2-enableautoconfiguration">2. 理解<code>@EnableAutoConfiguration</code><a class="headerlink" href="#2-enableautoconfiguration" title="Permanent link">&para;</a></h4>
+<h2 id="2-enableautoconfiguration">2. 理解<code>@EnableAutoConfiguration</code><a class="headerlink" href="#2-enableautoconfiguration" title="Permanent link">&para;</a></h2>
 <p>官方文档提到了<code>@EnableAutoConfiguration</code>和<code>@SpringBootApplication</code>都能激活自动装配特性，但为了说明<code>@EnableAutoConfiguration</code>和<code>@SpringBootApplication</code>的差别，将项目调整为<code>webflux</code>项目：
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -1531,7 +1543,7 @@ When <code>@Bean</code> methods are declared within classes that are not annotat
 <p>In common scenarios, <code>@Bean</code> methods are to be declared within <code>@Configuration</code> classes, ensuring that “full” mode is always used and that cross-method references therefore get redirected to the container’s lifecycle management. This prevents the same <code>@Bean</code> method from accidentally being invoked through a regular Java call, which helps to reduce subtle bugs that can be hard to track down when operating in “lite” mode.</p>
 </blockquote>
 <p>简而言之，<code>@Bean</code>在普通Java类被声明后，其行为和在<code>@Component</code>类下的声明一致，官方称这种方式为“轻量模式”，而在<code>@Configuration</code>类中的声明为“完全模式”，后者会执行CGLIB提升。这也就是前面代码运行结果的对比。</p>
-<h4 id="3">3. <span id='uac'>理解自动配置</span><a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<h2 id="3">3. <span id='uac'>理解自动配置</span><a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>前面所述的<code>WebConfig</code>属于编码方式装配，而不是自动装配。而其他自动装配的Bean是通过自动配置机制完成的。</p>
 <p>在Spring Boot之前，Spring Framework提供Bean的生命周期管理和编程模型，框架层面已经支持派生注解，但却不能自动装配<code>@Configuration</code>类。Spring Boot在此基础之上添加了约定配置化导入<code>@Configuration</code>类的方式。</p>
 <p>官方文档介绍了如何构建自定义自动装配类：</p>
@@ -1677,7 +1689,7 @@ When <code>@Bean</code> methods are declared within classes that are not annotat
 <p>综上所述，<code>DataSourceAutoConfiguration</code>和内部<code>@Configuration</code>类同样都结合了<code>@Configuration</code>和<code>@Conditional</code>特性，内部的<code>@Configuration</code>类随着<code>DataSourceAutoConfiguration</code>的装配而装配。</p>
 <p>那么<code>DataSourceAutoConfiguration</code>又是如何被装配的，回到官方文档中的最后一段介绍，这些自动装配类都在<code>META-INF/spring.factories</code>下，即在<code>spring-boot-autoconfigure</code>依赖中。</p>
 <p><code>spring-boot-autoconfigure</code>是Spring Boot的核心依赖，提供了大量的自动装配<code>@Configuration</code>类，并统一存放在<code>org.springframework.boot.autoconfigure</code>包和子包下，完整的自动装配类可参照<code>META-INF/spring.factories</code>文件。</p>
-<h4 id="4">4. 创建自动配置类<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<h2 id="4">4. 创建自动配置类<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>创建自动装配类<code>WebAutoConfiguration</code>：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.boot.autoconfigure</span><span class="p">;</span>
 
@@ -1744,7 +1756,7 @@ helloworld Bean: org.springframework.web.reactive.function.server.RouterFunction
 2020-08-27 10:54:55.438  INFO 2682 --- [           main] deep.in.spring.boot.App                  : Started App in 2.441 seconds (JVM running for 2.906)
 </code></pre></div></p>
 <p>说明<code>WebAutoConfiguration</code>已被自动装配。</p>
-<h4 id="warn">*. 示例代码启动日志<code>WARN</code>排查<a class="headerlink" href="#warn" title="Permanent link">&para;</a></h4>
+<h2 id="warn">*. 示例代码启动日志<code>WARN</code>排查<a class="headerlink" href="#warn" title="Permanent link">&para;</a></h2>
 <p>示例中的启动过程有如下<code>WARN</code>输出：
 <div class="highlight"><pre><span></span><code>2020-08-27 10:54:54.227  WARN 2682 --- [           main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=org.hsqldb.jdbcDriver was not found, trying direct instantiation.
 </code></pre></div></p>
@@ -1871,6 +1883,8 @@ helloworld Bean: org.springframework.web.reactive.function.server.RouterFunction
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

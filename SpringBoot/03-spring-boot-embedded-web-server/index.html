@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1152,7 +1164,7 @@
                 
                 <h3 align="center"><b>03 - 嵌入式Web容器</b></h3>
 
-<h3 id="servlet-web">嵌入式Servlet Web容器<a class="headerlink" href="#servlet-web" title="Permanent link">&para;</a></h3>
+<h2 id="servlet-web">嵌入式Servlet Web容器<a class="headerlink" href="#servlet-web" title="Permanent link">&para;</a></h2>
 <p>从之前项目启动的日志中，总能看到一行：
 <div class="highlight"><pre><span></span><code>[           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path &#39;&#39;
 </code></pre></div></p>
@@ -1207,7 +1219,7 @@
 </table>
 <p>You can also deploy Spring Boot applications to any Servlet 3.1+ compatible container.</p>
 </blockquote>
-<h4 id="1-tomcatservlet-web">1. Tomcat作为嵌入式Servlet Web容器<a class="headerlink" href="#1-tomcatservlet-web" title="Permanent link">&para;</a></h4>
+<h3 id="1-tomcatservlet-web">1. Tomcat作为嵌入式Servlet Web容器<a class="headerlink" href="#1-tomcatservlet-web" title="Permanent link">&para;</a></h3>
 <p>嵌入式Tomcat作为Web应用的一部分，结合其API实现Servlet容器的引导。同样，Tomcat也提供了Maven插件，不需要编码，也不需要外置Tomcat容器，将当前应用直接打包为可运行的JAR或WAR文件，通过<code>java -jar</code>命令启动。</p>
 <p>新建项目<code>servlet-sample</code>，结构如下：
 <div class="highlight"><pre><span></span><code>$ tree .
@@ -1491,7 +1503,7 @@ Example 2: use an existing manifest file &#39;mymanifest&#39; and archive all th
        jar cvfm classes.jar mymanifest -C foo/ .
 </code></pre></div></p>
 <p>传统Servlet容器将压缩的WAR文件解压到对应目录，再加载该目录中的资源。而Spring Boot的可执行WAR文件需要在不解压的前提下读取其中资源，也就是<code>spring-boot-loader</code>需要覆盖内建JAR协议的URLStreamHandler的原因所在。</p>
-<h4 id="2-jettyservlet-web">2. Jetty作为嵌入式Servlet Web容器<a class="headerlink" href="#2-jettyservlet-web" title="Permanent link">&para;</a></h4>
+<h3 id="2-jettyservlet-web">2. Jetty作为嵌入式Servlet Web容器<a class="headerlink" href="#2-jettyservlet-web" title="Permanent link">&para;</a></h3>
 <p>将默认的嵌入式容器Tomact切换至Jetty的步骤非常简单，官方文档对此有详细说明：</p>
 <blockquote>
 <p><b>Use Another Web Server</b><br />
@@ -1563,7 +1575,7 @@ Many Spring Boot starters include default embedded containers.</p>
 2020-08-06 17:50:23.343  INFO 8185 --- [           main] deep.in.spring.boot.App                  : Started App in 1.098 seconds (JVM running for 1.374)
 </code></pre></div></p>
 <p>项目正常启动，不同的是，运行容器切换到了Jetty，其中<code>org.springframework.boot.web.embedded.jetty.JettyWebServer</code>就是Spring Boot结合Jetty API实现的<code>org.springframework.boot.web.server.WebServer</code> Bean。</p>
-<h4 id="3-undertowservlet-web">3. Undertow作为嵌入式Servlet Web容器<a class="headerlink" href="#3-undertowservlet-web" title="Permanent link">&para;</a></h4>
+<h3 id="3-undertowservlet-web">3. Undertow作为嵌入式Servlet Web容器<a class="headerlink" href="#3-undertowservlet-web" title="Permanent link">&para;</a></h3>
 <p>若将Servlet容器切换到Undertow，移除<code>spring-boot-starter-tomcat</code>依赖后再添加<code>spring-boot-starter-undertow</code>依赖即可，再次运行项目：
 <div class="highlight"><pre><span></span><code>$ mvn spring-boot:run
 [INFO] Scanning for projects...
@@ -1598,7 +1610,7 @@ Many Spring Boot starters include default embedded containers.</p>
 <p>从日志中可以看到，Undertow Web容器已经成功启动，但这里的输出日志是<code>UndertowWebServer</code>，而实际上此处Undertow的实现是<code>org.springframework.boot.web.embedded.undertow.UndertowServletWebServer</code>，它继承自<code>UndertowWebServer</code>，由于当前版本的子类<code>UndertowServletWebServer</code>中没有定义日志输出，而是在父类<code>UndertowWebServer</code>进行中输出的，所以在日志上没有明确说明。</p>
 <p>这里也可以进行断点跟踪来确定，在<code>ServletWebServerApplicationContext</code>中有<code>createWebServer()</code>方法，在Spring Boot项目启动过程中会执行到此，进行断点跟踪，就能明确实际创建的<code>WebServer</code>的具体实例是什么。</p>
 <p><img alt="UndertowServletWebServer" src="../img/undertow.servlet.web.server.png" /></p>
-<h3 id="reactive-web">嵌入式Reactive Web容器<a class="headerlink" href="#reactive-web" title="Permanent link">&para;</a></h3>
+<h2 id="reactive-web">嵌入式Reactive Web容器<a class="headerlink" href="#reactive-web" title="Permanent link">&para;</a></h2>
 <p>嵌入式Reactive Web容器通常处于被动激活状态，需要增加<code>spring-boot-starter-webflux</code>依赖，而它和<code>spring-boot-starter-web</code>同时存在时，<code>spring-boot-starter-webflux</code>会被忽略，这是<code>SpringApplication</code>中对Web应用类型的推断决定的：
 <div class="highlight"><pre><span></span><code>    <span class="cm">/**</span>
 <span class="cm">     * Create a new {@link SpringApplication} instance. The application context will load</span>
@@ -1644,7 +1656,7 @@ Many Spring Boot starters include default embedded containers.</p>
     <span class="p">}</span>
 </code></pre></div></p>
 <p>可以很容易看出，只有当<code>spring-boot-starter-webflux</code>单独存在是，<code>WebApplicationType</code>才是REACTIVE类型。</p>
-<h4 id="4-undertowreactive-web">4. Undertow作为嵌入式Reactive Web容器<a class="headerlink" href="#4-undertowreactive-web" title="Permanent link">&para;</a></h4>
+<h3 id="4-undertowreactive-web">4. Undertow作为嵌入式Reactive Web容器<a class="headerlink" href="#4-undertowreactive-web" title="Permanent link">&para;</a></h3>
 <p>修改pom.xml，添加相关依赖：
 <div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
         <span class="nt">&lt;dependency&gt;</span>
@@ -1766,7 +1778,7 @@ WebServer Type: org.springframework.boot.web.embedded.undertow.UndertowWebServer
 2020-08-07 15:24:05.772  INFO 4413 --- [           main] deep.in.spring.boot.App                  : Started App in 1.87 seconds (JVM running for 2.319)
 </code></pre></div></p>
 <p>注意输出的顺序，理解事件机制的时序。</p>
-<h4 id="5-jettyreactive-web">5. Jetty作为嵌入式Reactive Web容器<a class="headerlink" href="#5-jettyreactive-web" title="Permanent link">&para;</a></h4>
+<h3 id="5-jettyreactive-web">5. Jetty作为嵌入式Reactive Web容器<a class="headerlink" href="#5-jettyreactive-web" title="Permanent link">&para;</a></h3>
 <p>和上面类似，若要使用Jetty作为Web容器，只需修改<code>pom.xml</code>中的依赖即可：
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
             <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -1778,7 +1790,7 @@ WebServer Type: org.springframework.boot.web.embedded.undertow.UndertowWebServer
 WebServer Type: org.springframework.boot.web.embedded.jetty.JettyWebServer
 2020-08-07 15:32:04.579  INFO 4478 --- [           main] deep.in.spring.boot.App                  : Started App in 1.448 seconds (JVM running for 1.877)
 </code></pre></div></p>
-<h4 id="6-tomcatreactive-web">6. Tomcat作为嵌入式Reactive Web容器<a class="headerlink" href="#6-tomcatreactive-web" title="Permanent link">&para;</a></h4>
+<h3 id="6-tomcatreactive-web">6. Tomcat作为嵌入式Reactive Web容器<a class="headerlink" href="#6-tomcatreactive-web" title="Permanent link">&para;</a></h3>
 <p>要注意的是，Tomcat是Servlet Web的默认容器，但不是Reactive Web的默认容器。</p>
 <p>同样要使用Tomcat，修改<code>pom.xml</code>:
 <div class="highlight"><pre><span></span><code>        <span class="nt">&lt;dependency&gt;</span>
@@ -1791,7 +1803,7 @@ WebServer Type: org.springframework.boot.web.embedded.jetty.JettyWebServer
 WebServer Type: org.springframework.boot.web.embedded.tomcat.TomcatWebServer
 2020-08-07 15:35:03.977  INFO 4497 --- [           main] deep.in.spring.boot.App                  : Started App in 1.677 seconds (JVM running for 2.116)
 </code></pre></div></p>
-<h4 id="7-reactive-web">7. 默认的嵌入式Reactive Web容器<a class="headerlink" href="#7-reactive-web" title="Permanent link">&para;</a></h4>
+<h3 id="7-reactive-web">7. 默认的嵌入式Reactive Web容器<a class="headerlink" href="#7-reactive-web" title="Permanent link">&para;</a></h3>
 <p>Netty作为默认的Reactive Web容器，若要使用，去掉容器依赖即可：
 <div class="highlight"><pre><span></span><code>2020-08-07 15:36:58.625  INFO 4510 --- [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8080
 WebServer Type: org.springframework.boot.web.embedded.netty.NettyWebServer
@@ -1879,6 +1891,8 @@ WebServer Type: org.springframework.boot.web.embedded.netty.NettyWebServer
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

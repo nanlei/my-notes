@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -427,6 +439,19 @@
   <a href="#1-spring-beandefinition" class="md-nav__link">
     1. Spring BeanDefinition
   </a>
+  
+    <nav class="md-nav" aria-label="1. Spring BeanDefinition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-beandefinitionbuilder" class="md-nav__link">
+    1.1 通过BeanDefinitionBuilder构建
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -990,6 +1015,19 @@
     1. Spring BeanDefinition
   </a>
   
+    <nav class="md-nav" aria-label="1. Spring BeanDefinition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-beandefinitionbuilder" class="md-nav__link">
+    1.1 通过BeanDefinitionBuilder构建
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1016,7 +1054,7 @@
                 
                 <h3 align="center"><b>Spring Beans 基础</b></h3>
 
-<h4 id="1-spring-beandefinition">1. Spring <code>BeanDefinition</code><a class="headerlink" href="#1-spring-beandefinition" title="Permanent link">&para;</a></h4>
+<h2 id="1-spring-beandefinition">1. Spring <code>BeanDefinition</code><a class="headerlink" href="#1-spring-beandefinition" title="Permanent link">&para;</a></h2>
 <p><code>BeanDefinition</code>是Spring Framework中定义Bean的配置元信息接口(<code>org.springframework.beans.factory.config.BeanDefinition</code>)，包含：</p>
 <ul>
 <li>Bean的类名(类全名/完全限定名)</li>
@@ -1041,6 +1079,7 @@
 <li>初始化回调方法：<code>init-method</code></li>
 <li>销毁回调方法：<code>destroy-method</code></li>
 </ul>
+<h3 id="11-beandefinitionbuilder">1.1 通过<code>BeanDefinitionBuilder</code>构建<a class="headerlink" href="#11-beandefinitionbuilder" title="Permanent link">&para;</a></h3>
                 
               
               
@@ -1123,6 +1162,8 @@
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

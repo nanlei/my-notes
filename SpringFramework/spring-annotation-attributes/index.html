@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1030,7 +1042,7 @@
 <span class="p">}</span>
 </code></pre></div></p>
 <p>被标注的对象可以通过<code>AnnotatedElement</code> API进行表达，<code>&lt;T extends Annotation&gt; T getAnnotation(Class&lt;T&gt; annotationClass)</code>方法返回指定类的注解对象，获取注解属性即可调用对应的属性方法。</p>
-<h4 id="1annotationmeta">1.理解<code>AnnotationMeta</code><a class="headerlink" href="#1annotationmeta" title="Permanent link">&para;</a></h4>
+<h2 id="1annotationmeta">1.理解<code>AnnotationMeta</code><a class="headerlink" href="#1annotationmeta" title="Permanent link">&para;</a></h2>
 <p>以<code>@TransactionalService</code>为例，增加属性方法<code>name()</code>，表示Bean名称，默认为空字符串：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.springframework.annotation</span><span class="p">;</span>
 
@@ -1425,6 +1437,8 @@ Annotation @Component attribute value =
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -477,7 +489,7 @@
         
           <li class="md-nav__item">
   <a href="#55-beanfactoryapplicationcontext" class="md-nav__link">
-    5.5 BeanFactory和ApplicationContext使用比较
+    5.5 BeanFactory和ApplicationContext比较
   </a>
   
 </li>
@@ -1127,7 +1139,7 @@
         
           <li class="md-nav__item">
   <a href="#55-beanfactoryapplicationcontext" class="md-nav__link">
-    5.5 BeanFactory和ApplicationContext使用比较
+    5.5 BeanFactory和ApplicationContext比较
   </a>
   
 </li>
@@ -1168,10 +1180,10 @@
                 
                 <h3 align="center"><b>Spring IoC 基础</b></h3>
 
-<h4 id="1-ioc">1. 什么是IoC<a class="headerlink" href="#1-ioc" title="Permanent link">&para;</a></h4>
+<h2 id="1-ioc">1. 什么是IoC<a class="headerlink" href="#1-ioc" title="Permanent link">&para;</a></h2>
 <p><strong>IoC</strong>(Inversion of Control，控制反转)并不是Spring Framework特有的概念，站在从软件开发角度来理解，<a href="https://en.wikipedia.org/wiki/Inversion_of_control">可以参考</a>。</p>
 <p>而广义上的IoC，可以从一句话理解：<code>Don’t call me, we will call you</code>(好莱坞原则)</p>
-<h4 id="2-ioc">2. IoC的基本概念<a class="headerlink" href="#2-ioc" title="Permanent link">&para;</a></h4>
+<h2 id="2-ioc">2. IoC的基本概念<a class="headerlink" href="#2-ioc" title="Permanent link">&para;</a></h2>
 <p>广义上的IoC实现，<a href="https://en.wikipedia.org/wiki/Inversion_of_control#Implementation_techniques">可以参考</a>。</p>
 <p>在Spring Framework中，在其作者Rod Johnson和Juergen Hoeller做著的<code>《Expert One-on-One™J2EE™Development without EJB》</code>一书中提到：</p>
 <p>(<strong>Chapter 6: Lightweight Containers andInversion of Control</strong>)</p>
@@ -1201,7 +1213,7 @@
 <li>生命周期管理： 容器，托管的资源(Java Bean或其他资源)</li>
 <li>配置：容器，外部化配置，托管的资源(Java Bean或其他资源)</li>
 </ul>
-<h4 id="3-ioc">3. IoC的实现<a class="headerlink" href="#3-ioc" title="Permanent link">&para;</a></h4>
+<h2 id="3-ioc">3. IoC的实现<a class="headerlink" href="#3-ioc" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Java SE</li>
 <li>Java Beans</li>
@@ -1456,7 +1468,7 @@ Person {name=&#39;Tom&#39;, age=18}
 <p><strong>Greater object orientation</strong></p>
 <p><strong>Greater productivity</strong></p>
 </blockquote>
-<h4 id="4">4. 依赖查找和依赖注入<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<h2 id="4">4. 依赖查找和依赖注入<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>依赖查找是主动通过容器API进行的获取依赖。</p>
 <p>依赖注入并不依赖容器API，是被动提供依赖，代码侵入性低。</p>
 <p>Spring对依赖注入支持构造器注入和Setter注入，二者的比较<a href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#beans-setter-injection">可以参考</a>。Spring官方现在更推荐的是构造器注入。</p>
@@ -1497,8 +1509,8 @@ Person {name=&#39;Tom&#39;, age=18}
 </ul>
 </blockquote>
 <p>两种方式并无好坏之分，在各自合适的场景下使用即可。</p>
-<h4 id="5-spring-ioc">5. Spring IoC容器<a class="headerlink" href="#5-spring-ioc" title="Permanent link">&para;</a></h4>
-<h5 id="51-spring-ioc">5.1 Spring IoC 依赖查找<a class="headerlink" href="#51-spring-ioc" title="Permanent link">&para;</a></h5>
+<h2 id="5-spring-ioc">5. Spring IoC容器<a class="headerlink" href="#5-spring-ioc" title="Permanent link">&para;</a></h2>
+<h3 id="51-spring-ioc">5.1 Spring IoC 依赖查找<a class="headerlink" href="#51-spring-ioc" title="Permanent link">&para;</a></h3>
 <p>Spring IoC容器中依赖查找可以分为：</p>
 <ul>
 <li>根据Bean名称查找(实时，延迟)</li>
@@ -1714,7 +1726,7 @@ Lookup in Lazy: Person{name=&#39;Tom&#39;, age=18}
 <p>运行程序，得到结果：
 <div class="highlight"><pre><span></span><code>Lookup collection Admin: {admin=Administrator{userName=&#39;tom@abc.com&#39;, password=&#39;123456&#39;} Person{name=&#39;Tom&#39;, age=18}}
 </code></pre></div></p>
-<h5 id="52-spring-ioc">5.2 Spring IoC依赖注入<a class="headerlink" href="#52-spring-ioc" title="Permanent link">&para;</a></h5>
+<h3 id="52-spring-ioc">5.2 Spring IoC依赖注入<a class="headerlink" href="#52-spring-ioc" title="Permanent link">&para;</a></h3>
 <p>Spring IoC依赖注入可以分为：</p>
 <ul>
 <li>根据Bean名称注入</li>
@@ -1984,13 +1996,13 @@ org.springframework.context.support.ClassPathXmlApplicationContext@246b179d, sta
 <li>容器内建依赖</li>
 <li>容器内建Bean对象</li>
 </ul>
-<h5 id="53-spring-ioc">5.3 Spring IoC配置元信息<a class="headerlink" href="#53-spring-ioc" title="Permanent link">&para;</a></h5>
+<h3 id="53-spring-ioc">5.3 Spring IoC配置元信息<a class="headerlink" href="#53-spring-ioc" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Bean的定义配置：XML文件/Properties文件/Java注解/Java API</li>
 <li>IoC容器配置：XML文件/Java注解/Java API</li>
 <li>外部化属性配置：Java注解</li>
 </ul>
-<h5 id="54-beanfactoryapplictioncontext">5.4 <code>BeanFactory</code>和<code>ApplictionContext</code><a class="headerlink" href="#54-beanfactoryapplictioncontext" title="Permanent link">&para;</a></h5>
+<h3 id="54-beanfactoryapplictioncontext">5.4 <code>BeanFactory</code>和<code>ApplictionContext</code><a class="headerlink" href="#54-beanfactoryapplictioncontext" title="Permanent link">&para;</a></h3>
 <p>Spring官方文档对此有解释，<a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-introduction">可以参考</a>：</p>
 <blockquote>
 <p>The <code>org.springframework.beans</code> and <code>org.springframework.context</code> packages are the basis for Spring Framework’s IoC container. The <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html"><code>BeanFactory</code></a> interface provides an advanced configuration mechanism capable of managing any type of <strong>object</strong>. <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html"><code>ApplicationContext</code></a> is a sub-interface of <code>BeanFactory</code>. It adds:</p>
@@ -2063,7 +2075,7 @@ org.springframework.context.support.ClassPathXmlApplicationContext@246b179d, sta
 <li>注解(Annotation)</li>
 <li>Environment抽象(配置，外部化配置)</li>
 </ul>
-<h5 id="55-beanfactoryapplicationcontext">5.5 <code>BeanFactory</code>和<code>ApplicationContext</code>使用比较<a class="headerlink" href="#55-beanfactoryapplicationcontext" title="Permanent link">&para;</a></h5>
+<h3 id="55-beanfactoryapplicationcontext">5.5 <code>BeanFactory</code>和<code>ApplicationContext</code>比较<a class="headerlink" href="#55-beanfactoryapplicationcontext" title="Permanent link">&para;</a></h3>
 <p>上节示例中，Spring为Bean默认注入的<code>BeanFactory</code>类型是<code>DefaultListableBeanFactory</code>，它实现了<code>ListableBeanFactory</code>接口，<code>ListableBeanFactory</code>接口继承自<code>BeanFactory</code>接口。</p>
 <p>由此，也可以直接使用<code>DefaultListableBeanFactory</code>作为IoC容器，比如：
 <div class="highlight"><pre><span></span><code><span class="n">DefaultListableBeanFactory</span> <span class="n">beanFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultListableBeanFactory</span><span class="p">();</span>
@@ -2171,7 +2183,7 @@ Lookup By collection: {person=Person{name=&#39;Tom&#39;, age=18}, person2=Person
 <p>这里通过注解的方式定义Bean，执行程序，即可得到：
 <div class="highlight"><pre><span></span><code>Lookup By collection: {person=Person{name=&#39;Leo&#39;, age=20}}
 </code></pre></div></p>
-<h5 id="56-spring-ioc">5.6 Spring IoC容器的生命周期<a class="headerlink" href="#56-spring-ioc" title="Permanent link">&para;</a></h5>
+<h3 id="56-spring-ioc">5.6 Spring IoC容器的生命周期<a class="headerlink" href="#56-spring-ioc" title="Permanent link">&para;</a></h3>
 <p>Spring IoC容器的生命周期简单分为以下过程：</p>
 <ul>
 <li>启动</li>
@@ -2467,6 +2479,8 @@ Lookup By collection: {person=Person{name=&#39;Tom&#39;, age=18}, person2=Person
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

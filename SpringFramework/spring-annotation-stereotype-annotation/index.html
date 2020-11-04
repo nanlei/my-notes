@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1100,7 +1112,7 @@
                 
                 <h3 align="center"><b>Spring 模式注解(Stereotype Annotation)</b></h3>
 
-<h4 id="1">1. 模式注解说明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<h2 id="1">1. 模式注解说明<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
 <p>Spring Framework的模式注解在官方Github的Wiki中有说明，<a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model">可以参考</a>。</p>
 <blockquote>
 <p>A <strong><em>stereotype annotation</em></strong> is an annotation that is used to declare the role that a component plays within the application. For example, the <code>@Repository</code> annotation in the Spring Framework is a marker for any class that fulfills the role or stereotype of a repository (also known as Data Access Object or DAO).</p>
@@ -1115,14 +1127,14 @@
 </blockquote>
 <p>Spring Framework核心部分提供了几种模式注解，包括并不限于下列这些：<code>@Component</code>, <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code>, <code>@RestController</code>和 <code>@Configuration</code>，它们都是<code>@Component</code>的规范。</p>
 <p>当然也可以自定义模式注解，可以理解为模式注解就是<code>@Component</code>的派生注解。但Java中的注解不允许继承，<a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.6">可以参考</a>，Spring Framework采用元标注的方式来实现派生。</p>
-<h4 id="2">2. 元注解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h2 id="2">2. 元注解<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>上述<a href="https://github.com/spring-projects/spring-framework/wiki/Spring-Annotation-Programming-Model">Wiki</a>在开头直接介绍了元注解：</p>
 <blockquote>
 <p>A <strong><em>meta-annotation</em></strong> is an annotation that is declared on another annotation. An annotation is therefore meta-annotated if it is annotated with another annotation. For example, any annotation that is declared to be documented is meta-annotated with <code>@Documented</code> from the <code>java.lang.annotation</code> package.</p>
 </blockquote>
 <p>元注解指的是一个能声明在其他注解上的注解，同时举例<code>@Documented</code>能够作为任何注解的元注解。</p>
 <p>可以看出，元注解是Java中的概念，而非Spring专有。而在Spring中，<code>@Component</code>可以视作为元注解，由上面的模式注解说明即可看出。</p>
-<h4 id="3-component">3. <code>@Component</code>的派生性<a class="headerlink" href="#3-component" title="Permanent link">&para;</a></h4>
+<h2 id="3-component">3. <code>@Component</code>的派生性<a class="headerlink" href="#3-component" title="Permanent link">&para;</a></h2>
 <p><code>@Repository</code>注解在Spring Framework 2.0被引入，可以参考<a href="https://docs.spring.io/spring-framework/docs/2.0.0/javadoc-api/index.html?org/springframework/stereotype/Repository.html">JavaDoc文档</a>，该注解仅仅作为仓储(DAO)的标记使用。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.stereotype</span><span class="p">;</span>
 
@@ -1181,7 +1193,7 @@
 <p>可以看到，标注了<code>@Component</code>的<code>@Repository</code>注解中的属性方法和<code>@Component</code>保持一致，在Spring Framework 2.5引入的模式注解有：</p>
 <p><img alt="Spring Framework 2.5 Stereotype Annotation" src="../img/spring25.package.stereotype.png" /></p>
 <p>其中，<code>@Controller</code>，<code>@Repository</code>，<code>@Service</code>都是@<code>Component</code>的派生注解。</p>
-<h4 id="4-component">4. 自定义<code>@Component</code>派生注解<a class="headerlink" href="#4-component" title="Permanent link">&para;</a></h4>
+<h2 id="4-component">4. 自定义<code>@Component</code>派生注解<a class="headerlink" href="#4-component" title="Permanent link">&para;</a></h2>
 <p>以下示例基于**Spring Framework 2.5.6 SEC03**版本进行，添加如下依赖即可：
 <div class="highlight"><pre><span></span><code>    <span class="nt">&lt;dependencies&gt;</span>
         <span class="nt">&lt;dependency&gt;</span>
@@ -1317,7 +1329,7 @@ INFO: Destroying singletons in org.springframework.beans.factory.support.Default
 [Tom, Jerry, LN]
 </code></pre></div></p>
 <p>运行结果表明：<code>@StringRepository</code>作为<code>@Component</code>的派生注解，经Spring Framework扫描注册后，其语义和<code>@Repository</code>类似。被标注的类被Spring上下文初始化为Spring Bean并被容器管理。</p>
-<h4 id="5-component">5. <code>@Component</code>派生原理<a class="headerlink" href="#5-component" title="Permanent link">&para;</a></h4>
+<h2 id="5-component">5. <code>@Component</code>派生原理<a class="headerlink" href="#5-component" title="Permanent link">&para;</a></h2>
 <p>基于**Spring Framework 2.5.6.SEC03**版本，上例中使用了<code>&lt;context:component-scan/&gt;</code>元素进行<code>@Component</code>组件扫描。</p>
 <p><code>context</code>前缀的处理类可以在<code>/META-INF/spring.handlers</code>文件中找到，就是:
 <div class="highlight"><pre><span></span><code>...
@@ -1611,7 +1623,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 <span class="p">}</span>
 </code></pre></div></p>
 <p><code>ClassPathBeanDefinitionScanner</code>也允许自定义类型过滤器，可以通过<code>&lt;context:component-scan/&gt;</code>的<code>include-filter</code>和<code>exclude-filter</code>属性来配置。</p>
-<h4 id="6-component">6. 多层次<code>@Component</code>派生性<a class="headerlink" href="#6-component" title="Permanent link">&para;</a></h4>
+<h2 id="6-component">6. 多层次<code>@Component</code>派生性<a class="headerlink" href="#6-component" title="Permanent link">&para;</a></h2>
 <p><code>@SpringBootApplication</code> 是Spring Boot中最常见的注解，在<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">官方文档</a>中，有如下描述：</p>
 <blockquote>
 <p>A single <code>@SpringBootApplication</code> annotation can be used to enable those three features, that is:</p>
@@ -1752,7 +1764,7 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
     <span class="nt">&lt;/dependencies&gt;</span>
 </code></pre></div></p>
 <p>再次运行程序，一切正常，说明该版本中提升了该特性。</p>
-<h4 id="7-component">7. 多层次<code>@Component</code>派生性原理<a class="headerlink" href="#7-component" title="Permanent link">&para;</a></h4>
+<h2 id="7-component">7. 多层次<code>@Component</code>派生性原理<a class="headerlink" href="#7-component" title="Permanent link">&para;</a></h2>
 <p>在上面第5部分分析了<code>@Component</code>派生性原理，下面继续分析**2.5.6.SEC03**和**3.0.0.RELEASE**版本中源码的差异，解释对多层次派生的支持。</p>
 <p>首先对比<code>ClassPathScanningCandidateComponentProvider</code>：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.context.annotation</span><span class="p">;</span>
@@ -2107,6 +2119,8 @@ Process finished with exit code 0
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

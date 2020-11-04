@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1126,14 +1138,14 @@
                 
                 <h3 align="center"><b>App 示例 - 使用ShardingSphere连接MySQL主从库</b></h3>
 
-<h4 id="1-mysql">1. 构建MySQL主从库<a class="headerlink" href="#1-mysql" title="Permanent link">&para;</a></h4>
+<h2 id="1-mysql">1. 构建MySQL主从库<a class="headerlink" href="#1-mysql" title="Permanent link">&para;</a></h2>
 <p>具体方法请点击<a href="../../DataBase/MySQL/master-slave/">参考文档</a></p>
-<h4 id="2-shardingsphere">2. ShardingSphere<a class="headerlink" href="#2-shardingsphere" title="Permanent link">&para;</a></h4>
+<h2 id="2-shardingsphere">2. ShardingSphere<a class="headerlink" href="#2-shardingsphere" title="Permanent link">&para;</a></h2>
 <p>Apache ShardingSphere 是一套开源的分布式数据库中间件解决方案，可以参考<a href="https://shardingsphere.apache.org/document/current/cn/overview/">官方文档</a>，更多内容也可查询<a href="https://shardingsphere.apache.org/">官方网站</a></p>
 <p>本示例使用的数据库方案是MySQL一主二从读写分离(即主库负责写，从库负责读，从库使用Binlog进行实时同步)。</p>
 <p>使用ShardingSphere中间件的目的在于其帮助我们实现在主从库之间的转换，而程序中无需指定读写操作的数据库。</p>
-<h4 id="3">3. 代码示例<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
-<h5 id="31">3.1 引入依赖<a class="headerlink" href="#31" title="Permanent link">&para;</a></h5>
+<h2 id="3">3. 代码示例<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 引入依赖<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
 <p>Spring Boot的版本为2.3.2.RELEASE，ShardingSphere的版本为4.1.1</p>
 <p>同时加入MySQL的数据库驱动和MyBatis的starter</p>
 <p>参考如下配置：
@@ -1170,7 +1182,7 @@
         <span class="nt">&lt;/dependency&gt;</span>
     <span class="nt">&lt;/dependencies&gt;</span>
 </code></pre></div></p>
-<h5 id="32-spring-boot">3.2 Spring Boot配置<a class="headerlink" href="#32-spring-boot" title="Permanent link">&para;</a></h5>
+<h3 id="32-spring-boot">3.2 Spring Boot配置<a class="headerlink" href="#32-spring-boot" title="Permanent link">&para;</a></h3>
 <p><code>spring.shardingsphere</code>就是ShardingSphere配置的起始头，数据库使用的是一主二从，即配置<code>datasource</code>时直接指明<code>names: master, slave1, slave2</code></p>
 <p>继续给每个数据源配置相关信息即可(这里的从库用户mysql只有select权限)</p>
 <p>配置好数据源信息，继续设置ShardingSphere的主从配置<code>spring.shardingsphere.masterslave</code>信息，指定主库的name和从库的name，还有负载平衡算法，这里设置的<code>round_robin</code>表示轮询</p>
@@ -1240,7 +1252,7 @@
   <span class="nt">mapperLocations</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">classpath:mybatis/**/*Mapper.xml</span>
   <span class="nt">configLocation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">classpath:mybatis/mybatis-config.xml</span>
 </code></pre></div></p>
-<h5 id="33-mybatis">3.3 数据模型和MyBatis配置<a class="headerlink" href="#33-mybatis" title="Permanent link">&para;</a></h5>
+<h3 id="33-mybatis">3.3 数据模型和MyBatis配置<a class="headerlink" href="#33-mybatis" title="Permanent link">&para;</a></h3>
 <p>演示使用的简单数据模型为
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">USERS</span><span class="o">`</span> <span class="p">(</span>
   <span class="o">`</span><span class="n">ID</span><span class="o">`</span> <span class="nb">bigint</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
@@ -1355,7 +1367,7 @@
     <span class="kt">int</span> <span class="nf">deleteUser</span><span class="p">(</span><span class="nd">@Param</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">)</span> <span class="n">User</span> <span class="n">user</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<h5 id="34">3.4 编写业务代码<a class="headerlink" href="#34" title="Permanent link">&para;</a></h5>
+<h3 id="34">3.4 编写业务代码<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
 <p>示例代码仅包含按ID获取User信息、增加User两个功能：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">sharding.sphere.demo.service.impl</span><span class="p">;</span>
 
@@ -1422,7 +1434,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<h4 id="4">4. 运行示例<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<h2 id="4">4. 运行示例<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
 <p>直接运行引导类，启动项目：
 <div class="highlight"><pre><span></span><code>  .   ____          _            __ _ _
  /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -1595,6 +1607,8 @@ sql.show: &#39;true&#39;
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

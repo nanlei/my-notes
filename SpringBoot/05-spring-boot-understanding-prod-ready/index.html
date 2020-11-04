@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1049,7 +1061,7 @@
 <p>Provide production-ready features such as metrics, health checks, and externalized configuration</p>
 </blockquote>
 <p>按照官方说明，metrics(指标)，health checks(健康检查)，externalized configuration(外部化配置)都是为生产准备的特性。</p>
-<h4 id="1-spring-boot-actuator">1. Spring Boot Actuator<a class="headerlink" href="#1-spring-boot-actuator" title="Permanent link">&para;</a></h4>
+<h2 id="1-spring-boot-actuator">1. Spring Boot Actuator<a class="headerlink" href="#1-spring-boot-actuator" title="Permanent link">&para;</a></h2>
 <p>在官方文档中，Production-Ready特性出自：</p>
 <blockquote>
 <p><b>Spring Boot Actuator: Production-ready Features</b></p>
@@ -1197,7 +1209,7 @@ $ curl http://localhost:8080/actuator/beans | json_pp
    ]
 }
 </code></pre></div></p>
-<h4 id="2">2. 理解外部化配置<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h2 id="2">2. 理解外部化配置<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
 <p>官方文档对外部化配置的解释是：</p>
 <blockquote>
 <p><b>Externalized Configuration</b></p>
@@ -1313,7 +1325,7 @@ Process finished with exit code 0
 </code></pre></div></p>
 <p>或者使用命令行参数的方式<code>--spring.profiles.active=dev</code>。</p>
 <p>以上两种方式都是“外部化配置”，在官方文档中有明确说明，也就是外部配置属性源是“外部化配置”的读取媒介，可以是配置文件方式，环境变量方式或命令行参数方式等。</p>
-<h4 id="3">3. 约定优于配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<h2 id="3">3. 约定优于配置<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
 <p>Spring Boot的最后一个特性：</p>
 <blockquote>
 <p>Absolutely no code generation and no requirement for XML configuration</p>
@@ -1401,6 +1413,8 @@ Process finished with exit code 0
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>

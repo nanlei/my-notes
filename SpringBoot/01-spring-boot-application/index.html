@@ -43,6 +43,8 @@
     
     
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     
       
     
@@ -68,6 +70,16 @@
       
     </div>
     <div data-md-component="announce">
+      
+        <aside class="md-announce">
+          <div class="md-announce__inner md-grid md-typeset">
+            
+  <a href="mailto:nanlei1987@gmail.com">
+    Mail to <strong>nanlei1987@gmail.com</strong> for your queries.
+  </a>
+
+          </div>
+        </aside>
       
     </div>
     
@@ -1100,7 +1112,7 @@
                 
                 <h3 align="center"><b>01 - Spring Boot 应用程序</b></h3>
 
-<h4 id="1-maven">1. 使用Maven命令行构建项目<a class="headerlink" href="#1-maven" title="Permanent link">&para;</a></h4>
+<h2 id="1-maven">1. 使用Maven命令行构建项目<a class="headerlink" href="#1-maven" title="Permanent link">&para;</a></h2>
 <p><div class="highlight"><pre><span></span><code>$ mvn archetype:generate -DgroupId=deep-in-spring-boot -DartifactId=first-spring-boot-application -Dversion=1.0.0-SNAPSHOT -DinteractiveMode=false -Dpackage=deep.in.spring.boot
 </code></pre></div>
 类似结果：
@@ -1318,7 +1330,7 @@ At this point, your application should work. Since you used the <code>spring-boo
 <div class="highlight"><pre><span></span><code>$ curl http://127.0.0.1:8080/
 Welcome to Spring Boot
 </code></pre></div></p>
-<h4 id="2-spring-boot">2. 图形化构建Spring Boot应用<a class="headerlink" href="#2-spring-boot" title="Permanent link">&para;</a></h4>
+<h2 id="2-spring-boot">2. 图形化构建Spring Boot应用<a class="headerlink" href="#2-spring-boot" title="Permanent link">&para;</a></h2>
 <p><a href="https://start.spring.io/">https://start.spring.io/</a></p>
 <p><img alt="start.spring.io" src="../img/start.spring.io.png" /></p>
 <p>拷贝生成好的zip包到项目目录：
@@ -1466,7 +1478,7 @@ But now, with a Maven Wrapper setup, you can instruct users to run wrapper scrip
   &quot;path&quot;: &quot;/&quot;
 }
 </code></pre></div></p>
-<h4 id="3-spring-bootjar">3. 创建Spring Boot应用程序的可执行JAR<a class="headerlink" href="#3-spring-bootjar" title="Permanent link">&para;</a></h4>
+<h2 id="3-spring-bootjar">3. 创建Spring Boot应用程序的可执行JAR<a class="headerlink" href="#3-spring-bootjar" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>2.4.5. Creating an Executable Jar<br />
 We finish our example by creating a completely self-contained executable jar file that we could run in production. Executable jars (sometimes called “fat jars”) are archives containing your compiled classes along with all of the jar dependencies that your code needs to run.</p>
@@ -1552,7 +1564,7 @@ We finish our example by creating a completely self-contained executable jar fil
 2020-08-02 17:24:34.231  INFO 4219 --- [           main] d.i.s.b.FirstApplicationByGuiApplication : Started FirstApplicationByGuiApplication in 1.523 seconds (JVM running for 1.894)
 </code></pre></div></p>
 <p><code>java -jar</code>方式和<code>mvn spring-boot:run</code>方式基本无异</p>
-<h4 id="4-spring-bootjar">4. Spring Boot可执行JAR资源结构<a class="headerlink" href="#4-spring-bootjar" title="Permanent link">&para;</a></h4>
+<h2 id="4-spring-bootjar">4. Spring Boot可执行JAR资源结构<a class="headerlink" href="#4-spring-bootjar" title="Permanent link">&para;</a></h2>
 <p>在<code>target</code>目录下执行<code>tree -h</code>
 <div class="highlight"><pre><span></span><code>$ tree -h
 .
@@ -1696,7 +1708,7 @@ original/
 8 directories, 5 files
 </code></pre></div></p>
 <p>除了<code>META-INF</code>目录，其余均发生了变化，将class文件和<code>application.properties</code>放到了<code>BOOT-INF/classes</code>下，将所有依赖的jar包都放到了<code>BOOT-INF/lib</code>下。这和传统Java Web项目是类似的，所有class文件放在<code>WEB-INF/classes</code>下，而所有依赖在<code>WEB-INF/lib</code>下。</p>
-<h4 id="5-jarspring-boot-loader">5. JAR执行模块<code>spring-boot-loader</code><a class="headerlink" href="#5-jarspring-boot-loader" title="Permanent link">&para;</a></h4>
+<h2 id="5-jarspring-boot-loader">5. JAR执行模块<code>spring-boot-loader</code><a class="headerlink" href="#5-jarspring-boot-loader" title="Permanent link">&para;</a></h2>
 <p>可执行JAR包被<code>java -jar</code>命令执行时，其并不能感知jar文件是否是Spring Boot插件打包而来，执行按照标准JAR文件来进行。</p>
 <p>Java标准参考：<br />
 <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html">https://docs.oracle.com/javase/8/docs/technotes/tools/windows/java.html</a></p>
@@ -1778,7 +1790,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.boot.SpringAppl
 <p>提示找不到类<code>org.springframework.boot.SpringApplication</code>，这是由于java命令没有指定<code>classpath</code>，加上<code>classpath</code>参数之后，也能启动程序：
 <div class="highlight"><pre><span></span><code>$ java -classpath &quot;.:../lib/*&quot; deep.in.spring.boot.FirstApplicationByGuiApplication
 </code></pre></div></p>
-<h4 id="6-jarlauncher">6. JarLauncher的实现原理<a class="headerlink" href="#6-jarlauncher" title="Permanent link">&para;</a></h4>
+<h2 id="6-jarlauncher">6. JarLauncher的实现原理<a class="headerlink" href="#6-jarlauncher" title="Permanent link">&para;</a></h2>
 <p>在<code>pom.xml</code>中添加如下内容，用于源码分析：
 <div class="highlight"><pre><span></span><code><span class="c">&lt;!-- spring-boot-loader 分析 --&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
@@ -2085,7 +2097,7 @@ Caused by: java.lang.ClassNotFoundException: org.springframework.boot.SpringAppl
 <span class="p">}</span>
 </code></pre></div></p>
 <p>最后将<code>mainClass</code>中的<code>main(String[])</code>方法按静态方法调用，最终<code>JarLauncher</code>是在同进程内调用<code>Start-Class</code>的<code>main(String[])</code>方法，并且在这之前准备好Class Path。</p>
-<h4 id="7-warlauncher">7. WarLauncher的差异<a class="headerlink" href="#7-warlauncher" title="Permanent link">&para;</a></h4>
+<h2 id="7-warlauncher">7. WarLauncher的差异<a class="headerlink" href="#7-warlauncher" title="Permanent link">&para;</a></h2>
 <p>和<code>JarLauncher</code>差异不大，二者都是继承自<code>ExecutableArchiveLauncher</code>：
 <div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WarLauncher</span> <span class="kd">extends</span> <span class="n">ExecutableArchiveLauncher</span> <span class="p">{</span>
 
@@ -2377,6 +2389,8 @@ Main-Class: org.springframework.boot.loader.WarLauncher
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../javascripts/extra.js"></script>
       
     
   </body>
