@@ -450,6 +450,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#12-abstractbeandefinition" class="md-nav__link">
+    1.2 通过AbstractBeanDefinition以及子类构建
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-spring-bean" class="md-nav__link">
+    2. Spring Bean的名称
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Spring Bean的名称">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bean-beannamegenerator" class="md-nav__link">
+    2.1 Bean 名称生成器 BeanNameGenerator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-bean" class="md-nav__link">
+    2.2 Bean的别名
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1025,6 +1059,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#12-abstractbeandefinition" class="md-nav__link">
+    1.2 通过AbstractBeanDefinition以及子类构建
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-spring-bean" class="md-nav__link">
+    2. Spring Bean的名称
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Spring Bean的名称">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-bean-beannamegenerator" class="md-nav__link">
+    2.1 Bean 名称生成器 BeanNameGenerator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-bean" class="md-nav__link">
+    2.2 Bean的别名
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1080,6 +1148,277 @@
 <li>销毁回调方法：<code>destroy-method</code></li>
 </ul>
 <h3 id="11-beandefinitionbuilder">1.1 通过<code>BeanDefinitionBuilder</code>构建<a class="headerlink" href="#11-beandefinitionbuilder" title="Permanent link">&para;</a></h3>
+<p><code>BeanDefinitionBuilder</code>(<code>org.springframework.beans.factory.support.BeanDefinitionBuilder</code>)是一个构建器模式的类，提供了一系列的静态方法来辅助构建<code>BeanDefinition</code>。
+<img alt="" src="../img/spring.beans.bean.definition.builder.png" /></p>
+<p>首先创建<code>BeanDefinitionBuilder</code>对象，按照Bean的类型来构建：
+<div class="highlight"><pre><span></span><code><span class="c1">//通过BeanDefinitionBuilder构建</span>
+<span class="n">BeanDefinitionBuilder</span> <span class="n">beanDefinitionBuilder</span> <span class="o">=</span> <span class="n">BeanDefinitionBuilder</span><span class="p">.</span><span class="na">genericBeanDefinition</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</code></pre></div></p>
+<p>获取到<code>BeanDefinitionBuilder</code>对象后，进行属性设置：
+<div class="highlight"><pre><span></span><code><span class="c1">//属性设置</span>
+<span class="n">beanDefinitionBuilder</span><span class="p">.</span><span class="na">addPropertyValue</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Tom&quot;</span><span class="p">).</span><span class="na">addPropertyValue</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">);</span>
+</code></pre></div></p>
+<p>构建完成，获取<code>BeanDefinition</code>对象：
+<div class="highlight"><pre><span></span><code><span class="c1">//获取BeanDefinition实例</span>
+<span class="n">BeanDefinition</span> <span class="n">beanDefinition</span> <span class="o">=</span> <span class="n">beanDefinitionBuilder</span><span class="p">.</span><span class="na">getBeanDefinition</span><span class="p">();</span>
+</code></pre></div></p>
+<p>此时的<code>beanDefinition</code>还可以自定义修改，并非Bean的最终状态，因为这里只是获取<code>BeanDefinition</code>，没有注册到IoC容器中。</p>
+<h3 id="12-abstractbeandefinition">1.2 通过<code>AbstractBeanDefinition</code>以及子类构建<a class="headerlink" href="#12-abstractbeandefinition" title="Permanent link">&para;</a></h3>
+<p>抽象类<code>AbstractBeanDefinition</code>实现了<code>BeanDefinition</code>接口，可以使用其子类进行<code>BeanDefinition</code>构建。</p>
+<p>当前Spring版本(<strong>5.2.8.RELEASE</strong>)，<code>AbstractBeanDefinition</code>的实现类有以下几个：
+<img alt="" src="../img/spring.beans.abstract.bean.definition.png" /></p>
+<p>这里作为示例，使用<code>GenericBeanDefinition</code>进行构建：
+<div class="highlight"><pre><span></span><code><span class="c1">//通过AbstractBeanDefinition以及子类构建</span>
+<span class="n">GenericBeanDefinition</span> <span class="n">genericBeanDefinition</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GenericBeanDefinition</span><span class="p">();</span>
+</code></pre></div></p>
+<p>创建好对象，设置Bean的类型：
+<div class="highlight"><pre><span></span><code><span class="c1">//设置Bean类型</span>
+<span class="n">genericBeanDefinition</span><span class="p">.</span><span class="na">setBeanClass</span><span class="p">(</span><span class="n">Person</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</code></pre></div></p>
+<p>继续设置参数：
+<div class="highlight"><pre><span></span><code><span class="c1">//通过MutablePropertyValues批量操作</span>
+<span class="n">MutablePropertyValues</span> <span class="n">mutablePropertyValues</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MutablePropertyValues</span><span class="p">();</span>
+<span class="n">mutablePropertyValues</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Jerry&quot;</span><span class="p">).</span><span class="na">add</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="mi">22</span><span class="p">);</span>
+</code></pre></div></p>
+<p>这里设置参数的方法和使用<code>BeanDefinitionBuilder</code>方式是一致的，在<code>BeanDefinitionBuilder</code>中，其设置属性的方法为：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="n">BeanDefinitionBuilder</span> <span class="nf">addPropertyValue</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="p">,</span> <span class="nd">@Nullable</span> <span class="n">Object</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">beanDefinition</span><span class="p">.</span><span class="na">getPropertyValues</span><span class="p">().</span><span class="na">add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>此处<code>getPropertyValues()</code>返回的就是<code>MutablePropertyValues</code>类型的对象。</p>
+<p>最后将属性设置到<code>BeanDefinition</code>对象中：
+<div class="highlight"><pre><span></span><code><span class="n">genericBeanDefinition</span><span class="p">.</span><span class="na">setPropertyValues</span><span class="p">(</span><span class="n">mutablePropertyValues</span><span class="p">);</span>
+</code></pre></div></p>
+<p>和上面的<code>BeanDefinitionBuilder</code>示例一样，此时也没有将其注册到IoC容器中。</p>
+<h2 id="2-spring-bean">2. Spring Bean的名称<a class="headerlink" href="#2-spring-bean" title="Permanent link">&para;</a></h2>
+<p>Spring Bean可以拥有一个或者多个标识符，但在**Bean的所在容器**中，标识符必须是唯一的。通常情况下，一个Bean只有一个标识符，如果需要额外的，可以使用别名(Alias)来扩展。</p>
+<p>在使用XML作为配置文件的实例中，可以使用<code>id</code>或者<code>name</code>属性来定义Bean的标识符。若要引入Bean的别名，需要使用<code>name</code>属性，并用英文字符的逗号(<code>,</code>)或者分号(<code>;</code>)来间隔名称，比如：
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+       <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans</span>
+<span class="s">        https://www.springframework.org/schema/beans/spring-beans.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">name=</span><span class="s">&quot;person,tom&quot;</span> <span class="na">class=</span><span class="s">&quot;deep.in.spring.ioc.overview.domain.Person&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;Tom&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span> <span class="na">value=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">name=</span><span class="s">&quot;person2;jerry&quot;</span> <span class="na">class=</span><span class="s">&quot;deep.in.spring.ioc.overview.domain.Person&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;Jerry&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span> <span class="na">value=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</code></pre></div></p>
+<p>获取Bean的时候可以使用如下代码：
+<div class="highlight"><pre><span></span><code><span class="n">beanFactory</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">);</span>
+<span class="n">beanFactory</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;jerry&quot;</span><span class="p">);</span>
+</code></pre></div></p>
+<p>Bean的<code>id</code>或<code>name</code>属性并不是必须的，如果留空，容器会为Bean自动生成一个唯一的名称，例如将上面XML配置文件中的Bean的<code>name</code>属性删除，改为：
+<div class="highlight"><pre><span></span><code>    <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&quot;deep.in.spring.ioc.overview.domain.Person&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;Tom&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span> <span class="na">value=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&quot;deep.in.spring.ioc.overview.domain.Person&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;Jerry&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;age&quot;</span> <span class="na">value=</span><span class="s">&quot;18&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+</code></pre></div></p>
+<p>编写引导代码：
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">deep.in.spring.ioc.overview.domain.Person</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.BeanFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.ListableBeanFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DependencyLookupDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BeanFactory</span> <span class="n">beanFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;classpath:/dependency-lookup.xml&quot;</span><span class="p">);</span>
+        <span class="n">lookupByCollectionType</span><span class="p">(</span><span class="n">beanFactory</span><span class="p">,</span> <span class="n">Person</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">lookupByCollectionType</span><span class="p">(</span><span class="n">BeanFactory</span> <span class="n">beanFactory</span><span class="p">,</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">beanFactory</span> <span class="k">instanceof</span> <span class="n">ListableBeanFactory</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ListableBeanFactory</span> <span class="n">listableBeanFactory</span> <span class="o">=</span> <span class="p">(</span><span class="n">ListableBeanFactory</span><span class="p">)</span> <span class="n">beanFactory</span><span class="p">;</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="o">?&gt;</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">listableBeanFactory</span><span class="p">.</span><span class="na">getBeansOfType</span><span class="p">(</span><span class="n">clazz</span><span class="p">);</span>
+            <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Lookup By collection: &quot;</span> <span class="o">+</span> <span class="n">collection</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，可以得到：
+<div class="highlight"><pre><span></span><code>Lookup By collection: {deep.in.spring.ioc.overview.domain.Person#0=Person{name=&#39;Tom&#39;, age=18}, deep.in.spring.ioc.overview.domain.Person#1=Person{name=&#39;Jerry&#39;, age=18}}
+</code></pre></div></p>
+<p><code>deep.in.spring.ioc.overview.domain.Person#0</code>和<code>deep.in.spring.ioc.overview.domain.Person#1</code>就是容器自动生成的Bean的名称。</p>
+<p>尽管Bean的命名没有限制，作为代码规约，建议使用驼峰命名方式，也符合Java的命名约定。</p>
+<h3 id="21-bean-beannamegenerator">2.1 Bean 名称生成器 <code>BeanNameGenerator</code><a class="headerlink" href="#21-bean-beannamegenerator" title="Permanent link">&para;</a></h3>
+<p>Spring Framework 2.0.3引入了Bean名称生成器<code>BeanNameGenerator</code>，其定义如下：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.beans.factory.support</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.config.BeanDefinition</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Strategy interface for generating bean names for bean definitions.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author Juergen Hoeller</span>
+<span class="cm"> * @since 2.0.3</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">BeanNameGenerator</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Generate a bean name for the given bean definition.</span>
+<span class="cm">     * @param definition the bean definition to generate a name for</span>
+<span class="cm">     * @param registry the bean definition registry that the given definition</span>
+<span class="cm">     * is supposed to be registered with</span>
+<span class="cm">     * @return the generated bean name</span>
+<span class="cm">     */</span>
+    <span class="n">String</span> <span class="nf">generateBeanName</span><span class="p">(</span><span class="n">BeanDefinition</span> <span class="n">definition</span><span class="p">,</span> <span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>该接口只定义了一个方法，用于返回Bean的名称。</p>
+<p>其实现类，有3个(**5.2.8.RELEASE**版本)：
+<img alt="" src="../img/spring.beans.name.generator.png" /></p>
+<p>其中<code>FullyQualifiedAnnotationBeanNameGenerator</code>(Spring 5.2.3引入)继承自 <code>AnnotationBeanNameGenerator</code>，是其类全名的实现版本。</p>
+<p>那么<code>BeanNameGenerator</code>的主要实现是2种，即<code>DefaultBeanNameGenerator</code>(默认实现)和<code>AnnotationBeanNameGenerator</code>(基于注解扫描的实现，Spring 2.5引入)。</p>
+<p>Spring Framework官方文档对Bean的名称生成有解释，<a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-beanname">可以参考</a></p>
+<blockquote>
+<p>With component scanning in the classpath, Spring generates bean names for unnamed components, following the rules described earlier: essentially, taking the simple class name and turning its initial character to lower-case. However, in the (unusual) special case when there is more than one character and both the first and second characters are upper case, the original casing gets preserved. These are the same rules as defined by <code>java.beans.Introspector.decapitalize</code> (which Spring uses here).</p>
+</blockquote>
+<p><code>DefaultBeanNameGenerator</code>的实现比较简单：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">org.springframework.beans.factory.support</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.config.BeanDefinition</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Default implementation of the {@link BeanNameGenerator} interface, delegating to</span>
+<span class="cm"> * {@link BeanDefinitionReaderUtils#generateBeanName(BeanDefinition, BeanDefinitionRegistry)}.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @author Juergen Hoeller</span>
+<span class="cm"> * @since 2.0.3</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultBeanNameGenerator</span> <span class="kd">implements</span> <span class="n">BeanNameGenerator</span> <span class="p">{</span>
+    <span class="cm">/**</span>
+<span class="cm">     * A convenient constant for a default {@code DefaultBeanNameGenerator} instance,</span>
+<span class="cm">     * as used for {@link AbstractBeanDefinitionReader} setup.</span>
+<span class="cm">     * @since 5.2</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">DefaultBeanNameGenerator</span> <span class="n">INSTANCE</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultBeanNameGenerator</span><span class="p">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">generateBeanName</span><span class="p">(</span><span class="n">BeanDefinition</span> <span class="n">definition</span><span class="p">,</span> <span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">BeanDefinitionReaderUtils</span><span class="p">.</span><span class="na">generateBeanName</span><span class="p">(</span><span class="n">definition</span><span class="p">,</span> <span class="n">registry</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>生成Bean名称的方法借助外部工具类来完成：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">GENERATED_BEAN_NAME_SEPARATOR</span> <span class="o">=</span> <span class="n">BeanFactoryUtils</span><span class="p">.</span><span class="na">GENERATED_BEAN_NAME_SEPARATOR</span><span class="p">;</span> <span class="c1">//#</span>
+    <span class="p">...</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Generate a bean name for the given bean definition, unique within the</span>
+<span class="cm">     * given bean factory.</span>
+<span class="cm">     * @param definition the bean definition to generate a bean name for</span>
+<span class="cm">     * @param registry the bean factory that the definition is going to be</span>
+<span class="cm">     * registered with (to check for existing bean names)</span>
+<span class="cm">     * @param isInnerBean whether the given bean definition will be registered</span>
+<span class="cm">     * as inner bean or as top-level bean (allowing for special name generation</span>
+<span class="cm">     * for inner beans versus top-level beans)</span>
+<span class="cm">     * @return the generated bean name</span>
+<span class="cm">     * @throws BeanDefinitionStoreException if no unique name can be generated</span>
+<span class="cm">     * for the given bean definition</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">generateBeanName</span><span class="p">(</span>
+            <span class="n">BeanDefinition</span> <span class="n">definition</span><span class="p">,</span> <span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">,</span> <span class="kt">boolean</span> <span class="n">isInnerBean</span><span class="p">)</span>
+            <span class="kd">throws</span> <span class="n">BeanDefinitionStoreException</span> <span class="p">{</span>
+
+        <span class="n">String</span> <span class="n">generatedBeanName</span> <span class="o">=</span> <span class="n">definition</span><span class="p">.</span><span class="na">getBeanClassName</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">generatedBeanName</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">definition</span><span class="p">.</span><span class="na">getParentName</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">generatedBeanName</span> <span class="o">=</span> <span class="n">definition</span><span class="p">.</span><span class="na">getParentName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;$child&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">definition</span><span class="p">.</span><span class="na">getFactoryBeanName</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">generatedBeanName</span> <span class="o">=</span> <span class="n">definition</span><span class="p">.</span><span class="na">getFactoryBeanName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;$created&quot;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">StringUtils</span><span class="p">.</span><span class="na">hasText</span><span class="p">(</span><span class="n">generatedBeanName</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">BeanDefinitionStoreException</span><span class="p">(</span><span class="s">&quot;Unnamed bean definition specifies neither &quot;</span> <span class="o">+</span>
+                    <span class="s">&quot;&#39;class&#39; nor &#39;parent&#39; nor &#39;factory-bean&#39; - can&#39;t generate bean name&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">isInnerBean</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Inner bean: generate identity hashcode suffix.</span>
+            <span class="k">return</span> <span class="n">generatedBeanName</span> <span class="o">+</span> <span class="n">GENERATED_BEAN_NAME_SEPARATOR</span> <span class="o">+</span> <span class="n">ObjectUtils</span><span class="p">.</span><span class="na">getIdentityHexString</span><span class="p">(</span><span class="n">definition</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Top-level bean: use plain class name with unique suffix if necessary.</span>
+        <span class="k">return</span> <span class="n">uniqueBeanName</span><span class="p">(</span><span class="n">generatedBeanName</span><span class="p">,</span> <span class="n">registry</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="cm">/**</span>
+<span class="cm">     * Turn the given bean name into a unique bean name for the given bean factory,</span>
+<span class="cm">     * appending a unique counter as suffix if necessary.</span>
+<span class="cm">     * @param beanName the original bean name</span>
+<span class="cm">     * @param registry the bean factory that the definition is going to be</span>
+<span class="cm">     * registered with (to check for existing bean names)</span>
+<span class="cm">     * @return the unique bean name to use</span>
+<span class="cm">     * @since 5.1</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">uniqueBeanName</span><span class="p">(</span><span class="n">String</span> <span class="n">beanName</span><span class="p">,</span> <span class="n">BeanDefinitionRegistry</span> <span class="n">registry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">beanName</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+        <span class="c1">// Increase counter until the id is unique.</span>
+        <span class="n">String</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">beanName</span> <span class="o">+</span> <span class="n">GENERATED_BEAN_NAME_SEPARATOR</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">counter</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">registry</span><span class="p">.</span><span class="na">containsBeanDefinition</span><span class="p">(</span><span class="n">id</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">id</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">counter</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">id</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
+</code></pre></div></p>
+<p>根据获取到的Bean的类名，进行下一步处理。如果是内部类，就是<code>类名#哈希值</code>的格式，如果是常规类，就是<code>类名#从0开始的数字</code>格式。</p>
+<p><code>AnnotationBeanNameGenerator</code>对Spring的模式注解(<code>org.springframework.stereotype.Component</code>及其派生注解)，<code>javax.annotation.ManagedBean</code>注解，<code>javax.inject.Named</code>有特殊处理。对其余注解也有默认规则，具体可以参考源码。</p>
+<p>综上，Spring对Bean的名称生成有自己的实现，也就是不人为指定的时候，Bean也有自己的名称。自行指定可以使用<code>id</code>或者<code>name</code>属性(XML配置方式)，<code>value</code>属性(注解配置方式)。</p>
+<h3 id="22-bean">2.2 Bean的别名<a class="headerlink" href="#22-bean" title="Permanent link">&para;</a></h3>
+<p>Bean的别名(Alias)的用途：</p>
+<ul>
+<li>复用现有的BeanDefinition</li>
+<li>使命名更佳场景化，比如</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">&quot;dataSource&quot;</span> <span class="na">alias=</span><span class="s">&quot;moduleA-dataSource&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;alias</span> <span class="na">name=</span><span class="s">&quot;dataSource&quot;</span> <span class="na">alias=</span><span class="s">&quot;moduleB-dataSource&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+
+<p>新建项目<code>spring-bean</code>，为了复用项目<code>ioc-overview</code>中的组件，其<code>pom.xml</code>中可以添加其依赖：
+<div class="highlight"><pre><span></span><code>    <span class="nt">&lt;parent&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>deep-in-spring-boot<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>deep-in-spring-boot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;relativePath&gt;</span>../pom.xml<span class="nt">&lt;/relativePath&gt;</span>
+    <span class="nt">&lt;/parent&gt;</span>
+    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+
+    <span class="nt">&lt;artifactId&gt;</span>spring-bean<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;dependencies&gt;</span>
+        <span class="c">&lt;!-- Spring IoC 核心依赖 --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>5.2.8.RELEASE<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="c">&lt;!-- 复用ioc-overview --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>${groupId}<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>ioc-overview<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>${version}<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div></p>
+<p>在<code>resources</code>目录下新建<code>bean-definitions.xml</code></p>
                 
               
               
