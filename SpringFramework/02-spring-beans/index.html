@@ -1192,7 +1192,7 @@
 </code></pre></div></p>
 <p>和上面的<code>BeanDefinitionBuilder</code>示例一样，此时也没有将其注册到IoC容器中。</p>
 <h2 id="2-spring-bean">2. Spring Bean的名称<a class="headerlink" href="#2-spring-bean" title="Permanent link">&para;</a></h2>
-<p>Spring Bean可以拥有一个或者多个标识符，但在**Bean的所在容器**中，标识符必须是唯一的。通常情况下，一个Bean只有一个标识符，如果需要额外的，可以使用别名(Alias)来扩展。</p>
+<p>Spring Bean可以拥有一个或者多个标识符，但在 <strong>Bean的所在容器</strong> 中，标识符必须是唯一的。通常情况下，一个Bean只有一个标识符，如果需要额外的，可以使用别名(Alias)来扩展。</p>
 <p>在使用XML作为配置文件的实例中，可以使用<code>id</code>或者<code>name</code>属性来定义Bean的标识符。若要引入Bean的别名，需要使用<code>name</code>属性，并用英文字符的逗号(<code>,</code>)或者分号(<code>;</code>)来间隔名称，比如：
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
@@ -1279,7 +1279,7 @@
 <span class="p">}</span>
 </code></pre></div></p>
 <p>该接口只定义了一个方法，用于返回Bean的名称。</p>
-<p>其实现类，有3个(**5.2.8.RELEASE**版本)：
+<p>其实现类，有3个(<strong>5.2.8.RELEASE</strong> 版本)：
 <img alt="" src="../img/spring.beans.name.generator.png" /></p>
 <p>其中<code>FullyQualifiedAnnotationBeanNameGenerator</code>(Spring 5.2.3引入)继承自 <code>AnnotationBeanNameGenerator</code>，是其类全名的实现版本。</p>
 <p>那么<code>BeanNameGenerator</code>的主要实现是2种，即<code>DefaultBeanNameGenerator</code>(默认实现)和<code>AnnotationBeanNameGenerator</code>(基于注解扫描的实现，Spring 2.5引入)。</p>
