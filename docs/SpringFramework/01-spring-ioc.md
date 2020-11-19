@@ -42,17 +42,17 @@
 ## 3. IoC的实现
 
 + Java SE
-  + Java Beans
-  + Java ServiceLoader SPI
-  + JNDI(Java Naming and Directory Interface)
+    + Java Beans
+    + Java ServiceLoader SPI
+    + JNDI(Java Naming and Directory Interface)
 + Java EE
-  + EJB(Enterprise Java Bean)
-  + Servlet
+    + EJB(Enterprise Java Bean)
+    + Servlet
 + Open Source
-  + Apache Avalon(https://avalon.apache.org/closed.html)
-  + PicoContainer(http://picocontainer.com)
-  + Google Guice(https://github.com/google/guice)
-  + Spring Framework(https://spring.io/projects/spring-framework)
+    + Apache Avalon(https://avalon.apache.org/closed.html)
+    + PicoContainer(http://picocontainer.com)
+    + Google Guice(https://github.com/google/guice)
+    + Spring Framework(https://spring.io/projects/spring-framework)
 
 **Java Beans 作为IoC容器**
 
@@ -954,7 +954,7 @@ StandardEnvironment {activeProfiles=[], defaultProfiles=[default], propertySourc
 + IoC容器配置：XML文件/Java注解/Java API
 + 外部化属性配置：Java注解
 
-### 5.4 `BeanFactory`和`ApplictionContext`
+### 5.4 <span id="5.4">`BeanFactory`和`ApplictionContext`</span>
 
 Spring官方文档对此有解释，[可以参考](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-introduction)：
 >The `org.springframework.beans` and `org.springframework.context` packages are the basis for Spring Framework’s IoC container. The [`BeanFactory`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/BeanFactory.html) interface provides an advanced configuration mechanism capable of managing any type of **object**. [`ApplicationContext`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) is a sub-interface of `BeanFactory`. It adds:

@@ -99,7 +99,7 @@ public @interface Component {
 
 ## 4. 自定义`@Component`派生注解
 
-以下示例基于**Spring Framework 2.5.6 SEC03**版本进行，添加如下依赖即可：
+以下示例基于 **Spring Framework 2.5.6 SEC03** 版本进行，添加如下依赖即可：
 ```xml
     <dependencies>
         <dependency>
@@ -251,7 +251,7 @@ INFO: Destroying singletons in org.springframework.beans.factory.support.Default
 
 ## 5. `@Component`派生原理
 
-基于**Spring Framework 2.5.6.SEC03**版本，上例中使用了`<context:component-scan/>`元素进行`@Component`组件扫描。
+基于 **Spring Framework 2.5.6.SEC03** 版本，上例中使用了`<context:component-scan/>`元素进行`@Component`组件扫描。
 
 `context`前缀的处理类可以在`/META-INF/spring.handlers`文件中找到，就是:
 ```txt
@@ -694,7 +694,7 @@ public class ComponentHierarchyApp {
 
 说明在该版本下，`@Component`派生性是多层次的。
 
-回到**Spring Framework 2.5.6.SEC03**下，将示例代码做如下调整：
+回到 **Spring Framework 2.5.6.SEC03** 下，将示例代码做如下调整：
 ```java
 package deep.in.springframework.annotation;
 
@@ -725,7 +725,7 @@ public @interface StringRepository {
 
 说明当前版本的Spring Framework不支持多层次派生注解，而上面Spring Boot的示例中，`ComponentHierarchyApp`是支持的，说明是后续Spring版本作出了修改，支持了这一特性。
 
-将Spring版本调整为**3.0.0.RELEASE**：
+将Spring版本调整为 **3.0.0.RELEASE**：
 ```xml
     <dependencies>
         <!--        <dependency>-->
@@ -745,7 +745,7 @@ public @interface StringRepository {
 
 ## 7. 多层次`@Component`派生性原理
 
-在上面第5部分分析了`@Component`派生性原理，下面继续分析**2.5.6.SEC03**和**3.0.0.RELEASE**版本中源码的差异，解释对多层次派生的支持。
+在上面第5部分分析了`@Component`派生性原理，下面继续分析 **2.5.6.SEC03** 和 **3.0.0.RELEASE** 版本中源码的差异，解释对多层次派生的支持。
 
 首先对比`ClassPathScanningCandidateComponentProvider`：
 ```java
@@ -805,9 +805,9 @@ Java 5的增强for循环和一段try-catch控制，并没有本质性变化。
 
 ![](./img/spring25.compare.annotationmetadatareadingvistor.png)
 
-可以发现，**3.0.0.RELEASE**的变化主要集中在`visitAnnotation`方法上，使用`AnnotationAttributesReadingVisitor`取代了**2.5.6.SEC03**中的`EmptyVisitor`匿名内部类实现。
+可以发现，**3.0.0.RELEASE** 的 变化主要集中在`visitAnnotation`方法上，使用`AnnotationAttributesReadingVisitor`取代了 **2.5.6.SEC03** 中的`EmptyVisitor`匿名内部类实现。
 
-**2.5.6.SEC03**的主要实现是：
+**2.5.6.SEC03** 的主要实现是：
 ```java
 public void visitEnd() {
     try {
@@ -833,9 +833,9 @@ public void visitEnd() {
   + `@StringRepository`
     + `NameRepository` 
 
-结合上述代码，`annotationClass`就是`@StringRepository`，因为`metaAnnotations`数组仅仅获取当前类所标注的注解，所以此时只有`@Repository`而没有	`@Component`，由于**2.5.6.SEC03**中的实现未使用层次递归获取`Annotation[]`，所以仅支持单层次的	`@Component`派生。
+结合上述代码，`annotationClass`就是`@StringRepository`，因为`metaAnnotations`数组仅仅获取当前类所标注的注解，所以此时只有`@Repository`而没有	`@Component`，由于 **2.5.6.SEC03** 中的实现未使用层次递归获取`Annotation[]`，所以仅支持单层次的	`@Component`派生。
 
-**3.0.0.RELEASE**的实现为：
+**3.0.0.RELEASE** 的实现为：
 ```java
 	public void visitEnd() {
 		this.attributesMap.put(this.annotationType, this.localAttributes);
