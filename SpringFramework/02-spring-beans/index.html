@@ -510,6 +510,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-spring-bean" class="md-nav__link">
+    6. 延迟初始化Spring Bean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-spring-bean" class="md-nav__link">
+    7. 销毁Spring Bean
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1140,6 +1154,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-spring-bean" class="md-nav__link">
+    6. 延迟初始化Spring Bean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-spring-bean" class="md-nav__link">
+    7. 销毁Spring Bean
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1503,13 +1531,17 @@
 </code></pre></div></p>
 <p>可以看到<code>bean</code>的别名的效果。</p>
 <h2 id="3-spring-bean">3. 注册Spring Bean<a class="headerlink" href="#3-spring-bean" title="Permanent link">&para;</a></h2>
-<p>Bean的注册方式有：
-+ XML配置(<code>&lt;bean name="..." .../&gt;</code>)
-+ Java注解配置(<code>@Bean</code>，<code>@Component</code>，<code>@Import</code>)
-+ Java API配置
-    + 命名方式：<code>BeanDefinitionRegistry.registerBeanDefinition(String beanName, BeanDefinition beanDefinition)</code>
-    + 非命名方式：<code>BeanDefinitionReaderUtils.registerWithGeneratedName(AbstractBeanDefinition definition, BeanDefinitionRegistry registry)</code>
-    + 配置类方式：<code>AnnotatedBeanDefinitionReader.register(Class&lt;?&gt;... componentClasses)</code></p>
+<p>Bean的注册方式有：</p>
+<ul>
+<li>XML配置(<code>&lt;bean name="..." .../&gt;</code>)</li>
+<li>Java注解配置(<code>@Bean</code>，<code>@Component</code>，<code>@Import</code>)</li>
+<li>Java API配置<ul>
+<li>命名方式：<code>BeanDefinitionRegistry.registerBeanDefinition(String beanName, BeanDefinition beanDefinition)</code></li>
+<li>非命名方式：<code>BeanDefinitionReaderUtils.registerWithGeneratedName(AbstractBeanDefinition definition, BeanDefinitionRegistry registry)</code></li>
+<li>配置类方式：<code>AnnotatedBeanDefinitionReader.register(Class&lt;?&gt;... componentClasses)</code></li>
+</ul>
+</li>
+</ul>
 <p>XML方式已经多次使用，下面来看注解配置方式的实现：
 <div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
 
@@ -1629,15 +1661,46 @@ Beans of Person: {person=Person{name=&#39;Tom&#39;, age=23}}
 <div class="highlight"><pre><span></span><code>Person beans in Config: {jerry-person=Person{name=&#39;Jerry&#39;, age=18}, deep.in.spring.ioc.overview.domain.Person#0=Person{name=&#39;Jerry&#39;, age=18}}
 </code></pre></div></p>
 <p>可以看出非命名方式时，Spring按照<a href="#bean-name-gen">Bean名称生成器</a>规则来生成名称。</p>
+<p>注册Bean的时候也可以通过外部单体对象来进行：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.spring.ioc.overview.domain.Person</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.config.SingletonBeanRegistry</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SingletonBeanRegistrationDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//创建 BeanFactory 容器</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="c1">//创建外部Person对象</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="p">(</span><span class="s">&quot;Jerry&quot;</span><span class="p">,</span> <span class="mi">21</span><span class="p">);</span>
+        <span class="c1">//注册外部单例对象</span>
+        <span class="n">SingletonBeanRegistry</span> <span class="n">singletonBeanRegistry</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="p">.</span><span class="na">getBeanFactory</span><span class="p">();</span>
+        <span class="n">singletonBeanRegistry</span><span class="p">.</span><span class="na">registerSingleton</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">,</span> <span class="n">person</span><span class="p">);</span>
+        <span class="c1">//启动 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="c1">//通过依赖查找方式获取 Person</span>
+        <span class="n">Person</span> <span class="n">personByLookup</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;person&quot;</span><span class="p">,</span> <span class="n">Person</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;person == personByLookup: &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">person</span> <span class="o">==</span> <span class="n">personByLookup</span><span class="p">));</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，得到结果：
+<div class="highlight"><pre><span></span><code>person == personByLookup: true
+</code></pre></div></p>
 <h2 id="4-spring-bean">4. 实例化Spring Bean<a class="headerlink" href="#4-spring-bean" title="Permanent link">&para;</a></h2>
-<p>Bean的实例化方式有：
-+ 构造方法
-+ 静态工厂方法
-+ Bean工厂方法
-+ <code>FactoryBean</code>
-+ <code>ServiceLoaderFactoryBean</code>
-+ <code>AutowireCapableBeanFactory</code>
-+ <code>BeanDefinitionRegistry.registerBeanDefinition(String beanName, BeanDefinition beanDefinition)</code></p>
+<p>Bean的实例化方式有：</p>
+<ul>
+<li>构造方法</li>
+<li>静态工厂方法</li>
+<li>Bean工厂方法</li>
+<li><code>FactoryBean</code></li>
+<li><code>ServiceLoaderFactoryBean</code></li>
+<li><code>AutowireCapableBeanFactory</code></li>
+<li><code>BeanDefinitionRegistry.registerBeanDefinition(String beanName, BeanDefinition beanDefinition)</code></li>
+</ul>
 <p>新建文件<code>bean-instantiation.xml</code>，并创建一个Bean：
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
@@ -1996,6 +2059,8 @@ $ tree .
         <span class="c1">//通过 AutowireCapableBeanFactory 创建 PersonFactory</span>
         <span class="n">PersonFactory</span> <span class="n">personFactory</span> <span class="o">=</span> <span class="n">beanFactory</span><span class="p">.</span><span class="na">createBean</span><span class="p">(</span><span class="n">DefaultPersonFactory</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
         <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">personFactory</span><span class="p">.</span><span class="na">createPerson</span><span class="p">());</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
     <span class="p">}</span>
 
     <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">displayServiceLoader</span><span class="p">(</span><span class="n">ServiceLoader</span><span class="o">&lt;</span><span class="n">PersonFactory</span><span class="o">&gt;</span> <span class="n">serviceLoader</span><span class="p">)</span> <span class="p">{</span>
@@ -2009,6 +2074,437 @@ $ tree .
 </code></pre></div></p>
 <p>需要注意的是<code>AutowireCapableBeanFactory.createBean(Class&lt;T&gt; beanClass)</code>方法的参数必须是实现类，而不能是接口或抽象类。</p>
 <h2 id="5-spring-bean">5. 初始化Spring Bean<a class="headerlink" href="#5-spring-bean" title="Permanent link">&para;</a></h2>
+<p>Bean的初始化方式有：</p>
+<ul>
+<li><code>@PostConstruct</code></li>
+<li>实现<code>InitializingBean</code>的<code>afterPropertiesSet()</code>方法</li>
+<li>自定义初始化方法：<ul>
+<li><code>&lt;bean init-method="" .../&gt;</code></li>
+<li><code>@Bean(initMethod="init")</code></li>
+<li><code>AbstractBeanDefinition.setInitMethodName(@Nullable String initMethodName)</code> </li>
+</ul>
+</li>
+</ul>
+<p><code>@PostConstruct</code>注解是Java的标准注解：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">javax.annotation</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.ElementType.*</span><span class="p">;</span>
+<span class="kn">import static</span> <span class="nn">java.lang.annotation.RetentionPolicy.*</span><span class="p">;</span>
+
+<span class="nd">@Documented</span>
+<span class="nd">@Retention</span> <span class="p">(</span><span class="n">RUNTIME</span><span class="p">)</span>
+<span class="nd">@Target</span><span class="p">(</span><span class="n">METHOD</span><span class="p">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">PostConstruct</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>在方法上标注即可：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.factory</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.annotation.PostConstruct</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 默认 {@link PersonFactory} 实现</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultPersonFactory</span> <span class="kd">implements</span> <span class="n">PersonFactory</span> <span class="p">{</span>
+    <span class="c1">//@PostConstruct 注解实现</span>
+    <span class="nd">@PostConstruct</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;@PostConstruct: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>创建引导程序：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.DefaultPersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.PersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Bean 初始化示例</span>
+<span class="cm"> */</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanInitializationDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//创建 BeanFactory 容器</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">BeanInitializationDemo</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//启动 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="c1">//依赖查找 PersonFactory</span>
+        <span class="n">PersonFactory</span> <span class="n">personFactory</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">PersonFactory</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">PersonFactory</span> <span class="nf">personFactory</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DefaultPersonFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>运行程序，即可得到：
+<div class="highlight"><pre><span></span><code>@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+</code></pre></div></p>
+<p>修改<code>@Bean</code>注解：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Bean</span><span class="p">(</span><span class="n">initMethod</span> <span class="o">=</span> <span class="s">&quot;initPersonFactory&quot;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">PersonFactory</span> <span class="nf">personFactory</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DefaultPersonFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>就可以自行指定初始化方法了，在<code>DefaultPersonFactory</code>中添加对应的方法即可：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initPersonFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Custom initMethod in @Bean: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>实现<code>InitializingBean</code>的<code>afterPropertiesSet()</code>方法时，需要对<code>DefaultPersonFactory</code>再次修改：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.factory</span><span class="p">;</span>
+
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.InitializingBean</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.annotation.PostConstruct</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 默认 {@link PersonFactory} 实现</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultPersonFactory</span> <span class="kd">implements</span> <span class="n">PersonFactory</span><span class="p">,</span> <span class="n">InitializingBean</span> <span class="p">{</span>
+    <span class="c1">//@PostConstruct 注解实现</span>
+    <span class="nd">@PostConstruct</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;@PostConstruct: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initPersonFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Custom initMethod in @Bean: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;InitializingBean.afterPropertiesSet(): &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>再次运行引导程序，可以得到：
+<div class="highlight"><pre><span></span><code>@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+InitializingBean.afterPropertiesSet(): deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Custom initMethod in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+</code></pre></div></p>
+<p>三种方式的顺序时固定的，首先是<code>@PostConstruct</code>，其次是<code>InitializingBean.afterPropertiesSet()</code>，最后是自定义实现。</p>
+<h2 id="6-spring-bean">6. 延迟初始化Spring Bean<a class="headerlink" href="#6-spring-bean" title="Permanent link">&para;</a></h2>
+<p>Bean的延迟初始化方式有：</p>
+<ul>
+<li><code>&lt;bean lazy-init="true" .../&gt;</code></li>
+<li><code>@Lazy(true)</code></li>
+</ul>
+<p>两种方式使用上没有区别，主要是要了解Bean延迟加载的时机。</p>
+<p>修改上面的引导程序：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.DefaultPersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.PersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Bean 初始化示例</span>
+<span class="cm"> */</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanInitializationDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//创建 BeanFactory 容器</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">BeanInitializationDemo</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//启动 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="c1">//非延迟初始化在 Spring 上下文启动完成后，被初始化</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Spring applicationContext started...&quot;</span><span class="p">);</span>
+        <span class="c1">//依赖查找 PersonFactory</span>
+        <span class="n">PersonFactory</span> <span class="n">personFactory</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">PersonFactory</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">personFactory</span><span class="p">);</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Bean</span><span class="p">(</span><span class="n">initMethod</span> <span class="o">=</span> <span class="s">&quot;initPersonFactory&quot;</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">PersonFactory</span> <span class="nf">personFactory</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DefaultPersonFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>没有设置延迟加载的时候，再次进行输出，得到：
+<div class="highlight"><pre><span></span><code>@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+InitializingBean.afterPropertiesSet(): deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Custom initMethod in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Spring applicationContext started...
+deep.in.spring.bean.factory.DefaultPersonFactory@ba8d91c
+</code></pre></div></p>
+<p>使用注解方式开启延迟加载：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Bean</span><span class="p">(</span><span class="n">initMethod</span> <span class="o">=</span> <span class="s">&quot;initPersonFactory&quot;</span><span class="p">)</span>
+    <span class="nd">@Lazy</span>
+    <span class="kd">public</span> <span class="n">PersonFactory</span> <span class="nf">personFactory</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DefaultPersonFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>再次运行，得到：
+<div class="highlight"><pre><span></span><code>Spring applicationContext started...
+@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+InitializingBean.afterPropertiesSet(): deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Custom initMethod in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+deep.in.spring.bean.factory.DefaultPersonFactory@7ff2a664
+</code></pre></div></p>
+<p>可以看出，在开启延迟加载时，进行依赖查找的时候触发了延迟加载操作。二者只是时机不同。</p>
+<h2 id="7-spring-bean">7. 销毁Spring Bean<a class="headerlink" href="#7-spring-bean" title="Permanent link">&para;</a></h2>
+<p>Bean的销毁方式有：</p>
+<ul>
+<li><code>@PreDestroy</code></li>
+<li>实现<code>DisposableBean</code>的<code>destroy()</code>方法</li>
+<li>自定义销毁方法：<ul>
+<li><code>&lt;bean destroy-method="destroy" .../&gt;</code></li>
+<li><code>@Bean(destroyMethod="destroy")</code> </li>
+<li><code>AbstractBeanDefinition.setDestroyMethodName(@Nullable String destroyMethodName)</code> </li>
+</ul>
+</li>
+</ul>
+<p>和初始化Spring Bean类似，销毁也有3大类方法。</p>
+<p>将3中销毁方法在<code>DefaultPersonFactory</code>中对应声明：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.factory</span><span class="p">;</span>
+
+
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.DisposableBean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.InitializingBean</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.annotation.PostConstruct</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">javax.annotation.PreDestroy</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * 默认 {@link PersonFactory} 实现</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultPersonFactory</span> <span class="kd">implements</span> <span class="n">PersonFactory</span><span class="p">,</span> <span class="n">InitializingBean</span><span class="p">,</span> <span class="n">DisposableBean</span> <span class="p">{</span>
+    <span class="c1">//@PostConstruct 注解实现</span>
+    <span class="nd">@PostConstruct</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;@PostConstruct: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initPersonFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Custom initMethod in @Bean: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterPropertiesSet</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;InitializingBean.afterPropertiesSet(): &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is initializing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@PreDestroy</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">preDestroy</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;@PreDestroy: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is destroying...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroyPersonFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Custom destroy method in @Bean: &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is destroying...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;DisposableBean.destroy(): &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is destroying...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>修改引导程序：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.DefaultPersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">deep.in.spring.bean.factory.PersonFactory</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Lazy</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Bean 初始化示例</span>
+<span class="cm"> */</span>
+<span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanInitializationDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//创建 BeanFactory 容器</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">BeanInitializationDemo</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//启动 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="c1">//非延迟初始化在 Spring 上下文启动完成后，被初始化</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Spring applicationContext started...&quot;</span><span class="p">);</span>
+        <span class="c1">//依赖查找 PersonFactory</span>
+        <span class="n">PersonFactory</span> <span class="n">personFactory</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="n">PersonFactory</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">personFactory</span><span class="p">);</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Spring applicationContext ready to close...&quot;</span><span class="p">);</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Spring applicationContext closed...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Bean</span><span class="p">(</span><span class="n">initMethod</span> <span class="o">=</span> <span class="s">&quot;initPersonFactory&quot;</span><span class="p">,</span> <span class="n">destroyMethod</span> <span class="o">=</span> <span class="s">&quot;destroyPersonFactory&quot;</span><span class="p">)</span>
+    <span class="nd">@Lazy</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="n">PersonFactory</span> <span class="nf">personFactory</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">DefaultPersonFactory</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>关闭延迟加载特性，再次运行，得到结果：
+<div class="highlight"><pre><span></span><code>@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+InitializingBean.afterPropertiesSet(): deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Custom initMethod in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Spring applicationContext started...
+deep.in.spring.bean.factory.DefaultPersonFactory@7ff2a664
+Spring applicationContext ready to close...
+@PreDestroy: deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+DisposableBean.destroy(): deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+Custom destroy method in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+Spring applicationContext closed...
+</code></pre></div></p>
+<p>可以看到销毁方法是在调用了<code>applicationContext.close()</code>之后进行触发的，且顺序也是按照<code>@PreDestroy</code>优先，<code>DisposableBean.destroy()</code>其次，最后是自定义销毁方法。</p>
+<p>由<code>applicationContext.close()</code>方法跟踪，其调用的是<code>AbstractApplicationContext.close()</code>，在<code>doClose()</code>方法中：
+<div class="highlight"><pre><span></span><code><span class="c1">// Destroy all cached singletons in the context&#39;s BeanFactory.</span>
+<span class="n">destroyBeans</span><span class="p">();</span>
+</code></pre></div></p>
+<p>继续跟踪<code>destroyBeans()</code>方法：
+<div class="highlight"><pre><span></span><code>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">destroyBeans</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">getBeanFactory</span><span class="p">().</span><span class="na">destroySingletons</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p><code>destroySingletons()</code>方法是<code>ConfigurableBeanFactory</code>接口定义的，在<code>DefaultListableBeanFactory</code>实现中(<a href="../01-spring-ioc/#5.4">可以参考</a>)，继续查看该方法：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroySingletons</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">super</span><span class="p">.</span><span class="na">destroySingletons</span><span class="p">();</span>
+        <span class="n">updateManualSingletonNames</span><span class="p">(</span><span class="n">Set</span><span class="p">::</span><span class="n">clear</span><span class="p">,</span> <span class="n">set</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">set</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">());</span>
+        <span class="n">clearByTypeCache</span><span class="p">();</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>在<code>DefaultSingletonBeanRegistry</code>中：
+<div class="highlight"><pre><span></span><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroySingletons</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">logger</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&quot;Destroying singletons in &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kd">synchronized</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">singletonObjects</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="na">singletonsCurrentlyInDestruction</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">String</span><span class="o">[]</span> <span class="n">disposableBeanNames</span><span class="p">;</span>
+        <span class="kd">synchronized</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">disposableBeans</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">disposableBeanNames</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="p">.</span><span class="na">toStringArray</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">disposableBeans</span><span class="p">.</span><span class="na">keySet</span><span class="p">());</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">disposableBeanNames</span><span class="p">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">destroySingleton</span><span class="p">(</span><span class="n">disposableBeanNames</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="na">containedBeanMap</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">dependentBeanMap</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">dependenciesForBeanMap</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+
+        <span class="n">clearSingletonCache</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroySingleton</span><span class="p">(</span><span class="n">String</span> <span class="n">beanName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Remove a registered singleton of the given name, if any.</span>
+        <span class="n">removeSingleton</span><span class="p">(</span><span class="n">beanName</span><span class="p">);</span>
+
+        <span class="c1">// Destroy the corresponding DisposableBean instance.</span>
+        <span class="n">DisposableBean</span> <span class="n">disposableBean</span><span class="p">;</span>
+        <span class="kd">synchronized</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">disposableBeans</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">disposableBean</span> <span class="o">=</span> <span class="p">(</span><span class="n">DisposableBean</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="na">disposableBeans</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">beanName</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">destroyBean</span><span class="p">(</span><span class="n">beanName</span><span class="p">,</span> <span class="n">disposableBean</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>在<code>destroyBean(String beanName, @Nullable DisposableBean bean)</code>中断点调试：
+<img alt="" src="../img/spring.beans.destroy.png" /></p>
+<p>可以看到，会继续调用<code>DisposableBeanAdapter</code>的<code>destroy()</code>方法，这里面定义了<code>@PreDestroy</code>注解、<code>DisposableBean.destroy()</code>方法和自定义销毁方法的执行顺序：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CollectionUtils</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">beanPostProcessors</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">DestructionAwareBeanPostProcessor</span> <span class="n">processor</span> <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="na">beanPostProcessors</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">processor</span><span class="p">.</span><span class="na">postProcessBeforeDestruction</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">bean</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="na">beanName</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">invokeDisposableBean</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">logger</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&quot;Invoking destroy() on bean with name &#39;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">beanName</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">getSecurityManager</span><span class="p">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">AccessController</span><span class="p">.</span><span class="na">doPrivileged</span><span class="p">((</span><span class="n">PrivilegedExceptionAction</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">{</span>
+                        <span class="p">((</span><span class="n">DisposableBean</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="na">bean</span><span class="p">).</span><span class="na">destroy</span><span class="p">();</span>
+                        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+                    <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="na">acc</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="p">((</span><span class="n">DisposableBean</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="na">bean</span><span class="p">).</span><span class="na">destroy</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">catch</span> <span class="p">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Invocation of destroy method failed on bean with name &#39;&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">beanName</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">logger</span><span class="p">.</span><span class="na">isDebugEnabled</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="n">logger</span><span class="p">.</span><span class="na">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">ex</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">logger</span><span class="p">.</span><span class="na">warn</span><span class="p">(</span><span class="n">msg</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="n">ex</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">destroyMethod</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">invokeCustomDestroyMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">destroyMethod</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">destroyMethodName</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Method</span> <span class="n">methodToInvoke</span> <span class="o">=</span> <span class="n">determineDestroyMethod</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">destroyMethodName</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">methodToInvoke</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">invokeCustomDestroyMethod</span><span class="p">(</span><span class="n">ClassUtils</span><span class="p">.</span><span class="na">getInterfaceMethodIfPossible</span><span class="p">(</span><span class="n">methodToInvoke</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>Bean被销毁后，还可以继续进行垃圾回收(GC)，在Bean的实现类中覆盖<code>Object</code>类的<code>protected void finalize() throws Throwable</code>方法：
+<div class="highlight"><pre><span></span><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">finalize</span><span class="p">()</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot; is finalizing...&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>编写测试类：
+<div class="highlight"><pre><span></span><code><span class="kn">package</span> <span class="nn">deep.in.spring.bean.definition</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.AnnotationConfigApplicationContext</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanGCDemo</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="p">{</span>
+        <span class="c1">//创建 BeanFactory 容器</span>
+        <span class="n">AnnotationConfigApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationConfigApplicationContext</span><span class="p">();</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">register</span><span class="p">(</span><span class="n">BeanInitializationDemo</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="c1">//启动 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">refresh</span><span class="p">();</span>
+        <span class="c1">//关闭 Spring 应用上下文</span>
+        <span class="n">applicationContext</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Spring applicationContext closed...&quot;</span><span class="p">);</span>
+        <span class="c1">//强制触发 GC</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">gc</span><span class="p">();</span>
+        <span class="n">Thread</span><span class="p">.</span><span class="na">sleep</span><span class="p">(</span><span class="mi">10000L</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>因为强制触发GC也不能保证对象的<code>finalize</code>方法立刻被调用，可以使用<code>Thread.sleep</code>来观察效果，可以得到结果：
+<div class="highlight"><pre><span></span><code>@PostConstruct: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+InitializingBean.afterPropertiesSet(): deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+Custom initMethod in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is initializing...
+@PreDestroy: deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+DisposableBean.destroy(): deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+Custom destroy method in @Bean: deep.in.spring.bean.factory.DefaultPersonFactory is destroying...
+Spring applicationContext closed...
+deep.in.spring.bean.factory.DefaultPersonFactory is finalizing...
+</code></pre></div></p>
                 
               
               
