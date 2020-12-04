@@ -318,7 +318,7 @@ public class DefaultBeanNameGenerator implements BeanNameGenerator {
 Bean的别名(Alias)的用途：
 
 + 复用现有的BeanDefinition
-+ 使命名更佳场景化，比如
++ 使命名更加场景化，比如
 
 ```xml
 <alias name="dataSource" alias="moduleA-dataSource">
@@ -647,7 +647,7 @@ public class BeanInstantiationDemo {
 Person{name='Tommy', age=20}
 ```
 
-通过**静态工厂方法**实例化Bean时，可以使用`bean`元素的`factory-method`属性：
+通过 **静态工厂方法** 实例化Bean时，可以使用`bean`元素的`factory-method`属性：
 ```xml
     <bean id="person-by-static-method" class="deep.in.spring.ioc.overview.domain.Person" factory-method="createPerson"/>
 ```
@@ -664,7 +664,7 @@ Person{name='Tommy', age=20}
     Person person = beanFactory.getBean("person-by-static-method", Person.class);
 ```
 
-通过**Bean工厂方法**来实例化Bean时，需要创建对应的Bean工厂类：
+通过 **Bean工厂方法** 来实例化Bean时，需要创建对应的Bean工厂类：
 ```java
 package deep.in.spring.bean.factory;
 
@@ -680,7 +680,7 @@ public interface PersonFactory {
 }
 ```
 
-使用**Java 8**以上版本时，可以在接口中给出默认实现，而实现类中可以不用写：
+使用 **Java 8** 以上版本时，可以在接口中给出默认实现，而实现类中可以不用写：
 ```java
 package deep.in.spring.bean.factory;
 

@@ -1,8 +1,8 @@
 <h3 align="center"><b>Docker</b></h3>
 
-#### 1. 安装和运行 (基于CentOS)
+## 1. 安装和运行 (基于CentOS)
 
-##### 1.1 安装Docker
+### 1.1 安装Docker
 ```cmd
 # yum install docker -y
 Failed to set locale, defaulting to C
@@ -17,12 +17,12 @@ subscription-manager-rhsm-certificates.x86_64 0:1.24.26-4.el7.centos            
 Complete!
 ```
 
-##### 1.2 安装ocker-compose
+### 1.2 安装ocker-compose
 ```cmd
 # yum install docker-compose
 ```
 
-##### 1.3 检查安装版本
+### 1.3 检查安装版本
 ```cmd
 # docker -v
 Docker version 1.13.1, build 64e9980/1.13.1
@@ -34,28 +34,28 @@ CPython version: 3.6.8
 OpenSSL version: OpenSSL 1.0.2k-fips  26 Jan 2017
 ```
 
-##### 1.4 启动Docker
+### 1.4 启动Docker
 ```cmd
 # systemctl start docker
 ```
 
-##### 1.5 停止Docker
+### 1.5 停止Docker
 ```cmd
 # systemctl stop docker
 ```
 
-##### 1.6 设置开机启动
+### 1.6 设置开机启动
 ```cmd
 # systemctl enable docker
 Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
 ```
 
-##### 1.7 重启Docker
+### 1.7 重启Docker
 ```cmd
 # systemctl restart docker
 ```
 
-##### 1.8 查看Docker
+### 1.8 查看Docker
 ```cmd
 # docker info
 Containers: 0
@@ -104,39 +104,84 @@ Live Restore Enabled: false
 Registries: docker.io (secure)
 ```
 
-#### 2. 常用命令
+## 2. 常用命令
 
-##### 2.1 查看镜像
+### 2.1 镜像相关
+
+#### 2.1.1 获取镜像
+```cmd
+docker pull <image>
+```
+
+#### 2.1.2 搜索镜像
+```cmd
+docker search <image>
+```
+
+示例：
+```cmd
+$ docker search redis
+NAME                             DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+redis                            Redis is an open source key-value store that…   8784                [OK]                
+bitnami/redis                    Bitnami Redis Docker Image                      167                                     [OK]
+sameersbn/redis                                                                  82                                      [OK]
+grokzen/redis-cluster            Redis cluster 3.0, 3.2, 4.0, 5.0, 6.0           72                                      
+rediscommander/redis-commander   Alpine image for redis-commander - Redis man…   47                                      [OK]
+kubeguide/redis-master           redis-master with "Hello World!"                33                                      
+redislabs/redisearch             Redis With the RedisSearch module pre-loaded…   29                                      
+redislabs/redis                  Clustered in-memory database engine compatib…   27                                      
+...
+```
+
+#### 2.1.3 查看镜像
 ```cmd
 docker images
 docker images -q #查看所有镜像ID
 ```
 
-##### 2.2 删除镜像
+#### 2.1.4 删除镜像
 ```cmd
 # docker rmi master/mysql
 # docker rmi $(docker images -q) #删除所有镜像
 ```
 
-##### 2.3 查看容器
+### 2.2 容器相关
+
+#### 2.2.1 查看容器
 ```cmd
 docker ps
 docker ps -a  #列出所有容器(包括未运行的)
 docker ps -aq #列出所有容器ID
 ```
 
-##### 2.4 查看容器log
+#### 2.2.2 查看容器log
 ```cmd
-# docker logs a930350d7fe1
+docker logs a930350d7fe1
 ```
 
-##### 2.5 停止容器
+#### 2.2.3 运行容器
+```cmd
+docker run
+-d 后台运行容器
+-e 设置环境变量
+-p 宿主端口:容器端口
+-v 挂载磁盘卷 宿主目录:容器目录
+--name 容器名称
+--link 链接不同容器
+```
+
+#### 2.2.4 启动容器
+```cmd
+docker start a930350d7fe1
+```
+
+#### 2.2.5 停止容器
 ```cmd
 docker stop a930350d7fe1
 docker stop $(docker ps -aq) #停止所有容器
 ```
 
-##### 2.6 删除容器
+#### 2.2.6 删除容器
 ```cmd
 # docker rm a930350d7fe1
 # docker rm $(docker ps -aq) #删除所有容器
